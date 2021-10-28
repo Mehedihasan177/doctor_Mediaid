@@ -43,7 +43,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               child: Image(
                 height: 250,
                 width: 250,
-                image: AssetImage("images/care+_Logo.png",),
+                image: AssetImage("images/care_plus_doctor_logo.png",),
                 fit: BoxFit.fill,
               ),
 

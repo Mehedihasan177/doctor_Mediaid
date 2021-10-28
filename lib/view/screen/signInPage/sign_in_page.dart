@@ -18,9 +18,8 @@ class _SingInPageState extends State<SingInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      body: ListView(
+
         children: [
           Center(
             child: Container(

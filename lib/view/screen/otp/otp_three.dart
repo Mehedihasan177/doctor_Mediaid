@@ -28,7 +28,7 @@ class _OTPThreeState extends State<OTPThree> {
                     height: 200,
                     width: 200,
                     child: Image(
-                      image: AssetImage("images/care+_Logo.png"),
+                      image: AssetImage("images/care_plus_doctor_logo.png"),
                       fit: BoxFit.fill,
                     ),
                   ),

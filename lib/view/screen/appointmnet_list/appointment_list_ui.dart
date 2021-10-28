@@ -27,7 +27,7 @@ class _AppointmentListState extends State<AppointmentList> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                  padding: const EdgeInsets.only(right: 50),
+                  padding: const EdgeInsets.only(right: 50, top: 20),
                   child: Text(
                     "Appointments",
                     style:

@@ -1,6 +1,6 @@
 import 'package:care_plus_doctor/model/ui_model/patient_profile_details_model/patient_profile_details_model.dart';
-import 'package:care_plus_doctor/view/screen/advice_page/advice_page.dart';
 import 'package:care_plus_doctor/view/screen/patient_profile_details/patient_profile_details.dart';
+import 'package:care_plus_doctor/view/screen/problem_page/problem_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -288,7 +288,7 @@ Widget PatientProfileWidget(PatientProfileDetailsModel patientProfileDetail, Bui
                                 splashColor: Color(0xFF1CBFA8),
                                 onPressed: () {
 
-                                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AdvicePage()));
+                                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProblemPage()));
                                 },
                               ),
                             ),

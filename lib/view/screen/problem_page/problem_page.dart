@@ -1,19 +1,23 @@
+import 'package:care_plus_doctor/model/ui_model/patient_profile_details_model/patient_profile_details_model.dart';
 import 'package:care_plus_doctor/view/screen/medicine_page/medicine_page.dart';
+import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
+import 'package:care_plus_doctor/view/screen/patient_profile_details/patient_profile_details.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AdvicePage extends StatefulWidget {
-  const AdvicePage({Key? key}) : super(key: key);
+class ProblemPage extends StatefulWidget {
+  const ProblemPage({Key? key}) : super(key: key);
 
   @override
-  _AdvicePageState createState() => _AdvicePageState();
+  _ProblemPageState createState() => _ProblemPageState();
 }
 
-class _AdvicePageState extends State<AdvicePage> {
-  final List<String> advice = <String>[];
+class _ProblemPageState extends State<ProblemPage> {
+  final List<String> problem = <String>[];
   TextEditingController _textEmail = TextEditingController();
   void addItemToList() {
     setState(() {
-      advice.insert(0, _textEmail.text);
+      problem.insert(0, _textEmail.text);
     });
   }
 
@@ -22,7 +26,7 @@ class _AdvicePageState extends State<AdvicePage> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => MedicinePage()));
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage()));
         return true;
       },
       child: Scaffold(
@@ -60,14 +64,14 @@ class _AdvicePageState extends State<AdvicePage> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MedicinePage()));
+                              builder: (context) => PatientProfileDetailsPage()));
                     },
                   ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(right: 60),
                       child: Text(
-                        "Advice",
+                        "Problem",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 23,
@@ -83,7 +87,7 @@ class _AdvicePageState extends State<AdvicePage> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                "Advice",
+                "Problem",
                 style: TextStyle(fontSize: 17),
               ),
             ),
@@ -96,12 +100,13 @@ class _AdvicePageState extends State<AdvicePage> {
                     flex: 4,
                     child: TextField(
                       controller: _textEmail,
-                      keyboardType: TextInputType.emailAddress,
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,
                       style: TextStyle(color: Colors.black),
                       //scrollPadding: EdgeInsets.all(10),
                       decoration: InputDecoration(
                         //contentPadding: EdgeInsets.all(20),
-                        hintText: "Enter your advices",
+                        hintText: "Enter problems",
                       ),
                     ),
                   ),
@@ -126,7 +131,7 @@ class _AdvicePageState extends State<AdvicePage> {
               height: 660,
               child: ListView.builder(
                   padding: const EdgeInsets.all(8),
-                  itemCount: advice.length,
+                  itemCount: problem.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
                       child: Container(
@@ -137,7 +142,7 @@ class _AdvicePageState extends State<AdvicePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('${advice[index]}'),
+                              Text('${problem[index]}'),
                               Container(
                                 alignment: Alignment.centerRight,
                                 child: IconButton(
@@ -149,7 +154,7 @@ class _AdvicePageState extends State<AdvicePage> {
                                   // splashColor: Colors.purple,
                                   onPressed: () {
                                     setState(() {
-                                      advice.remove(advice[index]);
+                                      problem.remove(problem[index]);
                                     });
                                   },
                                 ),
@@ -168,3 +173,4 @@ class _AdvicePageState extends State<AdvicePage> {
     );
   }
 }
+
