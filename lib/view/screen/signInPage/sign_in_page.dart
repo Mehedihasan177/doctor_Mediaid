@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_signIn_controller.dart';
 import 'package:care_plus_doctor/helper/alertDialogue.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
 import 'package:care_plus_doctor/model/doctor/doctor_sinIn_model.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
 import 'package:care_plus_doctor/view/screen/appointmnet_list/appointment_list_ui.dart';
@@ -22,8 +23,8 @@ class SingInPage extends StatefulWidget {
 }
 
 class _SingInPageState extends State<SingInPage> {
-  TextEditingController _textMobile = TextEditingController();
-  TextEditingController _textPassword = TextEditingController();
+  TextEditingController _textMobile = TextEditingController(text: '01575397823');
+  TextEditingController _textPassword = TextEditingController(text: '1122334455');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,36 +134,25 @@ class _SingInPageState extends State<SingInPage> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () async {
-                  //EasyLoading.show(status: 'loading...');
 
-                  SharedPreferences sharedPreferences =
-                  await SharedPreferences.getInstance();
+                  EasyLoading.show(status: 'loading...');
+                  // SharedPreferences sharedPreferences =
+                  // await SharedPreferences.getInstance();
                   DoctorSignInModel myInfo = new DoctorSignInModel(
                       mobile: _textMobile.text, password: _textPassword.text);
+                  EasyLoading.show(status: 'loading...');
                   await DoctorSigninController.requestThenResponsePrint(myInfo)
                       .then((value) async {
                     print(value.statusCode);
                     print(value.body);
-                    Container(
-                      height: 1000,
-                      child: AlertDialogueHelper().showAlertDialog(context, value.body, ''),
-                    );
-                    final Map<String,dynamic> parsed = json.decode(value.body);
 
-                    final loginobject = DoctorLoginResponse.fromJson(parsed);
-                    print(loginobject.data.token);
-                    USERTOKEN = loginobject.data.token;
-                    sharedPreferences.setString("token", loginobject.data.token);
-                    EasyLoading.dismiss();
+                    EasyLoading.show(status: 'loading...');
                     if (value.statusCode == 200) {
-
-                      print(loginobject.data.token);
-                      //return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HealthIDUI(Usertoken: loginobject.data.token,)),);
-                      //return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => DoctorAppointmentCreateUI(Usertoken: loginobject.data.token,)),);
+                      EasyLoading.dismiss();
                       return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
                     } else {
-                      // return LoginController.requestThenResponsePrint(jsonData);
-                      AlertDialogueHelper().showAlertDialog(context, 'Warning', 'Please recheck email and password');
+
+                      SnackbarDialogueHelper().showSnackbarDialog(context, "Please check mobile or password", Colors.red);
                     }
 
                   });

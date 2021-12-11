@@ -1,6 +1,9 @@
+import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/data/my_profile_data/my_profile_data.dart';
-import 'package:care_plus_doctor/model/ui_model/my_profile_model/my_profile_dropdown.dart';
+import 'package:care_plus_doctor/model/ui_model/my_profile_model/checkboxany.dart';
 import 'package:care_plus_doctor/model/ui_model/my_profile_model/my_profile_model.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_specialization_responses.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_update_profile_responses.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/widget/my_profile_widget/my_profile_widget.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +86,7 @@ class _MyProfileState extends State<MyProfile> {
                         scrollDirection: Axis.vertical,
                         itemCount: myProfile.length,
                         itemBuilder: (context,index) {
-                          return MyProfileWidget(myProfile[index], context);
+                          return MyProfileWidget(myProfile[index], context, );
                         }
                     ),
                   ),
@@ -91,41 +94,23 @@ class _MyProfileState extends State<MyProfile> {
               ],
             ),
 
-
-
-
-            // SizedBox(height: 30,),
-
-            // Center(
-            //   child: Container(
-            //     child: ElevatedButton(
-            //       child: Text(
-            //         "Update",
-            //         style: TextStyle(color: Colors.white, fontSize: 20),
-            //       ),
-            //       onPressed: () async {
-            //         Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
-            //       },
-            //       style: ElevatedButton.styleFrom(
-            //         minimumSize: const Size(350, 59),
-            //         maximumSize: const Size(350, 59),
-            //         primary: Color(0xFF1CBFA8),
-            //         shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(15)),
-            //       ),
-            //     ),
-            //     decoration: BoxDecoration(
-            //       //color: Color(0xF60D72),
-            //         borderRadius: BorderRadius.circular(18)),
-            //   ),
-            // ),
-
-            // SizedBox(height: 10,),
           ],
         ),
       ),
     );
   }
 }
+
+// Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) {
+// }
+
+// Widget MyProfileWidget(DoctorUpdateProfile myProfile, BuildContext context) {
+// }
+
+// Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context, DoctorUpdateProfile doctorupdateprofileresponses) {
+// }
+//
+
+
 
 

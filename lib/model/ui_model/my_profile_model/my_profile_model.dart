@@ -3,7 +3,7 @@ class MyProfileModel {
   late final String name;
   late final String image;
   late final String email;
-  late final int phone_number;
+  late final String phone_number;
 
   MyProfileModel({
     required this.name,

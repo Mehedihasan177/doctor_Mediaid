@@ -43,6 +43,7 @@ dependencies:
   flutter_easyloading: ^3.0.0
   date_time_picker:
   timeago:
+  auto_size_text: ^3.0.0
   dio: ^4.0.4
   image_picker: ^0.8.4+1
 

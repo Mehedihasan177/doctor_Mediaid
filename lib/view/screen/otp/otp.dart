@@ -75,7 +75,7 @@ class _OTPpageState extends State<OTPpage> {
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       onPressed: () async {
-                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()));
+                       // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()));
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(350, 59),

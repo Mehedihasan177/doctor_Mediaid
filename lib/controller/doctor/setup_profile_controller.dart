@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:care_plus_doctor/constents/constant.dart';
@@ -9,28 +11,19 @@ import 'package:http/http.dart' as http;
 class DoctorSetupProfileController{
   //this class is for make understand how it works actually
 
-  static Future<http.Response> requestThenResponsePrint(SetUpProfile data, String token) async {
+  static Future<http.Response> requestThenResponsePrint(String token,Map dataMap) async {
 
     // This is a a callof global veriable
     String domain = apiDomainRoot;
     // This is a url for the request
-    var url = '$domain/api/doctor-register';
+    var url = '$domain/api/doctor-profile-update';
 
-    Map data1 = {
-      'name': "${data.name}",
-      'specialization': "${data.specialization}",
-      'bmdcReg': "${data.bmdcReg}",
-      'designation': "${data.designation}",
-      'fee': "${data.fee}",
-      'chambers': "${data.chambers}",
-      'introduction': "${data.introduction}",
-      // 'image': "${doctorRegReqModel.image}",
-
-    };
+    var body = json.encode(dataMap);
 
     // Here we are getting the response
-    var response = await http.post(Uri.parse(url), body: data1,
+    var response = await http.post(Uri.parse(url), body: body,
         headers: {
+          "Content-Type": "application/json",
           "Accept": "application/json",
           'Authorization': 'Bearer $token',
         }

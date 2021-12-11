@@ -25,7 +25,7 @@ class UserRegisterControllerExtraImg{
     // This is a a callof global veriable
 
     String domain = apiDomainRoot;
-    var url = '$domain/api/doctor-register';
+    var url = '$domain/api/doctor-profile-update';
 
 
     // This is the structure how we are posting data

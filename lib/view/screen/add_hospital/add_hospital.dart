@@ -1,4 +1,4 @@
-import 'package:care_plus_doctor/model/ui_model/my_profile_model/my_profile_dropdown.dart';
+import 'package:care_plus_doctor/model/ui_model/my_profile_model/checkboxany.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:flutter/material.dart';
 

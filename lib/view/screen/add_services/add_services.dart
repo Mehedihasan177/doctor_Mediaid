@@ -1,6 +1,21 @@
-import 'package:care_plus_doctor/model/ui_model/my_profile_model/my_profile_dropdown.dart';
+import 'dart:convert';
+
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_signIn_controller.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_specialization_controller.dart';
+import 'package:care_plus_doctor/controller/doctor/setup_profile_controller.dart';
+import 'package:care_plus_doctor/helper/alertDialogue.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
+import 'package:care_plus_doctor/model/doctor/doctor_sinIn_model.dart';
+import 'package:care_plus_doctor/model/ui_model/my_profile_model/checkboxany.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_specialization_responses.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../basic_functions.dart';
 
 class AddServicesPage extends StatefulWidget {
   const AddServicesPage({Key? key}) : super(key: key);
@@ -12,20 +27,41 @@ class AddServicesPage extends StatefulWidget {
 class _AddServicesPageState extends State<AddServicesPage> {
 
 
-  final checkboxany = [
-    CheckBoxAny(title: 'Hypertension Treatment'),
-    CheckBoxAny(title: 'COPD Treatment'),
-    CheckBoxAny(title: 'Diabetes Management'),
-    CheckBoxAny(title: 'ECG'),
-    CheckBoxAny(title: 'Obesity Treatment'),
-    CheckBoxAny(title: 'Health Checkup (General)'),
-    CheckBoxAny(title: 'Hypertension Treatment'),
-    CheckBoxAny(title: 'COPD Treatment'),
-    CheckBoxAny(title: 'Diabetes Management'),
-    CheckBoxAny(title: 'ECG'),
-    CheckBoxAny(title: 'Obesity Treatment'),
-    CheckBoxAny(title: 'Health Checkup (General)'),
-  ];
+  List<DoctorSpecializationResponse> doctorSpecializationlist = [];
+  List<bool> specialityStatusList = [];
+  List<String> specialityCurrentList = [];
+  List<int> specialityToUpdateList = [];
+  _getSpecialization() async {
+
+    DoctorSpecializationController.requestThenResponsePrint().then((value){
+      print(value.statusCode);
+      print(value.body);
+
+
+      setState(() {
+        Iterable list = json.decode("${value.body}");
+        doctorSpecializationlist = list.map((model) => DoctorSpecializationResponse.fromJson(model)).toList();
+        print(doctorSpecializationlist);
+
+        specialityStatusList.clear();
+        // specialityCurrentList.clear();
+        for(var item in doctorSpecializationlist){
+          if(specialityCurrentList.contains(item.name)){
+            specialityStatusList.add(true);
+          }else{
+            specialityStatusList.add(false);
+          }
+        }
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    getCurrentSpecialization();
+    _getSpecialization();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,146 +72,121 @@ class _AddServicesPageState extends State<AddServicesPage> {
         return true;
       },
       child: Scaffold(
-        body: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                children: [
-                  FlatButton(
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 30,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                    splashColor: Colors.transparent,
-                    onPressed: () {
-                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        appBar: AppBar(
+          title: Text("Doctor Specialization"),
+        ),
+          body: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 20,right: 20),
+                  child: ListView.builder(
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: doctorSpecializationlist.length,
+                    itemBuilder: (context,index){
+                      return Row(
+                        children: [
+                          Checkbox(value: specialityStatusList[index], onChanged: (newValue){
+                            setState(() {
+                              specialityStatusList[index] = newValue!;
+                            });
+                          }),
+                          AutoSizeText(doctorSpecializationlist[index].name),
+                        ],
+                      );
                     },
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 60),
-                      child: Text(
-                        "Add Services",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.black.withOpacity(0.5),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                ),
 
 
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Center(
-                child: Container(
-                  // height: 55,
-                  margin: EdgeInsets.only(left: 10,right: 10),
-                  alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextField(
-                    keyboardType: TextInputType.emailAddress,
-                    style: TextStyle(color: Colors.black),
-                    scrollPadding: EdgeInsets.all(10),
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 14),
-                      border: InputBorder.none,
-                      hintText: "Search Services",
-                      hintStyle: TextStyle(
-                          color: Colors.black.withOpacity(0.5), fontSize: 15),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: 25,
-                        color: Color(0xFF1CBFA8),
-                      ),
-                    ),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                  child: RaisedButton(
+                    child: Text("Submit"),
+                    onPressed: () {
+                      specialityToUpdateList.clear();
+                      String toGO = "";
+                      for(int i=0; i<specialityStatusList.length;i++){
+                        if(specialityStatusList[i]==true){
+                          specialityToUpdateList.add(doctorSpecializationlist[i].id);
+                          toGO+=doctorSpecializationlist[i].name+',';
+                        }
+                      }
+
+                      if(specialityToUpdateList.length !=0){
+
+                          Map dataMap = {
+                            'specializations': specialityToUpdateList,
+                          };
+                          print(dataMap);
+
+                          print('sessssss');
+
+                          DoctorSetupProfileController.requestThenResponsePrint(
+                            USERTOKEN,
+                            dataMap,
+                          ).then((value) async {
+                            print(value.statusCode);
+                            print(value.body);
+
+                            //EasyLoading.dismiss();
+                            if(value.statusCode==200){
+                              //return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+                              // SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully updated specializations', Colors.green);
+
+                              DoctorSignInModel myInfo = new DoctorSignInModel(
+                                  mobile: PHONE_NUMBER, password: PASSWORD);
+                              // EasyLoading.show(status: 'loading...');
+                              await DoctorSigninController.requestThenResponsePrint(myInfo).then((value){
+                                setState(() {
+                                  // SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully signed in', Colors.green);
+                                  SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully updated specializations', Colors.green);
+
+                                });
+                              });
+
+                            }else{
+                              SnackbarDialogueHelper().showSnackbarDialog(context, value.body.replaceAll('"', ' ')
+                                  .replaceAll('{', ' ')
+                                  .replaceAll('}', ' ')
+                                  .replaceAll('[', ' ')
+                                  .replaceAll(']', ' '), Colors.red);
+                            }
+                          });
+
+                      }else{
+                        SnackbarDialogueHelper().showSnackbarDialog(context, "Please Select items", Colors.blue);
+                      }
+
+                    },
                   ),
                 ),
-              ),
+              ],
             ),
-
-            Padding(
-              padding: const EdgeInsets.only(top: 20, left: 20, bottom: 20),
-              child: Text("Select Services to add",
-              style: TextStyle(
-                fontSize: 18,
-              ),
-              ),
-            ),
-
-
-            Divider(),
-            ...checkboxany.map(buildSingleCheckbox).toList(),
-
-            SizedBox(height: 30,),
-
-            Center(
-              child: Container(
-                child: ElevatedButton(
-                  child: Text(
-                    "Submit",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  onPressed: () async {
-                    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(350, 50),
-                    //maximumSize: const Size(350, 50),
-                    primary: Color(0xFF1CBFA8),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  //color: Color(0xF60D72),
-                    borderRadius: BorderRadius.circular(18)),
-              ),
-            ),
-          ],
-        ),
+          )
       ),
     );
   }
 
+  void getCurrentSpecialization() {
+
+    String spec = DOCTOR_INITIAL.specialization;
+    if(spec != null) {
+      specialityCurrentList.clear();
+      specialityCurrentList = spec.split(',');
+    }
+
+  }
+
+ }
 
 
-  Widget buildSingleCheckbox(CheckBoxAny checkboxany) => buildCheckbox(
-    checkboxany: checkboxany,
-    onClicked: () {
-      setState(() {
-        final newValue = !checkboxany.value;
-        checkboxany.value = newValue;
-
-      });
-    },
-  );
-
-  Widget buildCheckbox({
-    required CheckBoxAny checkboxany,
-    required VoidCallback onClicked,
-  }) =>
-      ListTile(
-        onTap: onClicked,
-        leading: Checkbox(
-          value: checkboxany.value,
-          onChanged: (value) => onClicked(),
-        ),
-        title: Text(
-          checkboxany.title,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-      );
 
 
-}
+
+
+

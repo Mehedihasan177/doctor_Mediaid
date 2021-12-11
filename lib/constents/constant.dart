@@ -1,3 +1,6 @@
+import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart' as login;
+import 'package:care_plus_doctor/responses/doctor/doctor_registration_responses.dart' as registration;
+import 'package:care_plus_doctor/responses/doctor/doctor_update_profile_responses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -5,36 +8,10 @@ String apiDomainRoot = "http://careplus.skoder.co";
 
 
 String USERTOKEN = '';
-
-
-
-
-class DefaultBody extends StatelessWidget {
-  final Widget widget;
-  final GlobalKey<NavigatorState> navigatorKey;
-  final bool isResizeToAvoidBottomPadding;
-
-  const DefaultBody(
-      {required this.widget, required this.navigatorKey, this.isResizeToAvoidBottomPadding = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-
-      home: Scaffold(
-        resizeToAvoidBottomInset: isResizeToAvoidBottomPadding,
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          bottom: false,
-          child: Container(
-            // alignment: Alignment.center,
-            color: Colors.white,
-            child: widget,
-          ),
-        ),
-      ),
-    );
-  }
-}
+double LAT = 0.0, LNG = 0.0;
+int USERID = 0;
+String PHONE_NUMBER= '';
+String PASSWORD= '';
+late registration.Data REGISTRATIONRESPONSE;
+late DoctorUpdateProfile DOCTORUPDATEPROFILERESPONSES;
+late login.User DOCTOR_INITIAL;

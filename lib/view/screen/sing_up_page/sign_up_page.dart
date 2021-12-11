@@ -1,11 +1,14 @@
 import 'dart:convert';
 
+import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_registration_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_signIn_controller.dart';
 import 'package:care_plus_doctor/helper/alertDialogue.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
 import 'package:care_plus_doctor/model/doctor/doctor_registration_model.dart';
 import 'package:care_plus_doctor/model/doctor/doctor_sinIn_model.dart';
-import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart' as login;
+import 'package:care_plus_doctor/responses/doctor/doctor_registration_responses.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/otp/otp.dart';
 import 'package:care_plus_doctor/view/screen/setUp_Profile/setUp_Profile.dart';
@@ -333,6 +336,10 @@ class _SingUpPageState extends State<SingUpPage> {
                           );
                      //EasyLoading.show(status: 'loading...');
                       await DoctorRegistrationController.requestThenResponsePrint(myInfo).then((value) async {
+                        final Map parsed = json.decode(value.body);
+
+                        final regobject = Data.fromJson(parsed);
+                        REGISTRATIONRESPONSE = regobject;
                         print(value.statusCode);
                         print(value.body);
                         EasyLoading.dismiss();
@@ -348,31 +355,32 @@ class _SingUpPageState extends State<SingUpPage> {
 
                             final Map parsed = json.decode(value.body);
 
-                            var jsonData = null;
+
                             SharedPreferences sharedPreferences =
                             await SharedPreferences.getInstance();
-                            final loginobject = User.fromJson(parsed);
+                            final loginobject = login.User.fromJson(parsed);
                             print(loginobject.token);
                             sharedPreferences.setString("token", loginobject.token);
                             //EasyLoading.dismiss();
                             if (value.statusCode == 200) {
                               sharedPreferences.setString("mobile", _phoneNumber.text);
                               sharedPreferences.setString("password", _password.text);
-
-                              return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+                              SnackbarDialogueHelper().showSnackbarDialog(context, "Registration successful",Colors.green);
+                              return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile(
+                              )),);
                             } else {
                               // return LoginController.requestThenResponsePrint(jsonData);
-                              AlertDialogueHelper().showAlertDialog(context, 'Warning', value.body);
+                              SnackbarDialogueHelper().showSnackbarDialog(context,  value.body,Colors.red);
                             }
 
                           });
 
                         }else{
-                          AlertDialogueHelper().showAlertDialog(context, 'Warning', value.body.replaceAll('"', ' ')
+                          SnackbarDialogueHelper().showSnackbarDialog(context, value.body.replaceAll('"', ' ')
                               .replaceAll('{', ' ')
                               .replaceAll('}', ' ')
                               .replaceAll('[', ' ')
-                              .replaceAll(']', ' '));
+                              .replaceAll(']', ' '), Colors.red);
 
 
 

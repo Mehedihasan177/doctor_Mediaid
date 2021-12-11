@@ -23,13 +23,13 @@ class DoctorSpecializationResponse {
   int id;
   String name;
   String icon;
-  int priority;
-  int status;
+  String priority;
+  String status;
   DateTime createdAt;
   DateTime updatedAt;
   dynamic deletedAt;
 
-  factory DoctorSpecializationResponse.fromJson(Map<String, dynamic> json) => DoctorSpecializationResponse(
+  factory DoctorSpecializationResponse.fromJson(Map<dynamic, dynamic> json) => DoctorSpecializationResponse(
     id: json["id"],
     name: json["name"],
     icon: json["icon"],

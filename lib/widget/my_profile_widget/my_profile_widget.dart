@@ -1,8 +1,17 @@
+import 'dart:convert';
+
+import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/setup_profile_controller.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
 import 'package:care_plus_doctor/model/ui_model/my_profile_model/my_profile_model.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_specialization_responses.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_update_profile_responses.dart';
 import 'package:care_plus_doctor/view/screen/add_services/add_services.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+TextEditingController _experience = TextEditingController();
+TextEditingController _fee = TextEditingController();
 Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
     Column(
       children: [
@@ -166,7 +175,7 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
             child: Padding(
               padding: const EdgeInsets.only(left: 20),
               child: TextField(
-//controller: _textEmail,
+              controller: _experience,
                 keyboardType: TextInputType.emailAddress,
                 style: TextStyle(color: Colors.black),
 //scrollPadding: EdgeInsets.all(10),
@@ -199,7 +208,7 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
             child: Padding(
               padding: const EdgeInsets.only(left: 20),
               child: TextField(
-//controller: _textEmail,
+              controller: _fee,
                 keyboardType: TextInputType.emailAddress,
                 style: TextStyle(color: Colors.black),
 //scrollPadding: EdgeInsets.all(10),
@@ -427,7 +436,7 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Diabetologist",
+                  "Dialectology",
                   style: TextStyle(
                       fontSize: 16, color: Colors.black.withOpacity(0.9)),
                 ),
@@ -446,7 +455,7 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
           ],
         ),
         SizedBox(
-          height: 20
+            height: 20
         ),
         Center(
           child: Container(
@@ -455,8 +464,43 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
                 "Submit",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
-              onPressed: () async {
-                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+              onPressed: () async{
+
+               // EasyLoading.show(status: 'loading...');
+
+
+                Map data1 = {
+                  'experience': "${_experience.text}",
+                  'fee': "${_fee.text}",
+
+
+                };
+                //EasyLoading.show(status: 'loading...');
+                await DoctorSetupProfileController.requestThenResponsePrint( USERTOKEN, data1).then((value) async {
+                  print(value.statusCode);
+                  print(value.body);
+                  final Map parsed = json.decode(value.body);
+
+                  final doctorProfile = DoctorUpdateProfile.fromJson(parsed);
+                  DOCTORUPDATEPROFILERESPONSES = doctorProfile;
+
+                  print(value.statusCode);
+                  print(value.body);
+                  EasyLoading.dismiss();
+                  if(value.statusCode==200){
+                    SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully Added', Colors.green);
+                    //return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+
+                  }else{
+                    SnackbarDialogueHelper().showSnackbarDialog(context, value.body.replaceAll('"', ' ')
+                        .replaceAll('{', ' ')
+                        .replaceAll('}', ' ')
+                        .replaceAll('[', ' ')
+                        .replaceAll(']', ' '), Colors.red);
+                  }
+                }
+                );
+
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(350, 50),
@@ -474,3 +518,4 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
 
       ],
     );
+//Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));

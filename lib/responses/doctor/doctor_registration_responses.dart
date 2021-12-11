@@ -34,8 +34,8 @@ class Data {
     this.adminId,
     required this.name,
     required this.email,
-    required this.hospitalName,
-    required this.experience,
+    this.hospitalName,
+    this.experience,
     required this.fee,
     required this.rating,
     required this.referralCode,
@@ -60,17 +60,17 @@ class Data {
     this.introduction,
     required this.createdAt,
     required this.updatedAt,
-    this.gender,
+    required this.gender,
     this.deletedAt,
     required this.doctorService,
   });
 
-  int id;
+  String id;
   dynamic adminId;
   String name;
   String email;
-  String hospitalName;
-  String experience;
+  dynamic hospitalName;
+  dynamic experience;
   String fee;
   String rating;
   String referralCode;
@@ -93,46 +93,46 @@ class Data {
   String featured;
   dynamic chambers;
   dynamic introduction;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String createdAt;
+  String updatedAt;
   dynamic gender;
   dynamic deletedAt;
-  List<dynamic> doctorService;
+  String doctorService;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-    id: json["id"],
-    adminId: json["admin_id"],
-    name: json["name"],
-    email: json["email"],
-    hospitalName: json["hospital_name"],
-    experience: json["experience"],
-    fee: json["fee"],
-    rating: json["rating"],
-    referralCode: json["referral_code"],
-    doctorid: json["doctorid"],
-    mobile: json["mobile"],
-    nid: json["nid"],
-    bmdcReg: json["bmdc_reg"],
-    department: json["department"],
-    degree: json["degree"],
-    designation: json["designation"],
-    specialization: json["specialization"],
-    dob: json["dob"],
-    address: json["address"],
-    district: json["district"],
-    policeStation: json["police_station"],
-    postOffice: json["post_office"],
-    status: json["status"],
-    image: json["image"],
-    emailVerifiedAt: json["email_verified_at"],
-    featured: json["featured"],
-    chambers: json["chambers"],
-    introduction: json["introduction"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+  factory Data.fromJson(Map<dynamic, dynamic> json) => Data(
+    id: json["id"].toString(),
+    adminId: json["admin_id"].toString(),
+    name: json["name"].toString(),
+    email: json["email"].toString(),
+    hospitalName: json["hospital_name"].toString(),
+    experience: json["experience"].toString(),
+    fee: json["fee"].toString(),
+    rating: json["rating"].toString(),
+    referralCode: json["referral_code"].toString(),
+    doctorid: json["doctorid"].toString(),
+    mobile: json["mobile"].toString(),
+    nid: json["nid"].toString(),
+    bmdcReg: json["bmdc_reg"].toString(),
+    department: json["department"].toString(),
+    degree: json["degree"].toString(),
+    designation: json["designation"].toString(),
+    specialization: json["specialization"].toString(),
+    dob: json["dob"].toString(),
+    address: json["address"].toString(),
+    district: json["district"].toString(),
+    policeStation: json["police_station"].toString(),
+    postOffice: json["post_office"].toString(),
+    status: json["status"].toString(),
+    image: json["image"].toString(),
+    emailVerifiedAt: json["email_verified_at"].toString(),
+    featured: json["featured"].toString(),
+    chambers: json["chambers"].toString(),
+    introduction: json["introduction"].toString(),
+    createdAt: json["created_at"].toString(),
+    updatedAt: json["updated_at"].toString(),
     gender: json["gender"],
     deletedAt: json["deleted_at"],
-    doctorService: List<dynamic>.from(json["doctor_service"].map((x) => x)),
+    doctorService: json["doctor_service"].toString(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -164,10 +164,10 @@ class Data {
     "featured": featured,
     "chambers": chambers,
     "introduction": introduction,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
+    "created_at": createdAt,
+    "updated_at": updatedAt,
     "gender": gender,
     "deleted_at": deletedAt,
-    "doctor_service": List<dynamic>.from(doctorService.map((x) => x)),
+    "doctor_service": doctorService,
   };
 }

@@ -8,19 +8,19 @@
 
 class SetUpProfile{
   late String name;
-  late String specialization;
+  // late String specialization;
   late String bmdcReg;
   late String designation;
-  late String fee;
+  // late String fee;
   late String chambers;
   late String introduction;
 
   SetUpProfile({
     required this.name,
-    required this.specialization,
+    //required this.specialization,
     required this.bmdcReg,
     required this.designation,
-    required this.fee,
+    //required this.fee,
     required this.chambers,
     required this.introduction,
 });

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/controller/doctor/user_edit_img_ctrl.dart';
 import 'package:care_plus_doctor/helper/alertDialogue.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
+import 'package:care_plus_doctor/view/screen/setUp_Profile/setUp_Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -20,160 +22,77 @@ class NewImageUploadPage extends StatefulWidget {
 }
 
 class _NewImageUploadPageState extends State<NewImageUploadPage> {
+
   final navigatorKey = GlobalKey<NavigatorState>();
-
-  bool visibleUpload = false;
-
-  late File img;
-  late File imageFile;
-
-  // TextEditingController presTypeC = new TextEditingController();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+    return WillPopScope(
 
-          ListView(
-                children: [
-                  SizedBox(height: 80),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () => Navigator.pop(context),
-                          child: Container(
-                            height: 24,
-                            width: 24,
-                            child: Image(
-                              image: AssetImage("assets/images/Back Button.png"),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                        Text("upload image"),
-                        Container(),
-                      ],
-                    ),
-                  ),
-                  // SizedBox(height: 30),
-                  // Padding(
-                  //     padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  //     child: StandardTextField(
-                  //       text: "Title",
-                  //       controller: presNameC,
-                  //     )),
-                  // SizedBox(height: 20),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  //   child: StandardTextField(
-                  //     text: "Type",
-                  //     controller: presTypeC,
-                  //   ),
-                  // ),
-                  SizedBox(height: 20),
-                  _setImageView(),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      OutlineButton(
-                        padding: EdgeInsets.all(10),
-                        onPressed: () {
-                          setState(() {
-                            _showSelectionDialog(context);
-                            // visibleUpload = true;
-                          });
-                        },
-                        color: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomRight: Radius.circular(5)),
-                        ),
-                        borderSide: BorderSide(color: Colors.blue),
-                        child: Text(
-                          "Select image",
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                      ),
-                      Visibility(
-                        visible: visibleUpload,
-                        child: ElevatedButton(
-                          // text: "Upload",
-                          onPressed: () async {
-                            // String presName = presNameC.text;
-                            // String presType = presTypeC.text;
-                            if ((imageFile != null)) {
-                              await UserRegisterControllerExtraImg.postRequestRegistrationExtra(context, imageFile, USERTOKEN)
-                                  .then((value) {
-                                print(value.statusCode);
-                                print(value.statusMessage);
-                                print(value);
-                                if (value.statusCode == 200) {
-                                  // Navigator.pop(context,"Bar");
-                                  AlertDialogueHelper().showAlertDialog(context, 'Warning', "Image Uploaded Successfully");
+      onWillPop: () async {
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()));
+        return true;
+      },
+      child: Scaffold(
 
-                                }
-                              });
-                            } else {
-                              // BasicFunctions.showAlertDialogTOView(context, 'Warning', 'Select an image to upload');
-                              BasicFunctions.showAlertDialogTOView(context,
-                                  "uploadImageSelectTitle",
-                                  "uploadImageSelectMessage");
-                            }
-                          }, child: null,
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-
-
-        ],
+          body: imageUploadSection()
       ),
     );
   }
 
+
+
+  bool visibleUpload = false;
+  late File img;
+  File? imageFile;
   Widget _setImageView() {
     if (imageFile != null) {
-      return Image.file(imageFile, width: 250, height: 250);
+      return Image.file(imageFile!, width: 250, height: 250);
     } else {
       return Center(
-        child: Text( "pleaseSelectAnImage"),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: Text( "Please Select an Image",
+          style: TextStyle(
+            fontSize: 16
+          ),
+          ),
+        ),
       );
     }
   }
-
   Future<void> _showSelectionDialog(BuildContext context) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text("fromWhereDoYouWantToTakePhoto"),
+            // title: Text("fromWhereDoYouWantToTakePhoto"),
               content: SingleChildScrollView(
                 child: ListBody(
                   children: <Widget>[
                     GestureDetector(
-                      child: Text("gallery"),
+                      child: ListTile(
+                        title: Text('Gallery'),
+                        isThreeLine: true,
+                        subtitle: Text('From Gallery'),
+                        leading: Icon(Icons.slideshow),
+                        trailing: Text('Select'),
+                      ),
+
+
                       onTap: () {
                         _openGallery(context);
                       },
                     ),
                     Padding(padding: EdgeInsets.all(8.0)),
                     GestureDetector(
-                      child: Text("camera"),
+                      child: ListTile(
+                        title: Text('Camera'),
+                        isThreeLine: true,
+                        subtitle: Text('From Camera'),
+                        leading: Icon(Icons.camera_alt_outlined),
+                        trailing: Text('Select'),
+                      ),
                       onTap: () {
                         _openCamera(context);
                       },
@@ -183,22 +102,95 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
               ));
         });
   }
-
   void _openGallery(BuildContext context) async {
-    var picture = await ImagePicker.platform;
+    var picture = await ImagePicker().pickImage(source: ImageSource.gallery,imageQuality: 50, maxWidth: 400,maxHeight: 700);
     this.setState(() {
-      imageFile = picture as File;
+      imageFile = File(picture!.path);
+      visibleUpload = true;
+    });
+    Navigator.of(context).pop();
+  }
+  void _openCamera(BuildContext context) async {
+    var picture = await ImagePicker().pickImage(source: ImageSource.camera,imageQuality: 50);
+    this.setState(() {
+      imageFile = File(picture!.path);
       visibleUpload = true;
     });
     Navigator.of(context).pop();
   }
 
-  void _openCamera(BuildContext context) async {
-    var picture = await ImagePicker.platform;
-    this.setState(() {
-      imageFile = picture as File;
-      visibleUpload = true;
-    });
-    Navigator.of(context).pop();
+
+
+
+
+
+
+  imageUploadSection() {
+    return Container(
+      child: ListView(
+        children: [
+
+
+
+          _setImageView(),
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Center(
+                child: RaisedButton(
+                  color: Colors.green,
+                  onPressed: () {
+                    setState(() {
+                      _showSelectionDialog(context);
+                      // visibleUpload = true;
+                    });
+                  },
+                  child: Text(
+                    "Select Image",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+
+              Visibility(
+                visible: visibleUpload,
+                child: RaisedButton(
+                  color: Colors.green,
+                  child: Text("Upload Image", style: TextStyle(
+                    color: Colors.white
+                  ),),
+                  onPressed: () async {
+                    // String presName = presNameC.text;
+                    // String presType = presTypeC.text;
+                    if ((imageFile != null)) {
+                      await UserRegisterControllerExtraImg.postRequestRegistrationExtra(context, imageFile, USERTOKEN)
+                          .then((value) {
+                        print(value.statusCode);
+                        print(value.statusMessage);
+                        print(value);
+                        if (value.statusCode == 200) {
+                          // Navigator.pop(context,"Bar");
+                          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+
+                        }
+                      });
+                    } else {
+                      // BasicFunctions.showAlertDialogTOView(context, 'Warning', 'Select an image to upload');
+                      BasicFunctions.showAlertDialogTOView(context,
+                          "Warning",
+                          "Please Select an Image to Upload");
+                    }
+                  },
+                ),
+              )
+            ],
+          ),
+
+
+
+        ],
+      ),
+    );
   }
 }
