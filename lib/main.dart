@@ -20,7 +20,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: SplashScreen(),
+         body: SplashScreen(),
+        // body: DropDown(),
         //body: AddHospitalPage(),
         //body: AddServicesPage(),
         // body: TestingStar(),

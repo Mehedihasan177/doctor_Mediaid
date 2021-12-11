@@ -104,7 +104,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(350, 59),
-                    maximumSize: const Size(350, 59),
+                    //maximumSize: const Size(350, 59),
                     primary: Color(0xFF1CBFA8),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),

@@ -59,11 +59,15 @@ Widget TransferMoneyBankWidget(transfer_money_bank_model transferMoneyBank) =>
               color: Colors.black.withOpacity(0.07),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                transferMoneyBank.name,
-                style: TextStyle(fontSize: 16),
+            child: TextField(
+              //controller: _textEmail,
+             // keyboardType: TextInputType.emailAddress,
+              style: TextStyle(color: Colors.black),
+              //scrollPadding: EdgeInsets.all(10),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(left: 20),
+                hintText: "Enter your name",
               ),
             ),
           ),
@@ -91,9 +95,16 @@ Widget TransferMoneyBankWidget(transfer_money_bank_model transferMoneyBank) =>
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                transferMoneyBank.bank_name,
-                style: TextStyle(fontSize: 16),
+              child: TextField(
+                //controller: _textEmail,
+                // keyboardType: TextInputType.emailAddress,
+                style: TextStyle(color: Colors.black),
+                //scrollPadding: EdgeInsets.all(10),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(left: 20),
+                  hintText: "Enter your bank name",
+                ),
               ),
             ),
           ),
@@ -122,9 +133,16 @@ Widget TransferMoneyBankWidget(transfer_money_bank_model transferMoneyBank) =>
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                transferMoneyBank.branch_code,
-                style: TextStyle(fontSize: 16),
+              child: TextField(
+                //controller: _textEmail,
+                // keyboardType: TextInputType.emailAddress,
+                style: TextStyle(color: Colors.black),
+                //scrollPadding: EdgeInsets.all(10),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(left: 20),
+                  hintText: "Enter your branch code",
+                ),
               ),
             ),
           ),
@@ -153,9 +171,16 @@ Widget TransferMoneyBankWidget(transfer_money_bank_model transferMoneyBank) =>
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                transferMoneyBank.account_number.toString(),
-                style: TextStyle(fontSize: 16),
+              child: TextField(
+                //controller: _textEmail,
+                // keyboardType: TextInputType.emailAddress,
+                style: TextStyle(color: Colors.black),
+                //scrollPadding: EdgeInsets.all(10),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(left: 20),
+                  hintText: "Enter your account number",
+                ),
               ),
             ),
           ),
@@ -220,7 +245,7 @@ Widget TransferMoneyBankWidget(transfer_money_bank_model transferMoneyBank) =>
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(350, 59),
-                maximumSize: const Size(350, 59),
+                //maximumSize: const Size(350, 59),
                 primary: Color(0xFF1CBFA8),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),

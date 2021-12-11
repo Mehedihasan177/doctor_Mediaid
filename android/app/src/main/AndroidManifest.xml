@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.care_plus_doctor">
    <application
-        android:label="care_plus_doctor"
+        android:label="Care+ Doctor"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

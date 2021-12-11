@@ -1,3 +1,4 @@
+import 'package:care_plus_doctor/model/pres_model/medicine_create.dart';
 import 'package:care_plus_doctor/view/screen/advice_page/advice_page.dart';
 import 'package:care_plus_doctor/view/screen/problem_page/problem_page.dart';
 import 'package:flutter/material.dart';
@@ -10,18 +11,24 @@ class MedicinePage extends StatefulWidget {
 }
 
 class _MedicinePageState extends State<MedicinePage> {
-  var medicine = [];
-
+  List<CreateMedicine> medicine = [];
   TextEditingController _medicine = TextEditingController();
   TextEditingController _note = TextEditingController();
   TextEditingController _dose = TextEditingController();
   TextEditingController _day = TextEditingController();
   TextEditingController _quantity = TextEditingController();
+
+
+
+
+
   void addItemToList() {
     setState(() {
+
+      medicine.add(CreateMedicine(_medicine.text,_dose.text,_note.text,_day.text,_quantity.text));
+
       //
-      medicine.insert(0,
-          'Medicine: ${_medicine.text} \nNote: ${_note.text} \nDose: ${_dose.text} \nDay: ${_day.text} \nQuantity: ${_quantity.text}');
+      // medicine.insert(0, 'Medicine: ${_medicine.text} \nNote: ${_note.text} \nDose: ${_dose.text} \nDay: ${_day.text} \nQuantity: ${_quantity.text}');
       // medicine.insert(0, _medicine.text);
       // medicine.insert(1, _note.text);
       // medicine.insert(2, _dose.text);
@@ -193,62 +200,127 @@ class _MedicinePageState extends State<MedicinePage> {
                 ],
               ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  addItemToList();
-                  _medicine.clear();
-                  _note.clear();
-                  _dose.clear();
-                  _day.clear();
-                  _quantity.clear();
-                },
-                child: Text('+'),
-                style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  padding: EdgeInsets.all(14),
-                  primary: Color(0xFF1CBFA8),
-                )),
+            Center(
+              child: Container(
+                padding: EdgeInsets.only(top: 30, bottom: 20),
+                width: 100,
+                child: ElevatedButton(
+                    onPressed: () {
+                      addItemToList();
+                      _medicine.clear();
+                      _note.clear();
+                      _dose.clear();
+                      _day.clear();
+                      _quantity.clear();
+                    },
+                    child: Text('SUBMIT',
+                    style: TextStyle(
+                      fontSize: 17
+                    ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      //shape: CircleBorder(),
+                      padding: EdgeInsets.all(14),
+                      primary: Color(0xFF1CBFA8),
+                    )),
+              ),
+            ),
             Container(
-              height: 660,
+              height: 420,
               child: ListView.builder(
                   padding: const EdgeInsets.all(8),
                   itemCount: medicine.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                        child: Container(
-                          // height: 50,
-                          margin: EdgeInsets.all(2),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    '${medicine[index]}',
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.centerRight,
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.cancel,
+                    return Stack(
+                      children: [
+                        Card(
+                          child: Container(
+
+                            margin: EdgeInsets.only(top: 10, bottom: 10),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            padding: EdgeInsets.only(right: 10),
+                                            alignment:Alignment.centerLeft,
+                                            child: Text("Medicine:  " + '${medicine[index].medName}',)),
+                                        SizedBox(
+                                          height: 15
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.only(right: 10),
+                                            alignment:Alignment.centerLeft,
+                                            child: Text("Note:  " + '${medicine[index].note}',)),
+                                        SizedBox(
+                                            height: 15
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 20),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Text("Dose"),
+                                                  SizedBox(
+                                                      height: 5
+                                                  ),
+                                                  Text('${medicine[index].dose}',),
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Text("Day"),
+                                                  SizedBox(
+                                                      height: 5
+                                                  ),
+                                                  Text('${medicine[index].day}',),
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Text("Quantity"),
+                                                  SizedBox(
+                                                      height: 5
+                                                  ),
+                                                  Text('${medicine[index].qty}',),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    iconSize: 25,
-                                    color: Colors.red,
-                                    // splashColor: Colors.purple,
-                                    onPressed: () {
-                                      setState(() {
-                                        medicine.remove(medicine[index]);
-                                      });
-                                    },
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      );
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.cancel,
+                            ),
+
+                            iconSize: 25,
+                            color: Colors.red,
+                            // splashColor: Colors.purple,
+                            onPressed: () {
+                              setState(() {
+                                medicine.remove(medicine[index]);
+                              });
+                            },
+                          ),
+                        ),
+                    ]
+                    );
 
                   }),
             )

@@ -20,28 +20,28 @@ class _BottomNevigationState extends State<BottomNevigation> {
         body: buildpages(),
         bottomNavigationBar: BottomNavyBar(
           selectedIndex: cindex,
+          showElevation: true,
           containerHeight: 50,
           onItemSelected: (index) => setState(() => cindex = index),
           items: [
             BottomNavyBarItem(
-                title: Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text(
-                    'Review',
+
+                title: Text(
+                    'Homepage',
                     style: TextStyle(color: Color(0xFF1CBFA8)),
                   ),
-                ),
+
                 icon: Container(
                   height: 25,
                   width: 25,
-                  child: Image.asset("images/rating.png"),
+                  child: Icon(Icons.home, color: Color(0xFF1CBFA8),),
                 ),
                 textAlign: TextAlign.center,
                 activeColor: Color(0xFF1CBFA8),
                 inactiveColor: Color(0xFF1CBFA8)),
             BottomNavyBarItem(
                 title: Text(
-                  'Appointment',
+                  'Queue',
                   style: TextStyle(color: Color(0xFF1CBFA8)),
                 ),
                 icon: Container(
@@ -54,7 +54,7 @@ class _BottomNevigationState extends State<BottomNevigation> {
                 inactiveColor: Color(0xFF1CBFA8)),
             BottomNavyBarItem(
                 title: Text(
-                  'Doctors',
+                  'History',
                   style: TextStyle(color: Color(0xFF1CBFA8)),
                 ),
                 icon: Container(

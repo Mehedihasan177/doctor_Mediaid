@@ -68,7 +68,7 @@ Widget PatientReviewList(ReviewPatientModel petientreviewlist, BuildContext cont
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
               child: Text(petientreviewlist.details,
               textAlign: TextAlign.justify,
               ),

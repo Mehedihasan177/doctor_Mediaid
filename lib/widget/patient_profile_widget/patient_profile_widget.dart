@@ -1,4 +1,6 @@
 import 'package:care_plus_doctor/model/ui_model/patient_profile_details_model/patient_profile_details_model.dart';
+import 'package:care_plus_doctor/view/screen/care_plus_lab_report_list/care_plus_lab_report_list.dart';
+import 'package:care_plus_doctor/view/screen/health_record/health_record.dart';
 import 'package:care_plus_doctor/view/screen/patient_profile_details/patient_profile_details.dart';
 import 'package:care_plus_doctor/view/screen/problem_page/problem_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -240,63 +242,95 @@ Widget PatientProfileWidget(PatientProfileDetailsModel patientProfileDetail, Bui
 
 
                   //icon gula ekbare niche namate hobe.
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 20, left: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                 Padding(
+                   padding: const EdgeInsets.only(top: 60, right: 20),
+                   child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
 
-                          Container(
-                            height: 30,
-                            width: 30,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.call,
-                              ),
-                              iconSize: 20,
-                              color: Color(0xFF1CBFA8),
-                              splashColor: Color(0xFF1CBFA8),
-                              onPressed: () {},
-                            ),
-                          ),
-                          Container(
-                            height: 35,
-                            width: 35,
-                            child: IconButton(
-                              icon: ImageIcon(
-                                AssetImage("images/test_results.png"),
-                              ),
-                              iconSize: 18,
-                              color: Color(0xFF1CBFA8),
-                              splashColor: Color(0xFF1CBFA8),
-                              onPressed: () {},
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Container(
-                              height: 35,
-                              width: 35,
-                              child: IconButton(
-                                icon: ImageIcon(
-                                  AssetImage("images/prescription.png"),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Container(
+                                height: 45,
+                                width: 120,
+                                child: FlatButton(
+                                  //minWidth: 10,
+                                  onPressed: () {
+                                    // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListToday()));
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Icon(Icons.call, color: Color(0xFF1CBFA8),size: 25,),
+
+                                      Text(
+                                          "Call",
+                                          style:
+                                          TextStyle(color: Colors.black.withOpacity(0.5))
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                iconSize: 30,
-                                color: Color(0xFF1CBFA8),
-                                splashColor: Color(0xFF1CBFA8),
-                                onPressed: () {
-
-                                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProblemPage()));
-                                },
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Container(
+                                    height: 45,
+                                    width: 120,
+                                    child: FlatButton(
+                                      //minWidth: 10,
+                                      onPressed: () {
+                                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
+                                      },
+                                      child: Column(
+                                        children: [
+                                      ImageIcon(
+                                          AssetImage("images/test_results.png"),
+                                        color: Color(0xFF1CBFA8),
+                                        ),
+
+                                          Text(
+                                              "Lab Report",
+                                              style:
+                                              TextStyle(color: Colors.black.withOpacity(0.5))
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Container(
+                                height: 45,
+                                width: 120,
+                                child: FlatButton(
+                                  //minWidth: 10,
+                                  onPressed: () {
+                                     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProblemPage()));
+                                  },
+                                  child: Column(
+                                    children: [
+                                      ImageIcon(
+                                        AssetImage("images/prescription.png"),
+                                        color: Color(0xFF1CBFA8),
+                                      ),
+
+                                      Text(
+                                          "Prescription",
+                                          style:
+                                          TextStyle(color: Colors.black.withOpacity(0.5))
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                 ),
+
 
 
                   SizedBox(
@@ -309,11 +343,11 @@ Widget PatientProfileWidget(PatientProfileDetailsModel patientProfileDetail, Bui
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       onPressed: () async {
-                        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HealthRecord()));
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(350, 59),
-                        maximumSize: const Size(350, 59),
+                        //maximumSize: const Size(350, 59),
                         primary: Color(0xFF1CBFA8),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),

@@ -3,6 +3,7 @@ import 'package:care_plus_doctor/data/review_data/review_patient_data.dart';
 import 'package:care_plus_doctor/model/ui_model/review_model/review_model.dart';
 import 'package:care_plus_doctor/model/ui_model/review_model/review_patient_list_model.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
+import 'package:care_plus_doctor/view/screen/review_page_list/review_page_list.dart';
 import 'package:care_plus_doctor/widget/review_widget/rating_ui_widget.dart';
 import 'package:care_plus_doctor/widget/review_widget/review_patient_widget.dart';
 import 'package:care_plus_doctor/widget/review_widget/review_rating_widget.dart';
@@ -89,14 +90,33 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
               ],
             ),
 
-            Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 20),
-              child: Text("Recent",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black.withOpacity(0.5)
-              )
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, top: 30),
+                  child: Text("Recent",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black.withOpacity(0.5)
+                  )
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, top: 35, right: 10),
+                  child: FlatButton(
+                    //minWidth: 10,
+                    onPressed: () {
+                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ReviewPageList()));
+                    },
+                    child: Text(
+                        "See All",
+                        style:
+                        TextStyle(color: Colors.black.withOpacity(0.5))
+                    ),
+                  ),
+                ),
+              ],
             ),
 
             Row(
@@ -105,11 +125,13 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
                   child: Container(
                     //padding: EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
-                    height: 300,
+                    // height: 600,
                     child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
                       //controller: PageController(viewportFraction: 0.3),
                         scrollDirection: Axis.vertical,
-                        itemCount: petientreviewlist.length,
+                        itemCount: 5,
                         itemBuilder: (context,index) {
                           //var information = carePlushPrescriptionList[index];
                           return PatientReviewList(petientreviewlist[index], context);

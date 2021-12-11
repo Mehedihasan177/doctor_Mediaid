@@ -37,7 +37,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(top: 14),
                     border: InputBorder.none,
-                    hintText: "Search your doctor",
+                    hintText: "Search your patients",
                     hintStyle: TextStyle(
                         color: Colors.black.withOpacity(0.5), fontSize: 15),
                     prefixIcon: Icon(

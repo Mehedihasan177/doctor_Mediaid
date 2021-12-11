@@ -2,9 +2,12 @@ import 'package:care_plus_doctor/data/appointment_list_navbar/appointment_histor
 import 'package:care_plus_doctor/data/appointment_list_navbar/appointment_list_navbar_data.dart';
 import 'package:care_plus_doctor/model/ui_model/appointment_list_navBar/appointment_history_navBar.dart';
 import 'package:care_plus_doctor/model/ui_model/appointment_list_navBar/appointment_list_navBar.dart';
+import 'package:care_plus_doctor/view/screen/appointmnet_list/appointment_list_today/appointment_list_today.dart';
+import 'package:care_plus_doctor/view/screen/appointmnet_list/appointment_ui_tomorrow/appointment_ui_tomorrow.dart';
 import 'package:care_plus_doctor/view/screen/notificaitonUi/notificaitonUi.dart';
 import 'package:care_plus_doctor/widget/appointment_list_navBar_widget/appintment_List_navbar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AppointmentList extends StatefulWidget {
   const AppointmentList({Key? key}) : super(key: key);
@@ -17,6 +20,27 @@ class _AppointmentListState extends State<AppointmentList> {
   List<Appointment_list_navBar> appointmentlist = List.of(appointmentList);
   List<Appointment_History_navBar> appointmentHistoy =
       List.of(appointmentHistory);
+
+
+  late DateTime date;
+  final initialDate = DateTime.now();
+  Future pickDate(BuildContext context) async {
+
+    final newDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(221),
+      lastDate: DateTime(2050),
+    );
+
+    if (newDate == null) return;
+else setState(() =>
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListToday())),
+
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +70,7 @@ class _AppointmentListState extends State<AppointmentList> {
                   color: Color(0xFF1CBFA8),
                   splashColor: Color(0xFF1CBFA8),
                   onPressed: () {
-                    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NotificationPage()));
+                    pickDate(context);
                   },
                 ),
               ),
@@ -86,7 +110,7 @@ class _AppointmentListState extends State<AppointmentList> {
                 FlatButton(
                   minWidth: 10,
                   onPressed: () {
-                    //Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => FeaturedDoctor()));
+                    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListToday()));
                   },
                   child: Text(
                     "See All",
@@ -120,11 +144,28 @@ class _AppointmentListState extends State<AppointmentList> {
             height: 10,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, top: 10),
-            child: Text(
-              "Tomorrow",
-              style:
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Tomorrow",
+                  style:
                   TextStyle(fontSize: 17, color: Colors.black.withOpacity(0.5)),
+                ),
+
+                FlatButton(
+                  minWidth: 10,
+                  onPressed: () {
+                    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListTomorrow()));
+                  },
+                  child: Text(
+                      "See All",
+                      style:
+                      TextStyle(color: Colors.black.withOpacity(0.5))
+                  ),
+                ),
+              ],
             ),
           ),
           Container(

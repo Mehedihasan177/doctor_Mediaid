@@ -1,4 +1,5 @@
 import 'package:care_plus_doctor/model/ui_model/review_model/review_model.dart';
+import 'package:care_plus_doctor/view/screen/notificaitonUi/notificaitonUi.dart';
 import 'package:care_plus_doctor/widget/review_widget/review_rating_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,31 +18,85 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context) => Container(
                     padding: const EdgeInsets.only(left: 20),
                     child: Column(
                       children: [
-                        Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(rivewlist.name,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 40),
+                              child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(rivewlist.name,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                  ),
+                              ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 70),
+                              child: Row(
+                                children: [
+                                  // Container(
+                                  //   height: 30,
+                                  //   width: 30,
+                                  //   child: IconButton(
+                                  //     icon: Icon(
+                                  //       Icons.watch_later_outlined,
+                                  //     ),
+                                  //     iconSize: 25,
+                                  //     color: Color(0xFF1CBFA8),
+                                  //     splashColor: Color(0xFF1CBFA8),
+                                  //     onPressed: () {
+                                  //       Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NotificationPage()));
+                                  //     },
+                                  //   ),
+                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 20, left: 10),
+                                    child: Container(
+
+                                      height: 30,
+                                      width: 30,
+                                      child: IconButton(
+                                        icon: Icon(
+                                          Icons.notifications_on_outlined,
+                                        ),
+                                        iconSize: 25,
+                                        color: Color(0xFF1CBFA8),
+                                        splashColor: Color(0xFF1CBFA8),
+                                        onPressed: () {
+                                          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NotificationPage()));
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
+
+                          ],
                         ),
                         SizedBox(height: 20,),
-                        Row(
-                          children: [
-                            Text(rivewlist.rating.toString(),
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
-                            ),
-                            ),
-                            Icon(Icons.star, color: Colors.yellow,),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 50),
+                          child: Row(
+                            children: [
+                              Text(rivewlist.rating.toString(),
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                              ),
+                              ),
+                              Icon(Icons.star, color: Colors.yellow,),
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
+
               ],
             ),
           ),
@@ -83,14 +138,17 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context) => Container(
                     children: [
                       Text("Total People Rated",
                         style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 16,
                             color: Colors.black.withOpacity(0.5)
                         ),
                       ),
-                      Text("Appointment Booked",
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black.withOpacity(0.5)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 0),
+                        child: Text("Appointment Booked",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black.withOpacity(0.5)
+                          ),
                         ),
                       ),
                     ],
@@ -103,31 +161,31 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context) => Container(
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 20, right: 30),
+                  padding: const EdgeInsets.only(left: 20, top: 15, right: 30),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.account_box_rounded, size: 20, color: Color(0xFF1CBFA8),),
+                          Icon(Icons.account_box_rounded, size: 23, color: Color(0xFF1CBFA8),),
                           SizedBox(width: 5,),
                           Text(rivewlist.total_people_rated.toString(),
                             style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 color: Colors.black.withOpacity(0.5)
                             ),
                           ),
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 100),
+                        padding: const EdgeInsets.only(right: 95),
                         child: Row(
                           children: [
-                            Icon(Icons.check_box, size: 20, color: Color(0xFF1CBFA8),),
+                            Icon(Icons.check_box, size: 23, color: Color(0xFF1CBFA8),),
                             SizedBox(width: 5,),
                             Text(rivewlist.appointment_booked.toString(),
                               style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 18,
                                   color: Colors.black.withOpacity(0.5)
                               ),
                             ),

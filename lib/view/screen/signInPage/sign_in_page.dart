@@ -1,9 +1,18 @@
+import 'dart:convert';
+
+import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_signIn_controller.dart';
+import 'package:care_plus_doctor/helper/alertDialogue.dart';
+import 'package:care_plus_doctor/model/doctor/doctor_sinIn_model.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
 import 'package:care_plus_doctor/view/screen/appointmnet_list/appointment_list_ui.dart';
 import 'package:care_plus_doctor/view/screen/change_password/change_password.dart';
 import 'package:care_plus_doctor/view/screen/forget_password/forget_password.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/sing_up_page/sign_up_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SingInPage extends StatefulWidget {
   const SingInPage({Key? key}) : super(key: key);
@@ -13,7 +22,7 @@ class SingInPage extends StatefulWidget {
 }
 
 class _SingInPageState extends State<SingInPage> {
-  TextEditingController _textEmail = TextEditingController();
+  TextEditingController _textMobile = TextEditingController();
   TextEditingController _textPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -33,7 +42,7 @@ class _SingInPageState extends State<SingInPage> {
           ),
           
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
             child: Column(
               children: [
                 Row(
@@ -49,7 +58,7 @@ class _SingInPageState extends State<SingInPage> {
                       width: 20,
                     ),
                     Text(
-                      "Email",
+                      "Mobile Number",
                       style: TextStyle(fontSize: 17),
                     ),
                   ],
@@ -58,13 +67,13 @@ class _SingInPageState extends State<SingInPage> {
                   width: 20,
                 ),
                 TextField(
-                  controller: _textEmail,
-                  keyboardType: TextInputType.emailAddress,
+                  controller: _textMobile,
+                  keyboardType: TextInputType.text,
                   style: TextStyle(color: Colors.black),
                   //scrollPadding: EdgeInsets.all(10),
                   decoration: InputDecoration(
                     //contentPadding: EdgeInsets.all(20),
-                    hintText: "Enter your email address",
+                    hintText: "Enter your mobile number",
                   ),
                 ),
               ],
@@ -100,7 +109,7 @@ class _SingInPageState extends State<SingInPage> {
                   width: 20,
                 ),
                 TextField(
-                  controller: _textEmail,
+                  controller: _textPassword,
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(color: Colors.black),
                   //scrollPadding: EdgeInsets.all(10),
@@ -124,11 +133,43 @@ class _SingInPageState extends State<SingInPage> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () async {
-                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+                  //EasyLoading.show(status: 'loading...');
+
+                  SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+                  DoctorSignInModel myInfo = new DoctorSignInModel(
+                      mobile: _textMobile.text, password: _textPassword.text);
+                  await DoctorSigninController.requestThenResponsePrint(myInfo)
+                      .then((value) async {
+                    print(value.statusCode);
+                    print(value.body);
+                    Container(
+                      height: 1000,
+                      child: AlertDialogueHelper().showAlertDialog(context, value.body, ''),
+                    );
+                    final Map<String,dynamic> parsed = json.decode(value.body);
+
+                    final loginobject = DoctorLoginResponse.fromJson(parsed);
+                    print(loginobject.data.token);
+                    USERTOKEN = loginobject.data.token;
+                    sharedPreferences.setString("token", loginobject.data.token);
+                    EasyLoading.dismiss();
+                    if (value.statusCode == 200) {
+
+                      print(loginobject.data.token);
+                      //return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HealthIDUI(Usertoken: loginobject.data.token,)),);
+                      //return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => DoctorAppointmentCreateUI(Usertoken: loginobject.data.token,)),);
+                      return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+                    } else {
+                      // return LoginController.requestThenResponsePrint(jsonData);
+                      AlertDialogueHelper().showAlertDialog(context, 'Warning', 'Please recheck email and password');
+                    }
+
+                  });
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(350, 59),
-                  maximumSize: const Size(350, 59),
+                  //maximumSize: const Size(350, 59),
                   primary: Color(0xFF1CBFA8),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),

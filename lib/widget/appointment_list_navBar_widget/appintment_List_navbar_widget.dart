@@ -1,4 +1,6 @@
+import 'package:care_plus_doctor/view/screen/care_plus_lab_report_list/care_plus_lab_report_list.dart';
 import 'package:care_plus_doctor/view/screen/patient_profile_details/patient_profile_details.dart';
+import 'package:care_plus_doctor/view/screen/problem_page/problem_page.dart';
 import 'package:flutter/material.dart';
 
 Widget Appointment_List(
@@ -89,8 +91,7 @@ Widget Appointment_List(
                                 color: Color(0xFF1CBFA8),
                                 splashColor: Color(0xFF1CBFA8),
                                 onPressed: () {
-                                 // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => PresciptionPage(image:image, name:name, reason: reason,date:date, time:time)));
-
+                                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProblemPage()));
                                 },
                               ),
                             ),
@@ -118,7 +119,10 @@ Widget Appointment_List(
                               iconSize: 18,
                               color: Color(0xFF1CBFA8),
                               splashColor: Color(0xFF1CBFA8),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
+
+                              },
                             ),
                           ),
                         ],

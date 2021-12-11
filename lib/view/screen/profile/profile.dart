@@ -3,6 +3,7 @@ import 'package:care_plus_doctor/model/ui_model/profile_model/profile_model.dart
 import 'package:care_plus_doctor/view/screen/add_hospital/add_hospital.dart';
 import 'package:care_plus_doctor/view/screen/add_services/add_services.dart';
 import 'package:care_plus_doctor/view/screen/change_password/change_password.dart';
+import 'package:care_plus_doctor/view/screen/my_profile/manage_schedule/manage_schedule.dart';
 import 'package:care_plus_doctor/view/screen/my_profile/my_profile.dart';
 import 'package:care_plus_doctor/view/screen/notificaitonUi/notificaitonUi.dart';
 import 'package:care_plus_doctor/view/screen/reviewUI/reviewUI.dart';
@@ -445,7 +446,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => NotificationPage()));
+                              builder: (context) => ManageSchedule()));
                     },
                     child: new Card(
                       color: Colors.white,
@@ -460,7 +461,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               // padding: EdgeInsets.only(left: 20, ),
                               alignment: Alignment.topLeft,
                               child: Text(
-                                'Notification',
+                                'Manage Schedule',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -480,7 +481,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   alignment: Alignment.topLeft,
                                   child: Text(
-                                    'Notifications',
+                                    'Scheduling',
                                     style: TextStyle(
                                       fontSize: 14,
                                     ),
@@ -491,7 +492,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 padding:
                                 const EdgeInsets.only(top: 20, right: 10),
                                 child: Icon(
-                                  Icons.notifications_on_outlined,
+                                  Icons.manage_accounts_sharp,
                                   color: Colors.black.withOpacity(0.5),
                                   size: 30,
                                 ),

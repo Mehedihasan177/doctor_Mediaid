@@ -1,4 +1,5 @@
 import 'package:care_plus_doctor/view/screen/medicine_page/medicine_page.dart';
+import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:flutter/material.dart';
 
 class AdvicePage extends StatefulWidget {
@@ -38,7 +39,7 @@ class _AdvicePageState extends State<AdvicePage> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MedicinePage()));
+                        builder: (context) => BottomNevigation()));
               }
           ),
         ),
@@ -96,7 +97,8 @@ class _AdvicePageState extends State<AdvicePage> {
                     flex: 4,
                     child: TextField(
                       controller: _textEmail,
-                      keyboardType: TextInputType.emailAddress,
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,
                       style: TextStyle(color: Colors.black),
                       //scrollPadding: EdgeInsets.all(10),
                       decoration: InputDecoration(
@@ -137,7 +139,7 @@ class _AdvicePageState extends State<AdvicePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('${advice[index]}'),
+                              Flexible(child: Text("Advice:  " + '${advice[index]}')),
                               Container(
                                 alignment: Alignment.centerRight,
                                 child: IconButton(

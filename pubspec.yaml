@@ -38,6 +38,13 @@ dependencies:
   country_code_picker: ^2.0.2
   intl: ^0.17.0
   percent_indicator: ^3.4.0
+  shared_preferences:
+  http:
+  flutter_easyloading: ^3.0.0
+  date_time_picker:
+  timeago:
+  dio: ^4.0.4
+  image_picker: ^0.8.4+1
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +85,7 @@ flutter:
     - images/case-study.png
     - images/success.png
     - images/rating.png
+    - images/test_report.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

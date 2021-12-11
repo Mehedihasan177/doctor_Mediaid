@@ -1,8 +1,14 @@
+import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_registration_controller.dart';
+import 'package:care_plus_doctor/controller/doctor/setup_profile_controller.dart';
 import 'package:care_plus_doctor/data/doctor_appointment_data/doctor_about_and_appointment_data.dart';
+import 'package:care_plus_doctor/helper/alertDialogue.dart';
+import 'package:care_plus_doctor/model/setup_profile_model.dart';
 import 'package:care_plus_doctor/model/ui_model/doctor_appointment_model/doctor_about_and_appointment_model.dart';
 import 'package:care_plus_doctor/view/screen/otp/otp.dart';
 import 'package:care_plus_doctor/widget/doctor_about_and_appointment_widget/doctor_about_and_appointment_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SetupProfile extends StatefulWidget {
   const SetupProfile({Key? key}) : super(key: key);
@@ -12,7 +18,13 @@ class SetupProfile extends StatefulWidget {
 }
 
 class _SetupProfileState extends State<SetupProfile> {
-  TextEditingController _textEmail = TextEditingController();
+  TextEditingController _name = TextEditingController();
+  TextEditingController _specialization = TextEditingController();
+  TextEditingController _ahpra = TextEditingController();
+  TextEditingController _designation = TextEditingController();
+  TextEditingController _fee = TextEditingController();
+  TextEditingController _chember = TextEditingController();
+  TextEditingController _introduction = TextEditingController();
   bool checkbox = false;
   final maxLines = 15;
   List<DoctorAppointmentModel> doctorAppointment = List.of(doctor_appointment_data);
@@ -54,10 +66,7 @@ class _SetupProfileState extends State<SetupProfile> {
                   Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Flexible(
-                      //flex: 1,
-                      fit: FlexFit.loose,
-                      child: GestureDetector(
+                   GestureDetector(
                         onTap: (){},
                         child: Container(
                           height: 130,
@@ -69,7 +78,7 @@ class _SetupProfileState extends State<SetupProfile> {
                           ), //BoxDecoration
                         ),
                       ), //Container
-                    ),
+
                   ],
                 ),
                   Center(
@@ -101,7 +110,7 @@ class _SetupProfileState extends State<SetupProfile> {
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0, right: 10),
                     child: TextField(
-                      controller: _textEmail,
+                      controller: _name,
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(color: Colors.black),
                       //scrollPadding: EdgeInsets.all(10),
@@ -348,30 +357,82 @@ class _SetupProfileState extends State<SetupProfile> {
               ),
             ),
 
-            Row(
-              children: [
-                Flexible(
-                  child: Container(
-                    //padding: EdgeInsets.only(left: 20),
-                    alignment: Alignment.centerLeft,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      //controller: PageController(viewportFraction: 0.3),
-                        scrollDirection: Axis.vertical,
-                        itemCount: doctorAppointment.length,
-                        itemBuilder: (context,index) {
-                          //var information = carePlushPrescriptionList[index];
-                          return DoctorAboutAppointmentWidget(
-                              doctorAppointment[index], context);
-
-                        }
-                    ),
-                  ),
-                ),
-              ],
+            // Row(
+            //   children: [
+            //     Flexible(
+            //       child: Container(
+            //         //padding: EdgeInsets.only(left: 20),
+            //         alignment: Alignment.centerLeft,
+            //         child: ListView.builder(
+            //           shrinkWrap: true,
+            //           physics: NeverScrollableScrollPhysics(),
+            //           //controller: PageController(viewportFraction: 0.3),
+            //             scrollDirection: Axis.vertical,
+            //             itemCount: doctorAppointment.length,
+            //             itemBuilder: (context,index) {
+            //               //var information = carePlushPrescriptionList[index];
+            //               return DoctorAboutAppointmentWidget(
+            //                   doctorAppointment[index], context);
+            //
+            //             }
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            SizedBox(
+              height: 20,
             ),
+            Container(
+              child: ElevatedButton(
+                child: Text(
+                  "Save",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                onPressed: () async{
 
+                  EasyLoading.show(status: 'loading...');
+                  SetUpProfile myInfo = new SetUpProfile(
+                      name: _name.text,
+                      specialization: _specialization.text,
+                      bmdcReg: _ahpra.text,
+                      designation: _designation.text,
+                      fee: _fee.text,
+                      chambers: _chember.text,
+                      introduction: _introduction.text,
+
+                  );
+                  //EasyLoading.show(status: 'loading...');
+                  await DoctorSetupProfileController.requestThenResponsePrint(myInfo, USERTOKEN).then((value) async {
+                    print(value.statusCode);
+                    print(value.body);
+                    EasyLoading.dismiss();
+                    if(value.statusCode==200){
+                      AlertDialogueHelper().showAlertDialog(context, 'Success', "successfully set up your profile");
+                      //return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+
+                    }else{
+                      AlertDialogueHelper().showAlertDialog(context, 'Warning', value.body.replaceAll('"', ' ')
+                          .replaceAll('{', ' ')
+                          .replaceAll('}', ' ')
+                          .replaceAll('[', ' ')
+                          .replaceAll(']', ' '));
+                    }
+                  });
+
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(350, 59),
+                  //maximumSize: const Size(350, 59),
+                  primary: Color(0xFF1CBFA8),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                ),
+              ),
+              decoration: BoxDecoration(
+                //color: Color(0xF60D72),
+                  borderRadius: BorderRadius.circular(18)),
+            ),
           ]
         ),
       ),

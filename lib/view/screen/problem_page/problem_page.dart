@@ -26,7 +26,7 @@ class _ProblemPageState extends State<ProblemPage> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage()));
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
@@ -64,7 +64,7 @@ class _ProblemPageState extends State<ProblemPage> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PatientProfileDetailsPage()));
+                              builder: (context) => BottomNevigation()));
                     },
                   ),
                   Expanded(
