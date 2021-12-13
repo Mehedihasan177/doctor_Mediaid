@@ -40,8 +40,6 @@ class _SetupProfileState extends State<SetupProfile> {
   final maxLines = 15;
   List<DoctorAppointmentModel> doctorAppointment = List.of(doctor_appointment_data);
 
-  final selectedIndexes = [];
-  List sympotms = ['male', 'female'];
 
 
 
@@ -88,9 +86,7 @@ class _SetupProfileState extends State<SetupProfile> {
                   Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage()),);
                 },
                 child: GestureDetector(
-                  onTap: (){
 
-                  },
                   child: Stack(
                       children:
                       [
@@ -171,7 +167,7 @@ class _SetupProfileState extends State<SetupProfile> {
                               });
                             },
                           ),
-                          // SizedBox(width: 20,),
+// SizedBox(width: 20,),
                           Text("Male", style: TextStyle(fontSize: 15),),
                         ],
                       ),
@@ -191,7 +187,7 @@ class _SetupProfileState extends State<SetupProfile> {
                               });
                             },
                           ),
-                          // SizedBox(width: 10,),
+// SizedBox(width: 10,),
                           Text("Female", style: TextStyle(fontSize: 15),),
                         ],
                       ),
@@ -200,38 +196,12 @@ class _SetupProfileState extends State<SetupProfile> {
                 ),
               ],
             ),
-            // Column(
-            //     children: [
-            //       Container(
-            //         padding: EdgeInsets.only(left: 20),
-            //         alignment: Alignment.centerLeft,
-            //         child: Text("Gender",
-            //             style: TextStyle(
-            //               fontSize: 17
-            //             ),
-            //             ),
-            //       ),
-            //
-            //       Padding(
-            //         padding: const EdgeInsets.only(left: 20.0, right: 10),
-            //         child: TextField(
-            //           controller: _name,
-            //           keyboardType: TextInputType.emailAddress,
-            //           style: TextStyle(color: Colors.black),
-            //           //scrollPadding: EdgeInsets.all(10),
-            //           decoration: InputDecoration(
-            //             //contentPadding: EdgeInsets.all(20),
-            //             hintText: "Gender ",
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-
 
             SizedBox(
               height: 40,
             ),
+
+
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -252,12 +222,12 @@ class _SetupProfileState extends State<SetupProfile> {
                         child: Center(
                           child: Container(
                             child: TextField(
-                              // controller: _textEmail,
+// controller: _textEmail,
                               keyboardType: TextInputType.emailAddress,
                               style: TextStyle(color: Colors.black),
-                              //scrollPadding: EdgeInsets.all(10),
+//scrollPadding: EdgeInsets.all(10),
                               decoration: InputDecoration(
-                                //contentPadding: EdgeInsets.all(20),
+//contentPadding: EdgeInsets.all(20),
                                   hintText: "Enter your designation",
                                   hintStyle: TextStyle(
                                       fontSize: 10
@@ -274,7 +244,7 @@ class _SetupProfileState extends State<SetupProfile> {
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(left: 20),
+                          padding: EdgeInsets.only(left: 20),
                           alignment: Alignment.centerLeft,
                           child: Text("AHPRA no.")),
                       Padding(
@@ -282,13 +252,13 @@ class _SetupProfileState extends State<SetupProfile> {
                         child: Center(
                           child: Container(
                             child: TextField(
-                              // controller: _textEmail,
+// controller: _textEmail,
                               keyboardType: TextInputType.emailAddress,
                               style: TextStyle(color: Colors.black),
-                              //scrollPadding: EdgeInsets.all(10),
+//scrollPadding: EdgeInsets.all(10),
                               decoration: InputDecoration(
-                                //contentPadding: EdgeInsets.all(20),
-                                hintText: "Enter AHPRA no.",
+//contentPadding: EdgeInsets.all(20),
+                                  hintText: "Enter AHPRA no.",
                                   hintStyle: TextStyle(
                                       fontSize: 10
                                   )
@@ -303,7 +273,6 @@ class _SetupProfileState extends State<SetupProfile> {
               ],
             ),
 
-
             SizedBox(
               height: 40,
             ),
@@ -311,7 +280,8 @@ class _SetupProfileState extends State<SetupProfile> {
 
             SizedBox(height: 20,),
 
-            Expanded(
+
+            Container(
               child: Column(
                 children: [
                   Padding(
@@ -331,12 +301,12 @@ class _SetupProfileState extends State<SetupProfile> {
                     child: Center(
                       child: Container(
                         child: TextField(
-                          // controller: _textEmail,
+// controller: _textEmail,
                           keyboardType: TextInputType.emailAddress,
                           style: TextStyle(color: Colors.black),
-                          //scrollPadding: EdgeInsets.all(10),
+//scrollPadding: EdgeInsets.all(10),
                           decoration: InputDecoration(
-                            //contentPadding: EdgeInsets.all(20),
+//contentPadding: EdgeInsets.all(20),
                               hintText: "Enter your fee",
                               hintStyle: TextStyle(
                                   fontSize: 10
@@ -352,13 +322,14 @@ class _SetupProfileState extends State<SetupProfile> {
 
             SizedBox(height: 20),
 
-            Expanded(
+
+            Container(
               child: Column(
                 children: [
                   Container(
-                            padding: EdgeInsets.only(left: 35),
-                            alignment: Alignment.centerLeft,
-                            child: Text("Introduction")),
+                      padding: EdgeInsets.only(left: 35),
+                      alignment: Alignment.centerLeft,
+                      child: Text("Introduction")),
 
 
                   Padding(
@@ -369,19 +340,19 @@ class _SetupProfileState extends State<SetupProfile> {
                         Container(
                           margin: EdgeInsets.all(12),
                           height: maxLines * 6.0,
-                          // decoration: BoxDecoration(
-                          //     border: Border.all(),
-                          //     borderRadius: BorderRadius.all(Radius.circular(10))
-                          // ),
+// decoration: BoxDecoration(
+//     border: Border.all(),
+//     borderRadius: BorderRadius.all(Radius.circular(10))
+// ),
                           child: TextField(
                             maxLines: maxLines,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              //hintText: "Enter a message",
+//hintText: "Enter a message",
                               fillColor: Colors.white,
-                              //filled: true,
+//filled: true,
                             ),
                           ),
                         ),
@@ -392,32 +363,11 @@ class _SetupProfileState extends State<SetupProfile> {
               ),
             ),
 
-            // Row(
-            //   children: [
-            //     Flexible(
-            //       child: Container(
-            //         //padding: EdgeInsets.only(left: 20),
-            //         alignment: Alignment.centerLeft,
-            //         child: ListView.builder(
-            //           shrinkWrap: true,
-            //           physics: NeverScrollableScrollPhysics(),
-            //           //controller: PageController(viewportFraction: 0.3),
-            //             scrollDirection: Axis.vertical,
-            //             itemCount: doctorAppointment.length,
-            //             itemBuilder: (context,index) {
-            //               //var information = carePlushPrescriptionList[index];
-            //               return DoctorAboutAppointmentWidget(
-            //                   doctorAppointment[index], context);
-            //
-            //             }
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
+
             SizedBox(
               height: 20,
             ),
+
 
             RaisedButton(
               onPressed: (){
@@ -440,7 +390,7 @@ class _SetupProfileState extends State<SetupProfile> {
                 ),
                 onPressed: () async{
 
-                  // EasyLoading.show(status: 'loading...');
+// EasyLoading.show(status: 'loading...');
 
 
                   Map data1 = {
@@ -463,7 +413,7 @@ class _SetupProfileState extends State<SetupProfile> {
 
                     print(value.statusCode);
                     print(value.body);
-                    //EasyLoading.dismiss();
+//EasyLoading.dismiss();
                     if(value.statusCode==200){
                       SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully set up your profile', Colors.green);
                       return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
@@ -481,16 +431,18 @@ class _SetupProfileState extends State<SetupProfile> {
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(350, 59),
-                  //maximumSize: const Size(350, 59),
+//maximumSize: const Size(350, 59),
                   primary: Color(0xFF1CBFA8),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                 ),
               ),
               decoration: BoxDecoration(
-                //color: Color(0xF60D72),
+//color: Color(0xF60D72),
                   borderRadius: BorderRadius.circular(18)),
             ),
+
+
           ]
         ),
       ),

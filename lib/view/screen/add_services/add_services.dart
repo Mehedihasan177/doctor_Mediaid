@@ -181,7 +181,10 @@ class _AddServicesPageState extends State<AddServicesPage> {
                               }
                             });
 
-                          }else{
+                          }
+
+
+                          else{
                             SnackbarDialogueHelper().showSnackbarDialog(context, "Please Select items", Colors.blue);
                           }
 
