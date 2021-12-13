@@ -34,8 +34,9 @@ class _SetupProfileState extends State<SetupProfile> {
   TextEditingController _fee = TextEditingController();
   TextEditingController _chember = TextEditingController();
   TextEditingController _introduction = TextEditingController();
-  bool checkbox = false;
-  String gender = '';
+  bool checkbox = true;
+  String gender = 'Male';
+
   final maxLines = 15;
   List<DoctorAppointmentModel> doctorAppointment = List.of(doctor_appointment_data);
 
@@ -127,101 +128,105 @@ class _SetupProfileState extends State<SetupProfile> {
               height: 40,
             ),
 
-            // Column(
-            //   children: [
-            //     Padding(
-            //       padding: const EdgeInsets.only(left: 33),
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.start,
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           Container(
-            //             height: 17,
-            //             width: 17,
-            //             child: Image(image: AssetImage("images/gender.png"),
-            //               fit: BoxFit.cover,
-            //             ),
-            //           ),
-            //           SizedBox(
-            //             width: 20,
-            //           ),
-            //           Text(
-            //             "Gender",
-            //             style: TextStyle(fontSize: 17),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //     SizedBox(height: 10,),
-            //     Row(
-            //       children: [
-            //         Padding(
-            //           padding: const EdgeInsets.only(left: 20),
-            //           child: Row(
-            //             children: [
-            //               Checkbox(
-            //                 value: checkbox,
-            //                 shape: CircleBorder(),
-            //                 onChanged: (bool? value) {
-            //                   setState(() {
-            //                     checkbox = value!;
-            //                   });
-            //                 },
-            //               ),
-            //               // SizedBox(width: 20,),
-            //               Text("Male", style: TextStyle(fontSize: 15),),
-            //             ],
-            //           ),
-            //         ),
-            //         Padding(
-            //           padding: const EdgeInsets.only(left: 20),
-            //           child: Row(
-            //             children: [
-            //               Checkbox(
-            //                 value: !checkbox,
-            //                 shape: CircleBorder(),
-            //                 onChanged: (bool? value) {
-            //                   setState(() {
-            //                     checkbox = value!;
-            //                   });
-            //                 },
-            //               ),
-            //               // SizedBox(width: 10,),
-            //               Text("Female", style: TextStyle(fontSize: 15),),
-            //             ],
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ],
-            // ),
             Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(left: 20),
-                    alignment: Alignment.centerLeft,
-                    child: Text("Gender",
-                        style: TextStyle(
-                          fontSize: 17
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 33),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 17,
+                        width: 17,
+                        child: Image(image: AssetImage("images/gender.png"),
+                          fit: BoxFit.cover,
                         ),
-                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        "Gender",
+                        style: TextStyle(fontSize: 17),
+                      ),
+                    ],
                   ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0, right: 10),
-                    child: TextField(
-                      controller: _name,
-                      keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(color: Colors.black),
-                      //scrollPadding: EdgeInsets.all(10),
-                      decoration: InputDecoration(
-                        //contentPadding: EdgeInsets.all(20),
-                        hintText: "Gender ",
+                ),
+                SizedBox(height: 10,),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Row(
+                        children: [
+                          Checkbox(
+                            value: checkbox,
+                            shape: CircleBorder(),
+                            onChanged: (bool? value) {
+                              setState(() {
+                                print('value');
+                                print(value);
+                                if(checkbox==false)checkbox = !checkbox;
+                              });
+                            },
+                          ),
+                          // SizedBox(width: 20,),
+                          Text("Male", style: TextStyle(fontSize: 15),),
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Row(
+                        children: [
+                          Checkbox(
+                            value: !checkbox,
+                            shape: CircleBorder(),
+                            onChanged: (bool? value) {
+                              setState(() {
+                                print('value');
+                                print(value);
+                                if(checkbox==true)checkbox = !checkbox;
+                              });
+                            },
+                          ),
+                          // SizedBox(width: 10,),
+                          Text("Female", style: TextStyle(fontSize: 15),),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            // Column(
+            //     children: [
+            //       Container(
+            //         padding: EdgeInsets.only(left: 20),
+            //         alignment: Alignment.centerLeft,
+            //         child: Text("Gender",
+            //             style: TextStyle(
+            //               fontSize: 17
+            //             ),
+            //             ),
+            //       ),
+            //
+            //       Padding(
+            //         padding: const EdgeInsets.only(left: 20.0, right: 10),
+            //         child: TextField(
+            //           controller: _name,
+            //           keyboardType: TextInputType.emailAddress,
+            //           style: TextStyle(color: Colors.black),
+            //           //scrollPadding: EdgeInsets.all(10),
+            //           decoration: InputDecoration(
+            //             //contentPadding: EdgeInsets.all(20),
+            //             hintText: "Gender ",
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
 
 
             SizedBox(
@@ -413,6 +418,20 @@ class _SetupProfileState extends State<SetupProfile> {
             SizedBox(
               height: 20,
             ),
+
+            RaisedButton(
+              onPressed: (){
+                print(checkbox);
+                if(checkbox==true){
+                  gender='Male';
+                }else{
+                  gender='Female';
+                }
+                print(gender);
+              },
+              child: Text('tsr'),
+            ),
+
             Container(
               child: ElevatedButton(
                 child: Text(
