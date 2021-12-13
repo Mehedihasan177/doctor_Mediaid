@@ -359,6 +359,7 @@ class _SingUpPageState extends State<SingUpPage> {
                             SharedPreferences sharedPreferences =
                             await SharedPreferences.getInstance();
                             final loginobject = login.User.fromJson(parsed);
+                            DOCTOR_INITIAL = loginobject;
                             print(loginobject.token);
                             sharedPreferences.setString("token", loginobject.token);
                             //EasyLoading.dismiss();

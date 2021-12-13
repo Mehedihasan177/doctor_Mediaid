@@ -1,3 +1,4 @@
+import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/model/ui_model/review_model/review_model.dart';
 import 'package:care_plus_doctor/view/screen/notificaitonUi/notificaitonUi.dart';
 import 'package:care_plus_doctor/widget/review_widget/review_rating_widget.dart';
@@ -12,7 +13,12 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context) => Container(
             padding: const EdgeInsets.only(left: 20, top: 20),
             child: Row(
               children: [
-                Image.asset(rivewlist.image),
+                Image.network("$apiDomainRoot/images/${DOCTOR_INITIAL.image}",
+                height: 160,
+                  width: 160,
+
+                ),
+
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20),
