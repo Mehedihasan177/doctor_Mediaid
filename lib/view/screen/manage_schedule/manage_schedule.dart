@@ -5,6 +5,7 @@ import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart'
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:intl/intl.dart';
 
 import 'manage_schedule_model.dart';
 
@@ -16,29 +17,23 @@ class ManageSchedule extends StatefulWidget {
 }
 
 class _ManageScheduleState extends State<ManageSchedule> {
-  TextEditingController _from = TextEditingController();
-  TextEditingController _to = TextEditingController();
+
 
   List<ManageScheduleModel> manageSchedule = [];
   // TimeOfDay selectedTime = TimeOfDay.now();
   // TimeOfDay selectedTimeone = TimeOfDay.now();
 // Default Drop Down Item.
   String dropdownValue = 'Sunday';
-  String myCurrentPos = '';
+  String myCurrentPos = 'Sunday';
   // To show Selected Item in Text.
   String holder = '' ;
 
   DayModel position = dayModel.first;
 
-
   TimeOfDay startTime = TimeOfDay.now();
   TimeOfDay endTime = TimeOfDay.now();
 
-
-
-
   void getDropDownItem(){
-
     setState(() {
       holder = dropdownValue ;
     });
@@ -47,33 +42,22 @@ class _ManageScheduleState extends State<ManageSchedule> {
   void addItemToList() {
     setState(() {
       //valuetwo = [] as NewObject2;
-      manageSchedule.add(ManageScheduleModel(_from.text,_to.text,));
-      // holder = dropdownValue ;
-    });
-  }
-  void addItemToListone() {
-    setState(() {
-      //valuetwo = [] as NewObject2;
-      manageSchedule.add(ManageScheduleModel(_from.text,_to.text,));
-      // holder = dropdownValue ;
-    });
-  }
 
+      manageSchedule.add(ManageScheduleModel(myCurrentPos,startTime,endTime,));
+      // holder = dropdownValue ;
+    });
+  }
 
   @override
   void initState() {
 
-    addItemToList();
-    addItemToListone();
     // TODO: implement initState
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-
       onWillPop: () async {
         Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
@@ -114,7 +98,6 @@ class _ManageScheduleState extends State<ManageSchedule> {
               ),
             ),
 
-
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Row(
@@ -153,41 +136,15 @@ class _ManageScheduleState extends State<ManageSchedule> {
                             this.position = value!;
                             print(this.position.title);
                             print(this.position.posID);
-
                             myCurrentPos = this.position.title;
                           }),
                         ),
-
-
-
-                        // DropdownButton<String>(
-                        //     isExpanded: true,
-                        //     value: dropdownValue,
-                        //     onChanged: (data) {
-                        //       setState(() {
-                        //         dropdownValue = data!;
-                        //       });
-                        //     },
-                        //     items: actorsName.map<DropdownMenuItem<String>>((String value) {
-                        //       return DropdownMenuItem<String>(
-                        //         value: value,
-                        //         child: Padding(
-                        //           padding: const EdgeInsets.only(left: 10),
-                        //           child: Text(value),
-                        //         ),
-                        //       );
-                        //     }).toList(),
-                        //   ),
                       ),
-
                     ),
-
                   ),
-
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 30, bottom: 5),
               child: Text("Select time",
@@ -218,7 +175,6 @@ class _ManageScheduleState extends State<ManageSchedule> {
               ),
             ),
 
-
             Center(
               child: Container(
                 padding: EdgeInsets.only(top: 30, bottom: 20),
@@ -227,10 +183,6 @@ class _ManageScheduleState extends State<ManageSchedule> {
                     onPressed: () {
                       getDropDownItem();
                       addItemToList();
-
-                      _from.clear();
-                      _to.clear();
-
                     },
                     child: Text('SUBMIT',
                       style: TextStyle(
@@ -244,8 +196,6 @@ class _ManageScheduleState extends State<ManageSchedule> {
                     )),
               ),
             ),
-
-
             Container(
               height: 420,
               child: ListView.builder(
@@ -256,7 +206,6 @@ class _ManageScheduleState extends State<ManageSchedule> {
                         children: [
                           Card(
                             child: Container(
-
                               margin: EdgeInsets.only(top: 10, bottom: 10),
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 20),
@@ -277,10 +226,9 @@ class _ManageScheduleState extends State<ManageSchedule> {
                                                         fontWeight: FontWeight.bold
                                                     ),
                                                   ),
-                                                  Text('$myCurrentPos',),
+                                                  Text(manageSchedule[index].day,),
                                                 ],
                                               )),
-
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
@@ -295,10 +243,10 @@ class _ManageScheduleState extends State<ManageSchedule> {
                                                             fontWeight: FontWeight.bold
                                                         ),),
                                                       Container(
-                                                          height: 30,
-                                                          width: 50,
+                                                          // height: 30,
+                                                          // width: 50,
                                                           padding: EdgeInsets.only(top: 5),
-                                                          child: Text("${startTime.hour}:${startTime.minute}",
+                                                          child: Text(DateFormat.Hm().format(DateFormat.jm().parse(manageSchedule[index].from.format(context))),
                                                             style: TextStyle(
                                                                 fontSize: 17,
                                                                 fontWeight: FontWeight.bold
@@ -306,7 +254,6 @@ class _ManageScheduleState extends State<ManageSchedule> {
                                                           )),
                                                     ],
                                                   )),
-
                                               Container(
                                                   padding: EdgeInsets.only(right: 10, top: 20),
                                                   alignment:Alignment.centerLeft,
@@ -318,10 +265,12 @@ class _ManageScheduleState extends State<ManageSchedule> {
                                                             fontWeight: FontWeight.bold
                                                         ),),
                                                       Container(
-                                                          height: 30,
-                                                          width: 50,
+                                                          // height: 30,
+                                                          // width: 50,
+
+
                                                           padding: EdgeInsets.only(top: 5),
-                                                          child: Text("${endTime.hour}:${endTime.minute}",
+                                                          child: Text(DateFormat.Hm().format(DateFormat.jm().parse(manageSchedule[index].to.format(context))),
                                                             style: TextStyle(
                                                                 fontSize: 17,
                                                                 fontWeight: FontWeight.bold
@@ -331,8 +280,6 @@ class _ManageScheduleState extends State<ManageSchedule> {
                                                   )),
                                             ],
                                           ),
-
-
                                           SizedBox(
                                               height: 15
                                           ),
@@ -351,7 +298,6 @@ class _ManageScheduleState extends State<ManageSchedule> {
                               icon: Icon(
                                 Icons.cancel,
                               ),
-
                               iconSize: 25,
                               color: Colors.red,
                               // splashColor: Colors.purple,
@@ -364,7 +310,6 @@ class _ManageScheduleState extends State<ManageSchedule> {
                           ),
                         ]
                     );
-
                   }),
             )
           ],
@@ -380,7 +325,6 @@ class _ManageScheduleState extends State<ManageSchedule> {
       onTimePicked(_pickedTime);
     }
   }
-
   Widget _buildTimePick(String title, bool ifPickedTime, TimeOfDay currentTime,
       Function(TimeOfDay) onTimePicked) {
     return Row(
@@ -399,7 +343,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
           ),
           child: GestureDetector(
             child: Text(
-              currentTime.format(context),
+                  DateFormat.Hm().format(DateFormat.jm().parse(currentTime.format(context))),
             ),
             onTap: () {
               selectedTime(context, ifPickedTime, currentTime, onTimePicked);
