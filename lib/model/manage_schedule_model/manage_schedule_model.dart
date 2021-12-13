@@ -5,8 +5,8 @@ class ManageScheduleModel {
 
 
   late String day;
-  late TimeOfDay from;
-  late TimeOfDay to;
+  late String from;
+  late String to;
 
   ManageScheduleModel(this.day, this.from, this.to);
 }

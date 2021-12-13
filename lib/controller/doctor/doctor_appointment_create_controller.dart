@@ -1,6 +1,7 @@
 
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/model/doctor/doctor_appointment_create_slot_model.dart';
+import 'package:care_plus_doctor/model/manage_schedule_model/manage_schedule_model.dart';
 import 'package:http/http.dart' as http;
 class DoctorAppointmentCreateSlotController{
   //this class is for make understand how it works actually
@@ -12,13 +13,15 @@ class DoctorAppointmentCreateSlotController{
     // This is a url for the request
     var url = '$domain/api/doctor/appointment-slot';
 
+
+
     Map data1 = {
-      'day': "${doctorAppointmentCreateSlotModel.day}",
+      'day[]': "${doctorAppointmentCreateSlotModel.day}",
       'start_time': "${doctorAppointmentCreateSlotModel.start_time}",
       'end_time': "${doctorAppointmentCreateSlotModel.end_time}",
 
     };
-
+    print(data1);
     // Here we are getting the response
     var response = await http.post(Uri.parse(url), body: data1,
         headers: {

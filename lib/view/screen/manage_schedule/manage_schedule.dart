@@ -1,5 +1,7 @@
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_create_controller.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
+import 'package:care_plus_doctor/model/doctor/doctor_appointment_create_slot_model.dart';
 import 'package:care_plus_doctor/model/manage_schedule_model/manage_schedule_model.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,7 +45,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
     setState(() {
       //valuetwo = [] as NewObject2;
 
-      manageSchedule.add(ManageScheduleModel(myCurrentPos,startTime,endTime,));
+      manageSchedule.add(ManageScheduleModel(myCurrentPos,startTime.format(context),endTime.format(context),));
       // holder = dropdownValue ;
     });
   }
@@ -178,13 +180,14 @@ class _ManageScheduleState extends State<ManageSchedule> {
             Center(
               child: Container(
                 padding: EdgeInsets.only(top: 30, bottom: 20),
-                width: 100,
+                // width: 100,
                 child: ElevatedButton(
                     onPressed: () {
-                      getDropDownItem();
+                      // getDropDownItem();
                       addItemToList();
+                      addVisitingTime(myCurrentPos.substring(0,3),startTime,endTime);
                     },
-                    child: Text('SUBMIT',
+                    child: Text('Add Visiting Time',
                       style: TextStyle(
                           fontSize: 17
                       ),
@@ -196,119 +199,35 @@ class _ManageScheduleState extends State<ManageSchedule> {
                     )),
               ),
             ),
+
             Container(
-              height: 420,
+              padding: EdgeInsets.all(10),
+
+              child: Text('List of Visiting Times',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+            ),
+
+            Container(
+              // height: 420,
               child: ListView.builder(
+                shrinkWrap: true,
                   padding: const EdgeInsets.all(8),
                   itemCount: manageSchedule.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Stack(
-                        children: [
-                          Card(
-                            child: Container(
-                              margin: EdgeInsets.only(top: 10, bottom: 10),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                              padding: EdgeInsets.only(right: 10),
-                                              alignment:Alignment.centerLeft,
-                                              child: Row(
-                                                children: [
-                                                  Text("Day:  ",
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.bold
-                                                    ),
-                                                  ),
-                                                  Text(manageSchedule[index].day,),
-                                                ],
-                                              )),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                  padding: EdgeInsets.only(right: 10, top: 20),
-                                                  alignment:Alignment.centerLeft,
-                                                  child: Row(
-                                                    children: [
-                                                      Text("From: ",
-                                                        style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight: FontWeight.bold
-                                                        ),),
-                                                      Container(
-                                                          // height: 30,
-                                                          // width: 50,
-                                                          padding: EdgeInsets.only(top: 5),
-                                                          child: Text(DateFormat.Hm().format(DateFormat.jm().parse(manageSchedule[index].from.format(context))),
-                                                            style: TextStyle(
-                                                                fontSize: 17,
-                                                                fontWeight: FontWeight.bold
-                                                            ),
-                                                          )),
-                                                    ],
-                                                  )),
-                                              Container(
-                                                  padding: EdgeInsets.only(right: 10, top: 20),
-                                                  alignment:Alignment.centerLeft,
-                                                  child: Row(
-                                                    children: [
-                                                      Text("To: ",
-                                                        style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight: FontWeight.bold
-                                                        ),),
-                                                      Container(
-                                                          // height: 30,
-                                                          // width: 50,
+                    return Container(
+                      child: ListTile(
+                        title: Text('${manageSchedule[index].day}'),
+                        leading: Icon(Icons.access_time_filled),
+                        trailing: GestureDetector(
+                            child: Icon(Icons.delete),
+                          onTap: (){
+                              setState(() {
+                                manageSchedule.remove(manageSchedule[index]);
+                              });
+                          },
+                        ),
+                        subtitle: Text('From ${manageSchedule[index].from} To ${manageSchedule[index].to}'),
 
-
-                                                          padding: EdgeInsets.only(top: 5),
-                                                          child: Text(DateFormat.Hm().format(DateFormat.jm().parse(manageSchedule[index].to.format(context))),
-                                                            style: TextStyle(
-                                                                fontSize: 17,
-                                                                fontWeight: FontWeight.bold
-                                                            ),
-                                                          )),
-                                                    ],
-                                                  )),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                              height: 15
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.centerRight,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.cancel,
-                              ),
-                              iconSize: 25,
-                              color: Colors.red,
-                              // splashColor: Colors.purple,
-                              onPressed: () {
-                                setState(() {
-                                  manageSchedule.remove(manageSchedule[index]);
-                                });
-                              },
-                            ),
-                          ),
-                        ]
+                      ),
                     );
                   }),
             )
@@ -354,5 +273,23 @@ class _ManageScheduleState extends State<ManageSchedule> {
         ),
       ],
     );
+  }
+
+  void addVisitingTime(String myCurrentPos, TimeOfDay startTime, TimeOfDay endTime) {
+
+    DoctorAppointmentCreateSlotController
+        .requestThenResponsePrint(DoctorAppointmentCreateSlotModel(
+          day:myCurrentPos,
+      start_time: DateFormat.Hms().format(DateFormat.jm().parse(startTime.format(context))),
+      end_time: DateFormat.Hms().format(DateFormat.jm().parse(endTime.format(context))),
+    ), USERTOKEN).then((value) {
+       print(value.statusCode);
+        if(value.statusCode==201){
+          SnackbarDialogueHelper().showSnackbarDialog(context, 'TimeSlot Added Successfully', Colors.green);
+       }else{
+          SnackbarDialogueHelper().showSnackbarDialog(context, 'Could not added successfully', Colors.red);
+          // SnackbarDialogueHelper().showSnackbarDialog(context, value.body, Colors.red);
+       }
+    });
   }
 }
