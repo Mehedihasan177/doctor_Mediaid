@@ -5,7 +5,7 @@ import 'package:care_plus_doctor/model/ui_model/profile_model/profile_model.dart
 import 'package:care_plus_doctor/view/screen/add_hospital/add_hospital.dart';
 import 'package:care_plus_doctor/view/screen/add_services/add_services.dart';
 import 'package:care_plus_doctor/view/screen/change_password/change_password.dart';
-import 'package:care_plus_doctor/view/screen/my_profile/manage_schedule/manage_schedule.dart';
+import 'package:care_plus_doctor/view/screen/manage_schedule/manage_schedule.dart';
 import 'package:care_plus_doctor/view/screen/my_profile/my_profile.dart';
 import 'package:care_plus_doctor/view/screen/notificaitonUi/notificaitonUi.dart';
 import 'package:care_plus_doctor/view/screen/reviewUI/reviewUI.dart';
@@ -242,7 +242,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   alignment: Alignment.topLeft,
                                   child: Text(
-                                    'Transfer Money',
+                                    'Add Specializations',
                                     style: TextStyle(
                                       fontSize: 14,
                                     ),

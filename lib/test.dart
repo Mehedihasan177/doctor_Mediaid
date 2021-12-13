@@ -1,27 +1,24 @@
-import 'package:care_plus_doctor/constents/constant.dart';
-import 'package:care_plus_doctor/controller/doctor/doctor_appointment_create_controller.dart';
-import 'package:care_plus_doctor/model/manage_schedule_model/manage_schedule_model.dart';
+import 'package:care_plus_doctor/view/screen/manage_schedule/manage_schedule_model.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 
-import 'manage_schedule_model.dart';
+import 'model/manage_schedule_model/manage_schedule_model.dart';
 
-class ManageSchedule extends StatefulWidget {
-  const ManageSchedule({Key? key}) : super(key: key);
+
+class Test extends StatefulWidget {
+  const Test({Key? key}) : super(key: key);
 
   @override
-  _ManageScheduleState createState() => _ManageScheduleState();
+  _TestState createState() => _TestState();
 }
 
-class _ManageScheduleState extends State<ManageSchedule> {
-
+class _TestState extends State<Test> {
   TextEditingController _from = TextEditingController();
   TextEditingController _to = TextEditingController();
 
   List<ManageScheduleModel> manageSchedule = [];
-  TimeOfDay selectedTime = TimeOfDay.now();
+  // TimeOfDay selectedTime = TimeOfDay.now();
+  // TimeOfDay selectedTimeone = TimeOfDay.now();
 // Default Drop Down Item.
   String dropdownValue = 'Sunday';
   String myCurrentPos = '';
@@ -30,34 +27,12 @@ class _ManageScheduleState extends State<ManageSchedule> {
 
   DayModel position = dayModel.first;
 
-  _selectTime(BuildContext context) async {
-    final TimeOfDay? timeOfDay = await showTimePicker(
-      context: context,
-      initialTime: selectedTime,
-      initialEntryMode: TimePickerEntryMode.dial,
 
-    );
-    if(timeOfDay != null && timeOfDay != selectedTime)
-    {
-      setState(() {
-        selectedTime = timeOfDay;
-      });
-    }
-  }
-  _Time(BuildContext context) async {
-    final TimeOfDay? timeOfDay = await showTimePicker(
-      context: context,
-      initialTime: selectedTime,
-      initialEntryMode: TimePickerEntryMode.dial,
+  TimeOfDay startTime = TimeOfDay.now();
+  TimeOfDay endTime = TimeOfDay.now();
 
-    );
-    if(timeOfDay != null && timeOfDay != selectedTime)
-    {
-      setState(() {
-        selectedTime = timeOfDay;
-      });
-    }
-  }
+
+
 
   void getDropDownItem(){
 
@@ -73,38 +48,23 @@ class _ManageScheduleState extends State<ManageSchedule> {
       // holder = dropdownValue ;
     });
   }
+  void addItemToListone() {
+    setState(() {
+      //valuetwo = [] as NewObject2;
+      manageSchedule.add(ManageScheduleModel(_from.text,_to.text,));
+      // holder = dropdownValue ;
+    });
+  }
 
 
+  @override
+  void initState() {
 
-  // _getPositionTrack(int pos) async {
-  //
-  //
-  //   DoctorAppointmentCreateSlotController.requestThenResponsePrint(USERTOKEN, pos)
-  //       .then((value) {
-  //     print(value.statusCode);
-  //     print(value.statusCode);
-  //     if (value.statusCode == 200) {
-  //       print("successfully done");
-  //       print(value);
-  //       print(value.body);
-  //       PositionTrackingResponse positionTrackingResponse =
-  //       PositionTrackingResponse.fromJson(jsonDecode(value.body));
-  //       setState(() {
-  //         print(positionTrackingResponse);
-  //         print(positionTrackingResponse.data.name);
-  //         _textPosID.text = positionTrackingResponse.data.posId.toString();
-  //         _textuserTrackName.text = positionTrackingResponse.data.userName;
-  //         currentPositionID = positionTrackingResponse.data.posId;
-  //         currentMessage = positionTrackingResponse.msg;
-  //       });
-  //     } else {
-  //       AlertDialogueHelper().showAlertDialog(
-  //           context, 'Warning', 'Please recheck mobile and password');
-  //     }
-  //   });
-  // }
-
-
+    addItemToList();
+    addItemToListone();
+    // TODO: implement initState
+    super.initState();
+  }
 
 
   @override
@@ -160,64 +120,64 @@ class _ManageScheduleState extends State<ManageSchedule> {
                   Expanded(
                     flex: 1,
                     child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border.all(),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<DayModel>(
-                            isExpanded: true,
-                            value: position, // currently selected item
-                            items: dayModel
-                                .map((item) =>
-                                DropdownMenuItem<DayModel>(
-                                  child: Row(
-                                    children: [
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        item.title,
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                  value: item,
-                                ))
-                                .toList(),
-                            onChanged: (value) => setState(() {
-                              this.position = value!;
-                              print(this.position.title);
-                              print(this.position.posID);
-
-                              myCurrentPos = this.position.title;
-                            }),
-                          ),
-
-
-
-                          // DropdownButton<String>(
-                          //     isExpanded: true,
-                          //     value: dropdownValue,
-                          //     onChanged: (data) {
-                          //       setState(() {
-                          //         dropdownValue = data!;
-                          //       });
-                          //     },
-                          //     items: actorsName.map<DropdownMenuItem<String>>((String value) {
-                          //       return DropdownMenuItem<String>(
-                          //         value: value,
-                          //         child: Padding(
-                          //           padding: const EdgeInsets.only(left: 10),
-                          //           child: Text(value),
-                          //         ),
-                          //       );
-                          //     }).toList(),
-                          //   ),
-                        ),
-
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(10),
                       ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<DayModel>(
+                          isExpanded: true,
+                          value: position, // currently selected item
+                          items: dayModel
+                              .map((item) =>
+                              DropdownMenuItem<DayModel>(
+                                child: Row(
+                                  children: [
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      item.title,
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                                value: item,
+                              ))
+                              .toList(),
+                          onChanged: (value) => setState(() {
+                            this.position = value!;
+                            print(this.position.title);
+                            print(this.position.posID);
+
+                            myCurrentPos = this.position.title;
+                          }),
+                        ),
+
+
+
+                        // DropdownButton<String>(
+                        //     isExpanded: true,
+                        //     value: dropdownValue,
+                        //     onChanged: (data) {
+                        //       setState(() {
+                        //         dropdownValue = data!;
+                        //       });
+                        //     },
+                        //     items: actorsName.map<DropdownMenuItem<String>>((String value) {
+                        //       return DropdownMenuItem<String>(
+                        //         value: value,
+                        //         child: Padding(
+                        //           padding: const EdgeInsets.only(left: 10),
+                        //           child: Text(value),
+                        //         ),
+                        //       );
+                        //     }).toList(),
+                        //   ),
+                      ),
+
+                    ),
 
                   ),
 
@@ -228,75 +188,29 @@ class _ManageScheduleState extends State<ManageSchedule> {
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 30, bottom: 5),
               child: Text("Select time",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold
-              ),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold
+                ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 20, top: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          _selectTime(context);
-                        },
-                        child: Text("From: "),
-                      ),
-                      SizedBox(
-                        width: 20
-                      ),
-                      Container(
-                        height: 30,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(5)
-                          ),
-                          child: Center(
-                            child: Text("${selectedTime.hour}:${selectedTime.minute}",
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold
-                            ),
-                            ),
-                          )),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          _Time(context);
-                        },
-                        child: Text("To: "),
-                      ),
-                      SizedBox(
-                          width: 20
-                      ),
-                      Container(
-                          height: 30,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(5)
-                          ),
-                          child: Center(
-                            child: Text("${selectedTime.hour}:${selectedTime.minute}",
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold
-                                ),
-                              ),
-                          ),
-
-                      ),
-                    ],
-                  ),
+                  _buildTimePick("Start", true, startTime, (x) {
+                    setState(() {
+                      startTime = x;
+                      print("The picked time is: $x");
+                    });
+                  }),
+                  const SizedBox(width: 20),
+                  _buildTimePick("End", true, endTime, (x) {
+                    setState(() {
+                      endTime = x;
+                      print("The picked time is: $x");
+                    });
+                  }),
                 ],
               ),
             ),
@@ -310,11 +224,10 @@ class _ManageScheduleState extends State<ManageSchedule> {
                     onPressed: () {
                       getDropDownItem();
                       addItemToList();
+
                       _from.clear();
                       _to.clear();
-                      // _dose.clear();
-                      // _day.clear();
-                      // _quantity.clear();
+
                     },
                     child: Text('SUBMIT',
                       style: TextStyle(
@@ -356,10 +269,10 @@ class _ManageScheduleState extends State<ManageSchedule> {
                                               child: Row(
                                                 children: [
                                                   Text("Day:  ",
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold
-                                                  ),
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight: FontWeight.bold
+                                                    ),
                                                   ),
                                                   Text('$myCurrentPos',),
                                                 ],
@@ -382,7 +295,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
                                                           height: 30,
                                                           width: 50,
                                                           padding: EdgeInsets.only(top: 5),
-                                                          child: Text("${selectedTime.hour}:${selectedTime.minute}",
+                                                          child: Text("${startTime.hour}:${startTime.minute}",
                                                             style: TextStyle(
                                                                 fontSize: 17,
                                                                 fontWeight: FontWeight.bold
@@ -405,7 +318,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
                                                           height: 30,
                                                           width: 50,
                                                           padding: EdgeInsets.only(top: 5),
-                                                          child: Text("${selectedTime.hour}:${selectedTime.minute}",
+                                                          child: Text("${endTime.hour}:${endTime.minute}",
                                                             style: TextStyle(
                                                                 fontSize: 17,
                                                                 fontWeight: FontWeight.bold
@@ -456,4 +369,44 @@ class _ManageScheduleState extends State<ManageSchedule> {
       ),
     );
   }
+  Future selectedTime(BuildContext context, bool ifPickedTime,
+      TimeOfDay initialTime, Function(TimeOfDay) onTimePicked) async {
+    var _pickedTime =
+    await showTimePicker(context: context, initialTime: initialTime);
+    if (_pickedTime != null) {
+      onTimePicked(_pickedTime);
+    }
+  }
+
+  Widget _buildTimePick(String title, bool ifPickedTime, TimeOfDay currentTime,
+      Function(TimeOfDay) onTimePicked) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 50,
+          child: Text(
+            title,
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          decoration: BoxDecoration(
+            border: Border.all(),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: GestureDetector(
+            child: Text(
+              currentTime.format(context),
+            ),
+            onTap: () {
+              selectedTime(context, ifPickedTime, currentTime, onTimePicked);
+
+            },
+              //print(selectedTime(context, ifPickedTime, currentTime, onTimePicked));
+          ),
+        ),
+      ],
+    );
+  }
 }
+

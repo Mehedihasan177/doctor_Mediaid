@@ -1,3 +1,4 @@
+import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/model/ui_model/my_profile_model/my_profile_model.dart';
 import 'package:care_plus_doctor/model/ui_model/profile_model/profile_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,8 +18,8 @@ Widget Profile_Page(MyProfileModel myProfile, BuildContext context) => Card(
                     height: 80,
                     width: 80,
                     child: ClipRRect(
-                      child: Image.asset(
-                        myProfile.image,
+                      child: Image.network(
+                        '$apiDomainRoot/images/${myProfile.image}',
                         height: 70,
                         width: 70,
                       ),
