@@ -1,8 +1,12 @@
+import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_appointment_create_controller.dart';
 import 'package:care_plus_doctor/model/manage_schedule_model/manage_schedule_model.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+
+import 'manage_schedule_model.dart';
 
 class ManageSchedule extends StatefulWidget {
   const ManageSchedule({Key? key}) : super(key: key);
@@ -20,20 +24,11 @@ class _ManageScheduleState extends State<ManageSchedule> {
   TimeOfDay selectedTime = TimeOfDay.now();
 // Default Drop Down Item.
   String dropdownValue = 'Sunday';
-
+  String myCurrentPos = '';
   // To show Selected Item in Text.
   String holder = '' ;
 
-  List <String> actorsName = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-
-  ] ;
+  DayModel position = dayModel.first;
 
   _selectTime(BuildContext context) async {
     final TimeOfDay? timeOfDay = await showTimePicker(
@@ -78,6 +73,38 @@ class _ManageScheduleState extends State<ManageSchedule> {
       // holder = dropdownValue ;
     });
   }
+
+
+
+  // _getPositionTrack(int pos) async {
+  //
+  //
+  //   DoctorAppointmentCreateSlotController.requestThenResponsePrint(USERTOKEN, pos)
+  //       .then((value) {
+  //     print(value.statusCode);
+  //     print(value.statusCode);
+  //     if (value.statusCode == 200) {
+  //       print("successfully done");
+  //       print(value);
+  //       print(value.body);
+  //       PositionTrackingResponse positionTrackingResponse =
+  //       PositionTrackingResponse.fromJson(jsonDecode(value.body));
+  //       setState(() {
+  //         print(positionTrackingResponse);
+  //         print(positionTrackingResponse.data.name);
+  //         _textPosID.text = positionTrackingResponse.data.posId.toString();
+  //         _textuserTrackName.text = positionTrackingResponse.data.userName;
+  //         currentPositionID = positionTrackingResponse.data.posId;
+  //         currentMessage = positionTrackingResponse.msg;
+  //       });
+  //     } else {
+  //       AlertDialogueHelper().showAlertDialog(
+  //           context, 'Warning', 'Please recheck mobile and password');
+  //     }
+  //   });
+  // }
+
+
 
 
   @override
@@ -139,24 +166,55 @@ class _ManageScheduleState extends State<ManageSchedule> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                              isExpanded: true,
-                              value: dropdownValue,
-                              onChanged: (data) {
-                                setState(() {
-                                  dropdownValue = data!;
-                                });
-                              },
-                              items: actorsName.map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Text(value),
+                          child: DropdownButton<DayModel>(
+                            isExpanded: true,
+                            value: position, // currently selected item
+                            items: dayModel
+                                .map((item) =>
+                                DropdownMenuItem<DayModel>(
+                                  child: Row(
+                                    children: [
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        item.title,
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.black),
+                                      ),
+                                    ],
                                   ),
-                                );
-                              }).toList(),
-                            ),
+                                  value: item,
+                                ))
+                                .toList(),
+                            onChanged: (value) => setState(() {
+                              this.position = value!;
+                              print(this.position.title);
+                              print(this.position.posID);
+
+                              myCurrentPos = this.position.title;
+                            }),
+                          ),
+
+
+
+                          // DropdownButton<String>(
+                          //     isExpanded: true,
+                          //     value: dropdownValue,
+                          //     onChanged: (data) {
+                          //       setState(() {
+                          //         dropdownValue = data!;
+                          //       });
+                          //     },
+                          //     items: actorsName.map<DropdownMenuItem<String>>((String value) {
+                          //       return DropdownMenuItem<String>(
+                          //         value: value,
+                          //         child: Padding(
+                          //           padding: const EdgeInsets.only(left: 10),
+                          //           child: Text(value),
+                          //         ),
+                          //       );
+                          //     }).toList(),
+                          //   ),
                         ),
 
                       ),
@@ -303,7 +361,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
                                                     fontWeight: FontWeight.bold
                                                   ),
                                                   ),
-                                                  Text('$holder',),
+                                                  Text('$myCurrentPos',),
                                                 ],
                                               )),
 

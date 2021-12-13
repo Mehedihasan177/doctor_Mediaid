@@ -20,11 +20,7 @@ class _MyProfileState extends State<MyProfile> {
   List<MyProfileModel> myProfile = List.of(myProfileData);
 
 
-  final notifications = [
-    CheckBoxAny(title: 'Show Message'),
-    CheckBoxAny(title: 'Show Group'),
-    CheckBoxAny(title: 'Show Calling'),
-  ];
+
 
   @override
   Widget build(BuildContext context) {

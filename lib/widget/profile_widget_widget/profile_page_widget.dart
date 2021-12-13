@@ -1,8 +1,9 @@
+import 'package:care_plus_doctor/model/ui_model/my_profile_model/my_profile_model.dart';
 import 'package:care_plus_doctor/model/ui_model/profile_model/profile_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget Profile_Page(Profile_Model profile_model, context) => Card(
+Widget Profile_Page(MyProfileModel myProfile, BuildContext context) => Card(
       child: Padding(
         padding: const EdgeInsets.only(top: 20, bottom: 20),
         child: Row(
@@ -12,13 +13,17 @@ Widget Profile_Page(Profile_Model profile_model, context) => Card(
               padding: const EdgeInsets.only(left: 10),
               child: Row(
                 children: [
-                  ClipRRect(
-                    child: Image.asset(
-                      profile_model.image,
-                      height: 70,
-                      width: 70,
+                  Container(
+                    height: 80,
+                    width: 80,
+                    child: ClipRRect(
+                      child: Image.asset(
+                        myProfile.image,
+                        height: 70,
+                        width: 70,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    borderRadius: BorderRadius.circular(10),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
@@ -27,7 +32,7 @@ Widget Profile_Page(Profile_Model profile_model, context) => Card(
                           Container(
                             padding: EdgeInsets.only(right: 49),
                               alignment: Alignment.centerLeft,
-                              child: Text(profile_model.name)),
+                              child: Text(myProfile.name)),
                           SizedBox(
                             height: 5,
                           ),
@@ -35,7 +40,7 @@ Widget Profile_Page(Profile_Model profile_model, context) => Card(
                             children: [
                               Text("AHPRA_ID: "),
                               SizedBox(width: 5),
-                              Text(profile_model.AHPRA_ID.toString()),
+                              Text(myProfile.bmdcReg.toString()),
                             ],
                           ),
                         ],

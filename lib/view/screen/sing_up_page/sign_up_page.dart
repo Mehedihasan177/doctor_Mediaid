@@ -328,11 +328,11 @@ class _SingUpPageState extends State<SingUpPage> {
                           name: _name.text,
                           //username: "",
                           email: _textEmail.text,
+                          bmdc_reg: _AHPRANo.text,
+                          mobile: _phoneNumber.text,
                           password: _password.text,
                           password_confirmation: _confirmPassword.text,
                           //image: "assets/download.jpg",
-                          mobile: _phoneNumber.text,
-                          bmdc_reg: _AHPRANo.text,
                           );
                      //EasyLoading.show(status: 'loading...');
                       await DoctorRegistrationController.requestThenResponsePrint(myInfo).then((value) async {

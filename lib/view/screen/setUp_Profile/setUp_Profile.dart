@@ -10,6 +10,7 @@ import 'package:care_plus_doctor/model/setup_profile_model.dart';
 import 'package:care_plus_doctor/model/ui_model/doctor_appointment_model/doctor_about_and_appointment_model.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_registration_responses.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_update_profile_responses.dart';
+import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/otp/otp.dart';
 import 'package:care_plus_doctor/view/screen/setUp_Profile/image_upload_page.dart';
 import 'package:care_plus_doctor/widget/doctor_about_and_appointment_widget/doctor_about_and_appointment_widget.dart';
@@ -34,8 +35,12 @@ class _SetupProfileState extends State<SetupProfile> {
   TextEditingController _chember = TextEditingController();
   TextEditingController _introduction = TextEditingController();
   bool checkbox = false;
+  String gender = '';
   final maxLines = 15;
   List<DoctorAppointmentModel> doctorAppointment = List.of(doctor_appointment_data);
+
+  final selectedIndexes = [];
+  List sympotms = ['male', 'female'];
 
 
 
@@ -122,12 +127,80 @@ class _SetupProfileState extends State<SetupProfile> {
               height: 40,
             ),
 
+            // Column(
+            //   children: [
+            //     Padding(
+            //       padding: const EdgeInsets.only(left: 33),
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: [
+            //           Container(
+            //             height: 17,
+            //             width: 17,
+            //             child: Image(image: AssetImage("images/gender.png"),
+            //               fit: BoxFit.cover,
+            //             ),
+            //           ),
+            //           SizedBox(
+            //             width: 20,
+            //           ),
+            //           Text(
+            //             "Gender",
+            //             style: TextStyle(fontSize: 17),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //     SizedBox(height: 10,),
+            //     Row(
+            //       children: [
+            //         Padding(
+            //           padding: const EdgeInsets.only(left: 20),
+            //           child: Row(
+            //             children: [
+            //               Checkbox(
+            //                 value: checkbox,
+            //                 shape: CircleBorder(),
+            //                 onChanged: (bool? value) {
+            //                   setState(() {
+            //                     checkbox = value!;
+            //                   });
+            //                 },
+            //               ),
+            //               // SizedBox(width: 20,),
+            //               Text("Male", style: TextStyle(fontSize: 15),),
+            //             ],
+            //           ),
+            //         ),
+            //         Padding(
+            //           padding: const EdgeInsets.only(left: 20),
+            //           child: Row(
+            //             children: [
+            //               Checkbox(
+            //                 value: !checkbox,
+            //                 shape: CircleBorder(),
+            //                 onChanged: (bool? value) {
+            //                   setState(() {
+            //                     checkbox = value!;
+            //                   });
+            //                 },
+            //               ),
+            //               // SizedBox(width: 10,),
+            //               Text("Female", style: TextStyle(fontSize: 15),),
+            //             ],
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
             Column(
                 children: [
                   Container(
                     padding: EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
-                    child: Text("Name",
+                    child: Text("Gender",
                         style: TextStyle(
                           fontSize: 17
                         ),
@@ -143,87 +216,12 @@ class _SetupProfileState extends State<SetupProfile> {
                       //scrollPadding: EdgeInsets.all(10),
                       decoration: InputDecoration(
                         //contentPadding: EdgeInsets.all(20),
-                        hintText: "Enter your name",
+                        hintText: "Gender ",
                       ),
                     ),
                   ),
                 ],
               ),
-
-
-            SizedBox(
-              height: 40,
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 20),
-                          alignment: Alignment.centerLeft,
-                          child: Text("Specialization",
-                          style: TextStyle(
-                            fontSize: 15
-                          ),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 23, right: 10, top: 8),
-                        child: Center(
-                          child: Container(
-                            child: TextField(
-                              // controller: _textEmail,
-                              keyboardType: TextInputType.emailAddress,
-                              style: TextStyle(color: Colors.black),
-                              //scrollPadding: EdgeInsets.all(10),
-                              decoration: InputDecoration(
-                                //contentPadding: EdgeInsets.all(20),
-                                hintText: "Enter Specialization",
-                                hintStyle: TextStyle(
-                                  fontSize: 10
-                                )
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 20),
-                          alignment: Alignment.centerLeft,
-                          child: Text("AHPRA no.")),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 8),
-                        child: Center(
-                          child: Container(
-                            child: TextField(
-                              // controller: _textEmail,
-                              keyboardType: TextInputType.emailAddress,
-                              style: TextStyle(color: Colors.black),
-                              //scrollPadding: EdgeInsets.all(10),
-                              decoration: InputDecoration(
-                                //contentPadding: EdgeInsets.all(20),
-                                hintText: "Enter AHPRA no.",
-                                  hintStyle: TextStyle(
-                                      fontSize: 10
-                                  )
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
 
 
             SizedBox(
@@ -271,9 +269,9 @@ class _SetupProfileState extends State<SetupProfile> {
                   child: Column(
                     children: [
                       Container(
-                          padding: EdgeInsets.only(left: 20),
+                        padding: EdgeInsets.only(left: 20),
                           alignment: Alignment.centerLeft,
-                          child: Text("Fee")),
+                          child: Text("AHPRA no.")),
                       Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20, top: 8),
                         child: Center(
@@ -285,7 +283,7 @@ class _SetupProfileState extends State<SetupProfile> {
                               //scrollPadding: EdgeInsets.all(10),
                               decoration: InputDecoration(
                                 //contentPadding: EdgeInsets.all(20),
-                                  hintText: "Enter your fee",
+                                hintText: "Enter AHPRA no.",
                                   hintStyle: TextStyle(
                                       fontSize: 10
                                   )
@@ -298,6 +296,11 @@ class _SetupProfileState extends State<SetupProfile> {
                   ),
                 ),
               ],
+            ),
+
+
+            SizedBox(
+              height: 40,
             ),
 
 
@@ -422,14 +425,12 @@ class _SetupProfileState extends State<SetupProfile> {
 
 
                   Map data1 = {
-                    'name': "${_name.text}",
-                    //'specialization': "${data.specialization}",
-                    'bmdcReg': "${_ahpra.text}",
+                    'gender': "${gender}",
                     'designation': "${_designation.text}",
-                    //'fee': "${data.fee}",
+                    'bmdc_reg': "${_ahpra.text}",
                     'chambers': "${_chember.text}",
                     'introduction': "${_introduction.text}",
-                    // 'image': "${doctorRegReqModel.image}",
+
 
                   };
 
@@ -446,7 +447,7 @@ class _SetupProfileState extends State<SetupProfile> {
                     //EasyLoading.dismiss();
                     if(value.statusCode==200){
                       SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully set up your profile', Colors.green);
-                      //return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+                      return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
 
                     }else{
                       SnackbarDialogueHelper().showSnackbarDialog(context, value.body.replaceAll('"', ' ')

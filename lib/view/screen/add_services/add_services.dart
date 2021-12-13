@@ -74,10 +74,11 @@ class _AddServicesPageState extends State<AddServicesPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Doctor Specialization"),
+          backgroundColor: Color(0xFF1CBFA8),
         ),
           body: SafeArea(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
@@ -89,12 +90,29 @@ class _AddServicesPageState extends State<AddServicesPage> {
                     itemBuilder: (context,index){
                       return Row(
                         children: [
-                          Checkbox(value: specialityStatusList[index], onChanged: (newValue){
+                          Checkbox(
+                              activeColor: Colors.green,
+                              checkColor: Colors.white,
+                              /*side: MaterialStateBorderSide.resolveWith(
+                                    (states) => BorderSide(width: 1.0, color: Colors.green,style:BorderStyle.solid, weight ),
+
+                              ),*/
+
+                              value: specialityStatusList[index], onChanged: (newValue){
                             setState(() {
                               specialityStatusList[index] = newValue!;
                             });
-                          }),
-                          AutoSizeText(doctorSpecializationlist[index].name),
+                          }
+
+
+                          ),
+                          AutoSizeText(doctorSpecializationlist[index].name,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                          ),
+
+                          ),
                         ],
                       );
                     },
@@ -104,67 +122,85 @@ class _AddServicesPageState extends State<AddServicesPage> {
 
 
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: RaisedButton(
-                    child: Text("Submit"),
-                    onPressed: () {
-                      specialityToUpdateList.clear();
-                      String toGO = "";
-                      for(int i=0; i<specialityStatusList.length;i++){
-                        if(specialityStatusList[i]==true){
-                          specialityToUpdateList.add(doctorSpecializationlist[i].id);
-                          toGO+=doctorSpecializationlist[i].name+',';
-                        }
-                      }
-
-                      if(specialityToUpdateList.length !=0){
-
-                          Map dataMap = {
-                            'specializations': specialityToUpdateList,
-                          };
-                          print(dataMap);
-
-                          print('sessssss');
-
-                          DoctorSetupProfileController.requestThenResponsePrint(
-                            USERTOKEN,
-                            dataMap,
-                          ).then((value) async {
-                            print(value.statusCode);
-                            print(value.body);
-
-                            //EasyLoading.dismiss();
-                            if(value.statusCode==200){
-                              //return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
-                              // SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully updated specializations', Colors.green);
-
-                              DoctorSignInModel myInfo = new DoctorSignInModel(
-                                  mobile: PHONE_NUMBER, password: PASSWORD);
-                              // EasyLoading.show(status: 'loading...');
-                              await DoctorSigninController.requestThenResponsePrint(myInfo).then((value){
-                                setState(() {
-                                  // SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully signed in', Colors.green);
-                                  SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully updated specializations', Colors.green);
-
-                                });
-                              });
-
-                            }else{
-                              SnackbarDialogueHelper().showSnackbarDialog(context, value.body.replaceAll('"', ' ')
-                                  .replaceAll('{', ' ')
-                                  .replaceAll('}', ' ')
-                                  .replaceAll('[', ' ')
-                                  .replaceAll(']', ' '), Colors.red);
+                  padding: const EdgeInsets.only(bottom: 0),
+                  child: Center(
+                    child: Container(
+                      child: ElevatedButton(
+                        child: Text(
+                          "Submit",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        onPressed: () {
+                          specialityToUpdateList.clear();
+                          String toGO = "";
+                          for(int i=0; i<specialityStatusList.length;i++){
+                            if(specialityStatusList[i]==true){
+                              specialityToUpdateList.add(doctorSpecializationlist[i].id);
+                              toGO+=doctorSpecializationlist[i].name+',';
                             }
-                          });
+                          }
 
-                      }else{
-                        SnackbarDialogueHelper().showSnackbarDialog(context, "Please Select items", Colors.blue);
-                      }
+                          if(specialityToUpdateList.length !=0){
 
-                    },
+                            Map dataMap = {
+                              'specializations': specialityToUpdateList,
+                            };
+                            print(dataMap);
+
+                            print('sessssss');
+
+                            DoctorSetupProfileController.requestThenResponsePrint(
+                              USERTOKEN,
+                              dataMap,
+                            ).then((value) async {
+                              print(value.statusCode);
+                              print(value.body);
+
+                              //EasyLoading.dismiss();
+                              if(value.statusCode==200){
+                                //return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+                                // SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully updated specializations', Colors.green);
+
+                                DoctorSignInModel myInfo = new DoctorSignInModel(
+                                    mobile: PHONE_NUMBER, password: PASSWORD);
+                                // EasyLoading.show(status: 'loading...');
+                                await DoctorSigninController.requestThenResponsePrint(myInfo).then((value){
+                                  setState(() {
+                                    // SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully signed in', Colors.green);
+                                    SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully updated specializations', Colors.green);
+
+                                  });
+                                });
+
+                              }else{
+                                SnackbarDialogueHelper().showSnackbarDialog(context, value.body.replaceAll('"', ' ')
+                                    .replaceAll('{', ' ')
+                                    .replaceAll('}', ' ')
+                                    .replaceAll('[', ' ')
+                                    .replaceAll(']', ' '), Colors.red);
+                              }
+                            });
+
+                          }else{
+                            SnackbarDialogueHelper().showSnackbarDialog(context, "Please Select items", Colors.blue);
+                          }
+
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(390, 59),
+                          //maximumSize: const Size(350, 59),
+                          primary: Color(0xFF1CBFA8),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        //color: Color(0xF60D72),
+                          borderRadius: BorderRadius.circular(18)),
+                    ),
                   ),
                 ),
+
               ],
             ),
           )

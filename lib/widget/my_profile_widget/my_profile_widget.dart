@@ -8,10 +8,21 @@ import 'package:care_plus_doctor/responses/doctor/doctor_specialization_response
 import 'package:care_plus_doctor/responses/doctor/doctor_update_profile_responses.dart';
 import 'package:care_plus_doctor/view/screen/add_services/add_services.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
+import 'package:care_plus_doctor/view/screen/setUp_Profile/image_upload_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 TextEditingController _experience = TextEditingController();
 TextEditingController _fee = TextEditingController();
+TextEditingController _serviceAt = TextEditingController();
+TextEditingController _gender = TextEditingController();
+TextEditingController _chember = TextEditingController();
+TextEditingController _department = TextEditingController();
+TextEditingController _degree = TextEditingController();
+TextEditingController _designation = TextEditingController();
+TextEditingController _address = TextEditingController();
+TextEditingController _introduction = TextEditingController();
+// TextEditingController _designation = TextEditingController();
+String split = '';
 Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
     Column(
       children: [
@@ -21,8 +32,8 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
               ClipRRect(
                 borderRadius: BorderRadius.circular(5.0),
                 child: Container(
-                  width: 120.0,
-                  height: 150.0,
+                  width: 100.0,
+                  height: 130.0,
                   child: Image.asset(
                     myProfile.image,
                     fit: BoxFit.fill,
@@ -48,15 +59,20 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
                             color: Colors.white,
                           ),
                           iconSize: 20,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage()));
+                          },
                         ),
                       ),
                       SizedBox(
                         height: 20,
                       ),
-                      Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text("Change Profile Picture")),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Change Profile Picture")),
+                      ),
                     ],
                   ),
                 ),
@@ -151,6 +167,258 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
             ),
           ),
         ),
+
+
+
+
+        ///designation
+        Padding(
+          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
+          child: Container(
+            height: 60,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.black.withOpacity(0.07)),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: TextField(
+                controller: _designation,
+                keyboardType: TextInputType.text,
+                style: TextStyle(color: Colors.black),
+//scrollPadding: EdgeInsets.all(10),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.account_balance_wallet_rounded,
+                    color: Color(0xFF1CBFA8),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+//contentPadding: EdgeInsets.all(20),
+                  hintText: "Enter your designation",
+                ),
+              ),
+            ),
+          ),
+        ),
+        ///department
+        Padding(
+          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
+          child: Container(
+            height: 60,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.black.withOpacity(0.07)),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: TextField(
+                controller: _department,
+                keyboardType: TextInputType.text,
+                style: TextStyle(color: Colors.black),
+//scrollPadding: EdgeInsets.all(10),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.account_balance_wallet_rounded,
+                    color: Color(0xFF1CBFA8),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+//contentPadding: EdgeInsets.all(20),
+                  hintText: "Enter your department",
+                ),
+              ),
+            ),
+          ),
+        ),
+        ///degree
+        Padding(
+          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
+          child: Container(
+            height: 60,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.black.withOpacity(0.07)),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: TextField(
+                controller: _degree,
+                keyboardType: TextInputType.text,
+                style: TextStyle(color: Colors.black),
+//scrollPadding: EdgeInsets.all(10),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.account_balance_wallet_rounded,
+                    color: Color(0xFF1CBFA8),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+//contentPadding: EdgeInsets.all(20),
+                  hintText: "Enter your degree",
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        ///chember
+        Padding(
+          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
+          child: Container(
+            height: 60,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.black.withOpacity(0.07)),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: TextField(
+                controller: _chember,
+                keyboardType: TextInputType.text,
+                style: TextStyle(color: Colors.black),
+//scrollPadding: EdgeInsets.all(10),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.account_balance_wallet_rounded,
+                    color: Color(0xFF1CBFA8),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+//contentPadding: EdgeInsets.all(20),
+                  hintText: "Enter your chember",
+                ),
+              ),
+            ),
+          ),
+        ),
+        ///adress
+
+        Padding(
+          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
+          child: Container(
+            height: 60,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.black.withOpacity(0.07)),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: TextField(
+                controller: _address,
+                keyboardType: TextInputType.text,
+                style: TextStyle(color: Colors.black),
+//scrollPadding: EdgeInsets.all(10),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.account_balance_wallet_rounded,
+                    color: Color(0xFF1CBFA8),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+//contentPadding: EdgeInsets.all(20),
+                  hintText: "Enter your address",
+                ),
+              ),
+            ),
+          ),
+        ),
+        ///introduction
+        Padding(
+          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
+          child: Container(
+            height: 60,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.black.withOpacity(0.07)),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: TextField(
+                controller: _introduction,
+                keyboardType: TextInputType.text,
+                style: TextStyle(color: Colors.black),
+//scrollPadding: EdgeInsets.all(10),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.account_balance_wallet_rounded,
+                    color: Color(0xFF1CBFA8),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+//contentPadding: EdgeInsets.all(20),
+                  hintText: "Enter your introduction",
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        ///gender
+        Padding(
+          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
+          child: Container(
+            height: 60,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.black.withOpacity(0.07)),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: TextField(
+                controller: _gender,
+                keyboardType: TextInputType.text,
+                style: TextStyle(color: Colors.black),
+//scrollPadding: EdgeInsets.all(10),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.account_balance_wallet_rounded,
+                    color: Color(0xFF1CBFA8),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+//contentPadding: EdgeInsets.all(20),
+                  hintText: "Gender",
+                ),
+              ),
+            ),
+          ),
+        ),
+
+
+
+
+
+
+
         Padding(
           padding: const EdgeInsets.only(left: 10, top: 20),
           child: Container(
@@ -176,7 +444,7 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
               padding: const EdgeInsets.only(left: 20),
               child: TextField(
               controller: _experience,
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.text,
                 style: TextStyle(color: Colors.black),
 //scrollPadding: EdgeInsets.all(10),
                 decoration: InputDecoration(
@@ -209,7 +477,7 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
               padding: const EdgeInsets.only(left: 20),
               child: TextField(
               controller: _fee,
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.number,
                 style: TextStyle(color: Colors.black),
 //scrollPadding: EdgeInsets.all(10),
                 decoration: InputDecoration(
@@ -230,6 +498,19 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
             ),
           ),
         ),
+
+
+
+
+
+
+
+
+
+
+
+
+
         Padding(
           padding: const EdgeInsets.only(right: 20),
           child: Row(
@@ -248,102 +529,51 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Container(
 
-                  height: 25,
-                  alignment: Alignment.centerLeft,
-                  child: FlatButton(
-                    minWidth: 10,
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AddServicesPage()));
-                    },
-                    child: Text(
-                      "EDIT",
-                      style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF1CBFA8)),
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 10),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Hypertension Treatment",
-                  style: TextStyle(
-                      fontSize: 16, color: Colors.black.withOpacity(0.9)),
+        Padding(
+          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
+          child: Container(
+            height: 60,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.black.withOpacity(0.07)),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: TextField(
+                controller: _serviceAt,
+                keyboardType: TextInputType.text,
+                style: TextStyle(color: Colors.black),
+//scrollPadding: EdgeInsets.all(10),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.account_balance_outlined,
+                    color: Color(0xFF1CBFA8),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+//contentPadding: EdgeInsets.all(20),
+                  hintText: "Hospital name",
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 10),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "COPD Treatment",
-                  style: TextStyle(
-                      fontSize: 16, color: Colors.black.withOpacity(0.9)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 10),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Diabates Management",
-                  style: TextStyle(
-                      fontSize: 16, color: Colors.black.withOpacity(0.9)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 10),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "ECG",
-                  style: TextStyle(
-                      fontSize: 16, color: Colors.black.withOpacity(0.9)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 10),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Obesity Treatement",
-                  style: TextStyle(
-                      fontSize: 16, color: Colors.black.withOpacity(0.9)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 10),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "+5 more",
-                  style: TextStyle(fontSize: 16, color: Color(0xFF1CBFA8)),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
+
+
+
+
+
+
+
+
         Padding(
           padding: const EdgeInsets.only(left: 35, right: 40, top: 15),
           child: Divider(
@@ -373,12 +603,17 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
                 padding: const EdgeInsets.only(left: 30, top: 20),
                 child: Container(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    "EDIT",
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF1CBFA8)),
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AddServicesPage()),);
+                    },
+                    child: Text(
+                      "EDIT",
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1CBFA8)),
+                    ),
                   ),
                 ),
               ),
@@ -392,63 +627,10 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "General Physician",
+
+                  myProfile.specialization.split(",").join("\n"),
                   style: TextStyle(
                       fontSize: 16, color: Colors.black.withOpacity(0.9)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 10),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Family Physician",
-                  style: TextStyle(
-                      fontSize: 16, color: Colors.black.withOpacity(0.9)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 10),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Cardiologist",
-                  style: TextStyle(
-                      fontSize: 16, color: Colors.black.withOpacity(0.9)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 10),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Consultant",
-                  style: TextStyle(
-                      fontSize: 16, color: Colors.black.withOpacity(0.9)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 10),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Dialectology",
-                  style: TextStyle(
-                      fontSize: 16, color: Colors.black.withOpacity(0.9)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, top: 10),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "+5 more",
-                  style: TextStyle(fontSize: 16, color: Color(0xFF1CBFA8)),
                 ),
               ),
             ),
@@ -472,6 +654,14 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
                 Map data1 = {
                   'experience': "${_experience.text}",
                   'fee': "${_fee.text}",
+                  'hospital_name': "${_serviceAt.text}",
+                  'designation': "${_designation.text}",
+                  'department': "${_department.text}",
+                  'degree': "${_degree.text}",
+                  'address': "${_address.text}",
+                  'introduction': "${_introduction.text}",
+                  'chambers': "${_chember.text}",
+                  'gender': "${_gender.text}",
 
 
                 };
