@@ -8,7 +8,18 @@ final profile_data =[
   Profile_Model(
     image: DOCTORUPDATEPROFILERESPONSES.image,
     name: DOCTORUPDATEPROFILERESPONSES.name,
-    AHPRA_ID: DOCTORUPDATEPROFILERESPONSES.bmdcReg,
+    bmdcReg: DOCTORUPDATEPROFILERESPONSES.bmdcReg,
+    department: DOCTORUPDATEPROFILERESPONSES.department,
+    introduction: DOCTORUPDATEPROFILERESPONSES.introduction,
+    gender: DOCTORUPDATEPROFILERESPONSES.gender,
+    degree: DOCTORUPDATEPROFILERESPONSES.degree,
+    phone_number: DOCTORUPDATEPROFILERESPONSES.mobile,
+    chember: DOCTORUPDATEPROFILERESPONSES.chambers,
+    email: DOCTORUPDATEPROFILERESPONSES.email,
+    specialization: DOCTORUPDATEPROFILERESPONSES.specialization,
+    address: DOCTORUPDATEPROFILERESPONSES.address,
+    designation: DOCTORUPDATEPROFILERESPONSES.designation,
+
   ),
 
 ];

@@ -1,21 +1,28 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_signIn_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/user_edit_img_ctrl.dart';
 import 'package:care_plus_doctor/helper/alertDialogue.dart';
 import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
+import 'package:care_plus_doctor/model/doctor/doctor_sinIn_model.dart';
+import 'package:care_plus_doctor/view/screen/my_profile/my_profile.dart';
+import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/setUp_Profile/setUp_Profile.dart';
+import 'package:care_plus_doctor/view/screen/splash_screen/splash_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../basic_functions.dart';
-
+import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
 
 class NewImageUploadPage extends StatefulWidget {
 
+final int page;
 
-
-  const NewImageUploadPage({Key? key}) : super(key: key);
+  const NewImageUploadPage({Key? key, required this.page}) : super(key: key);
 
   @override
   _NewImageUploadPageState createState() => _NewImageUploadPageState();
@@ -30,7 +37,11 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()));
+        if(widget.page == 1){
+          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        }else{
+          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()));
+        }
         return true;
       },
       child: Scaffold(
@@ -165,15 +176,54 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
                     // String presType = presTypeC.text;
                     if ((imageFile != null)) {
                       await UserRegisterControllerExtraImg.postRequestRegistrationExtra(context, imageFile, USERTOKEN)
-                          .then((value) {
+                          .then((value) async {
                         print(value.statusCode);
                         print(value.statusMessage);
                         print(value);
-                        if (value.statusCode == 200) {
-                          // Navigator.pop(context,"Bar");
-                          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+                          if(value.statusCode==200){
 
-                        }
+                            //EasyLoading.showSuccess('logging in...');
+                            DoctorSignInModel myInfo = new DoctorSignInModel(
+                                mobile: PHONE_NUMBER, password: PASSWORD);
+                            await DoctorSigninController.requestThenResponsePrint(myInfo)
+                                .then((value) async {
+                              print(value.statusCode);
+                              print(value.body);
+
+
+
+
+
+                              //EasyLoading.dismiss();
+                              if (value.statusCode == 200) {
+                                  SharedPreferences sharedPreferences =
+                                      await SharedPreferences.getInstance();
+                                setState(() {
+                                  var reobj = DoctorLoginResponse.fromJson(json.decode(value.body));
+                                  var loginobject = reobj.data.user;
+                                  print('loginobject.image');
+                                  print(loginobject.image);
+                                  DOCTOR_INITIAL = loginobject;
+                                  print(loginobject.token);
+                                  sharedPreferences.setString("token", loginobject.token);
+
+                                  sharedPreferences.setString("mobile", PHONE_NUMBER);
+                                  sharedPreferences.setString("password", PASSWORD);
+                                });
+
+                                SnackbarDialogueHelper().showSnackbarDialog(context, "Image Uploaded successfully",Colors.green);
+                                return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+                              } else {
+                                // return LoginController.requestThenResponsePrint(jsonData);
+                                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+                              }
+
+                            });
+
+                          }
+
+
+
                       });
                     } else {
                       // BasicFunctions.showAlertDialogTOView(context, 'Warning', 'Select an image to upload');
@@ -193,4 +243,55 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
       ),
     );
   }
+
+
+  // Future<void> signInAgain(BuildContext context) async {
+  //   //EasyLoading.show(status: 'loading...');
+  //
+  //   DoctorSignInModel myInfo = new DoctorSignInModel(mobile: PHONE_NUMBER, password: PASSWORD, );
+  //   await DoctorSigninController.requestThenResponsePrint(myInfo).then((value) async {
+  //     print(value.statusCode);
+  //     print(value.body);
+  //     final Map parsed = json.decode(value.body);
+  //
+  //     final loginobject = User.fromJson(parsed);
+  //     DOCTOR_INITIAL = loginobject;
+  //     print(loginobject.token);
+  //     print(loginobject.token);
+  //
+  //
+  //
+  //     USERTOKEN = loginobject.token;
+  //     // sharedPreferences.setString("token", loginobject.accessToken);
+  //     //EasyLoading.dismiss();
+  //     if (value.statusCode == 200) {
+  //       PHONE_NUMBER = PHONE_NUMBER;
+  //       PASSWORD = PASSWORD;
+  //       return Navigator.pushReplacement(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => BottomNevigation()),
+  //       );
+  //     } else {
+  //       // return LoginController.requestThenResponsePrint(jsonData);
+  //       AlertDialogueHelper().showAlertDialog(
+  //           context, 'Warning', 'Please recheck email and password');
+  //     }
+  //   });
+  // }
 }
+
+
+
+
+
+//if (value.statusCode == 200) {
+//                           // Navigator.pop(context,"Bar");
+//                           if(widget.page == 1){
+//                             Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+//                           }
+//                           else{
+//                             Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+//                           }
+//
+//
+//                         }

@@ -32,6 +32,7 @@ class DoctorSigninController{
       final loginobject = DoctorLoginResponse.fromJson(parsed);
       print(loginobject.data.token);
       USERTOKEN = loginobject.data.token;
+
       SharedPreferences sharedPreferences =
       await SharedPreferences.getInstance();
       sharedPreferences.setString("token", loginobject.data.token);

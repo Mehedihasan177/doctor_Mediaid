@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:care_plus_doctor/responses/doctor/doctor_update_profile_responses.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:care_plus_doctor/constents/constant.dart';
@@ -19,7 +20,7 @@ class DoctorSetupProfileController{
     var url = '$domain/api/doctor-profile-update';
 
     var body = json.encode(dataMap);
-
+   // DOCTORUPDATEPROFILERESPONSES = body as DoctorUpdateProfile;
     // Here we are getting the response
     var response = await http.post(Uri.parse(url), body: body,
         headers: {

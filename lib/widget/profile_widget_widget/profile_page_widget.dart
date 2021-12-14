@@ -19,7 +19,7 @@ Widget Profile_Page(MyProfileModel myProfile, BuildContext context) => Card(
                     width: 80,
                     child: ClipRRect(
                       child: Image.network(
-                        '$apiDomainRoot/images/${myProfile.image}',
+                        '$apiDomainRoot/images/${DOCTOR_INITIAL.image}',
                         height: 70,
                         width: 70,
                       ),

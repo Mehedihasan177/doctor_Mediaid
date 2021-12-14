@@ -6,6 +6,14 @@ class MyProfileModel {
   late final String phone_number;
   late final String specialization;
   late final String bmdcReg;
+  late final String designation;
+  late final String department;
+  late final String degree;
+  late final String chember;
+  late final String address;
+  late final String introduction;
+  late final String gender;
+
 
   MyProfileModel({
     required this.name,
@@ -14,5 +22,12 @@ class MyProfileModel {
     required this.phone_number,
     required this.specialization,
     required this.bmdcReg,
+    required this.designation,
+    required this.department,
+    required this.degree,
+    required this.chember,
+    required this.address,
+    required this.introduction,
+    required this.gender,
   });
 }

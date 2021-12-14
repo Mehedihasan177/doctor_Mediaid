@@ -2,12 +2,15 @@ import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_registration_controller.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_signIn_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/setup_profile_controller.dart';
 import 'package:care_plus_doctor/data/doctor_appointment_data/doctor_about_and_appointment_data.dart';
 import 'package:care_plus_doctor/helper/alertDialogue.dart';
 import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
+import 'package:care_plus_doctor/model/doctor/doctor_sinIn_model.dart';
 import 'package:care_plus_doctor/model/setup_profile_model.dart';
 import 'package:care_plus_doctor/model/ui_model/doctor_appointment_model/doctor_about_and_appointment_model.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_registration_responses.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_update_profile_responses.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
@@ -83,18 +86,15 @@ class _SetupProfileState extends State<SetupProfile> {
               child: GestureDetector(
                 onTap: (){
 
-                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage()),);
                 },
-                child: GestureDetector(
-
-                  child: Stack(
+                child: Stack(
                       children:
                       [
 
                         Center(
                           child: GestureDetector(
                             onTap: (){
-                              Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage()),);
+                              Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage(page: 2)),);
                             },
                             child: Container(
                               height: 130,
@@ -116,7 +116,7 @@ class _SetupProfileState extends State<SetupProfile> {
                         ),
                       ]
                   ),
-                ),
+
               ),
             ),
 
@@ -369,18 +369,18 @@ class _SetupProfileState extends State<SetupProfile> {
             ),
 
 
-            RaisedButton(
-              onPressed: (){
-                print(checkbox);
-                if(checkbox==true){
-                  gender='Male';
-                }else{
-                  gender='Female';
-                }
-                print(gender);
-              },
-              child: Text('tsr'),
-            ),
+            // RaisedButton(
+            //   onPressed: (){
+            //     print(checkbox);
+            //     if(checkbox==true){
+            //       gender='Male';
+            //     }else{
+            //       gender='Female';
+            //     }
+            //     print(gender);
+            //   },
+            //   child: Text('tsr'),
+            // ),
 
             Container(
               child: ElevatedButton(
@@ -410,11 +410,12 @@ class _SetupProfileState extends State<SetupProfile> {
 
                     final doctorProfile = DoctorUpdateProfile.fromJson(parsed);
                     DOCTORUPDATEPROFILERESPONSES = doctorProfile;
-
+                    DoctorSigninController();
                     print(value.statusCode);
                     print(value.body);
 //EasyLoading.dismiss();
                     if(value.statusCode==200){
+                      signInAgain(context);
                       SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully set up your profile', Colors.green);
                       return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
 
@@ -449,5 +450,37 @@ class _SetupProfileState extends State<SetupProfile> {
     );
   }
 
+  Future<void> signInAgain(BuildContext context) async {
+    EasyLoading.show(status: 'loading...');
 
+    DoctorSignInModel myInfo = new DoctorSignInModel(mobile: PHONE_NUMBER, password: PASSWORD, );
+    await DoctorSigninController.requestThenResponsePrint(myInfo).then((value) async {
+      print(value.statusCode);
+      print(value.body);
+      final Map parsed = json.decode(value.body);
+
+      final loginobject = User.fromJson(parsed);
+      DOCTOR_INITIAL = loginobject;
+      print(loginobject.token);
+      print(loginobject.token);
+
+
+
+      USERTOKEN = loginobject.token;
+      // sharedPreferences.setString("token", loginobject.accessToken);
+      EasyLoading.dismiss();
+      if (value.statusCode == 200) {
+        PASSWORD = PASSWORD;
+        PHONE_NUMBER = PHONE_NUMBER;
+        return Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => BottomNevigation()),
+        );
+      } else {
+        // return LoginController.requestThenResponsePrint(jsonData);
+        AlertDialogueHelper().showAlertDialog(
+            context, 'Warning', 'Please recheck email and password');
+      }
+    });
+  }
 }

@@ -82,6 +82,8 @@ class _MyProfileState extends State<MyProfile> {
                         scrollDirection: Axis.vertical,
                         itemCount: myProfile.length,
                         itemBuilder: (context,index) {
+                          print('myProfile[index].image');
+                          print(myProfile[index].image);
                           return MyProfileWidget(myProfile[index], context, );
                         }
                     ),

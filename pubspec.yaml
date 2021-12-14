@@ -88,6 +88,7 @@ flutter:
     - images/rating.png
     - images/test_report.png
     - images/gender.png
+    - images/department1.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

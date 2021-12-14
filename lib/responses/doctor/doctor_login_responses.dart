@@ -55,55 +55,71 @@ class User {
     this.adminId,
     required this.name,
     required this.email,
+    required this.hospitalName,
+    required this.experience,
+    required this.fee,
+    required this.rating,
     required this.referralCode,
     required this.doctorid,
     required this.mobile,
     this.nid,
-    required this.bmdcReg,
-    this.department,
-    this.degree,
-    this.designation,
-    this.specialization,
+    this.bmdcReg,
+    required this.department,
+    required this.degree,
+    required this.designation,
+    required this.specialization,
     this.dob,
-    this.address,
+    required this.address,
     this.district,
     this.policeStation,
     this.postOffice,
     required this.status,
-    this.image,
+    required this.image,
     this.emailVerifiedAt,
+    required this.featured,
+    required this.chambers,
+    required this.introduction,
     required this.createdAt,
     required this.updatedAt,
-    this.gender,
+    required this.gender,
     this.deletedAt,
+    required this.doctorService,
   });
 
   String id;
-  dynamic adminId;
   String token;
+  dynamic adminId;
   String name;
   String email;
+  String hospitalName;
+  String experience;
+  String fee;
+  String rating;
   String referralCode;
   String doctorid;
   String mobile;
   dynamic nid;
-  String bmdcReg;
-  dynamic department;
-  dynamic degree;
-  dynamic designation;
-  dynamic specialization;
+  dynamic bmdcReg;
+  String department;
+  String degree;
+  String designation;
+  String specialization;
   dynamic dob;
-  dynamic address;
+  String address;
   dynamic district;
   dynamic policeStation;
   dynamic postOffice;
   String status;
-  dynamic image;
+  String image;
   dynamic emailVerifiedAt;
+  String featured;
+  String chambers;
+  String introduction;
   String createdAt;
   String updatedAt;
-  dynamic gender;
+  String gender;
   dynamic deletedAt;
+   String doctorService; //List<dynamic>
 
   factory User.fromJson(Map<dynamic, dynamic> json) => User(
     id: json["id"].toString(),
@@ -111,6 +127,10 @@ class User {
     adminId: json["admin_id"].toString(),
     name: json["name"].toString(),
     email: json["email"].toString(),
+    hospitalName: json["hospital_name"].toString(),
+    experience: json["experience"].toString(),
+    fee: json["fee"].toString(),
+    rating: json["rating"].toString(),
     referralCode: json["referral_code"].toString(),
     doctorid: json["doctorid"].toString(),
     mobile: json["mobile"].toString(),
@@ -125,13 +145,17 @@ class User {
     district: json["district"].toString(),
     policeStation: json["police_station"].toString(),
     postOffice: json["post_office"].toString(),
-    status: json["status"].toString().toString(),
-    image: json["image"].toString().toString(),
+    status: json["status"].toString(),
+    image: json["image"].toString(),
     emailVerifiedAt: json["email_verified_at"].toString(),
+    featured: json["featured"].toString(),
+    chambers: json["chambers"].toString(),
+    introduction: json["introduction"].toString(),
     createdAt: json["created_at"].toString(),
     updatedAt: json["updated_at"].toString(),
-    gender: json["gender"],
-    deletedAt: json["deleted_at"],
+    gender: json["gender"].toString(),
+    deletedAt: json["deleted_at"].toString(),
+    doctorService: json["doctor_service"].toString(),//List<dynamic>.from(json["doctor_service"].map((x) => x).),
   );
 
   Map<String, dynamic> toJson() => {
@@ -140,6 +164,10 @@ class User {
     "admin_id": adminId,
     "name": name,
     "email": email,
+    "hospital_name": hospitalName,
+    "experience": experience,
+    "fee": fee,
+    "rating": rating,
     "referral_code": referralCode,
     "doctorid": doctorid,
     "mobile": mobile,
@@ -157,9 +185,13 @@ class User {
     "status": status,
     "image": image,
     "email_verified_at": emailVerifiedAt,
-    "created_at": createdAt.toString(),
-    "updated_at": updatedAt.toString(),
+    "featured": featured,
+    "chambers": chambers,
+    "introduction": introduction,
+    "created_at": createdAt,
+    "updated_at": updatedAt,
     "gender": gender,
     "deleted_at": deletedAt,
+    "doctor_service": doctorService,
   };
 }

@@ -13,10 +13,14 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context) => Container(
             padding: const EdgeInsets.only(left: 20, top: 20),
             child: Row(
               children: [
-                Image.network("$apiDomainRoot/images/${DOCTOR_INITIAL.image}",
-                height: 160,
-                  width: 160,
+                Container(
+                  height: 165,
+                  width: 165,
+                  child: Image.network("$apiDomainRoot/images/${DOCTOR_INITIAL.image}",
+                  height: 160,
+                    width: 160,
 
+                  ),
                 ),
 
                 Expanded(
@@ -31,7 +35,7 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context) => Container(
                               padding: const EdgeInsets.only(top: 40),
                               child: Container(
                                   alignment: Alignment.centerLeft,
-                                  child: Text(rivewlist.name,
+                                  child: Text(DOCTOR_INITIAL.name,
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold

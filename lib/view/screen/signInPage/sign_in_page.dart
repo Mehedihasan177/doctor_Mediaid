@@ -145,10 +145,12 @@ class _SingInPageState extends State<SingInPage> {
                       .then((value) async {
                     print(value.statusCode);
                     print(value.body);
+                    PHONE_NUMBER = _textMobile.text;
+                    PASSWORD = _textPassword.text;
 
-                    EasyLoading.show(status: 'loading...');
+                    //EasyLoading.show(status: 'loading...');
                     if (value.statusCode == 200) {
-                      EasyLoading.dismiss();
+                      //EasyLoading.dismiss();
                       return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
                     } else {
 

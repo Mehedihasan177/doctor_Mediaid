@@ -10,7 +10,16 @@ final myProfileData =[
     phone_number: DOCTOR_INITIAL.mobile,
     email: DOCTOR_INITIAL.email,
     specialization: DOCTOR_INITIAL.specialization,
-    bmdcReg: DOCTOR_INITIAL.bmdcReg
+    bmdcReg: DOCTOR_INITIAL.bmdcReg,
+    degree: DOCTOR_INITIAL.degree,
+    //introduction: DOCTOR_INITIAL.introduction,
+    gender: DOCTOR_INITIAL.gender,
+    //chember: DOCTOR_INITIAL.chambers,
+    department: DOCTOR_INITIAL.department,
+    address: DOCTOR_INITIAL.address,
+    designation: DOCTOR_INITIAL.designation,
+    introduction: '',
+    chember: '',
   ),
 ];
 

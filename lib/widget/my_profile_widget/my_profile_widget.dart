@@ -21,7 +21,7 @@ TextEditingController _degree = TextEditingController();
 TextEditingController _designation = TextEditingController();
 TextEditingController _address = TextEditingController();
 TextEditingController _introduction = TextEditingController();
-// TextEditingController _designation = TextEditingController();
+
 String split = '';
 Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
     Column(
@@ -34,9 +34,11 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
                 child: Container(
                   width: 100.0,
                   height: 130.0,
-                  child: Image.asset(
-                    myProfile.image,
+                  child: Image.network(
+                    "$apiDomainRoot/images/${myProfile.image}",
                     fit: BoxFit.fill,
+
+
                   ),
                 ),
               ),
@@ -60,7 +62,7 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
                           ),
                           iconSize: 20,
                           onPressed: () {
-                            Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage()));
+                            Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage(page: 1)));
                           },
                         ),
                       ),
@@ -173,243 +175,254 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
 
         ///designation
         Padding(
-          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black.withOpacity(0.07)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: TextField(
-                controller: _designation,
-                keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.black),
-//scrollPadding: EdgeInsets.all(10),
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.account_balance_wallet_rounded,
-                    color: Color(0xFF1CBFA8),
-                    size: 20,
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+          child: Column(
+            children: [
+              Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10, bottom: 10),
+
+                  child: Text("Designation",
+                  style: TextStyle(
+                    fontSize: 16
                   ),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-//contentPadding: EdgeInsets.all(20),
-                  hintText: "Enter your designation",
+
+                  )),
+              TextFormField(
+                // here is where you fill the TextFormField
+                controller: _designation,
+                decoration: InputDecoration(
+                  labelText: DOCTOR_INITIAL.designation,
+                  fillColor: Colors.black.withOpacity(0.07),
+                  focusColor: Colors.black.withOpacity(0.07),
+                  hoverColor: Colors.black.withOpacity(0.07),
+
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(15.0),
+                  ),
                 ),
+                readOnly: false,
               ),
-            ),
+            ],
           ),
         ),
+
+
+
+
+
+
+
+
+
+
         ///department
         Padding(
-          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black.withOpacity(0.07)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: TextField(
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+          child: Column(
+            children: [
+              Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10, bottom: 10),
+
+                  child: Text("Department",
+                    style: TextStyle(
+                        fontSize: 16
+                    ),
+
+                  )),
+              TextFormField(
+                // here is where you fill the TextFormField
                 controller: _department,
-                keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.black),
-//scrollPadding: EdgeInsets.all(10),
                 decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.account_balance_wallet_rounded,
-                    color: Color(0xFF1CBFA8),
-                    size: 20,
+                  labelText: DOCTOR_INITIAL.department,
+                  fillColor: Colors.black.withOpacity(0.07),
+                  focusColor: Colors.black.withOpacity(0.07),
+                  hoverColor: Colors.black.withOpacity(0.07),
+
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(15.0),
                   ),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-//contentPadding: EdgeInsets.all(20),
-                  hintText: "Enter your department",
                 ),
+                readOnly: false,
               ),
-            ),
+            ],
           ),
         ),
         ///degree
         Padding(
-          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black.withOpacity(0.07)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: TextField(
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+          child: Column(
+            children: [
+              Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10, bottom: 10),
+
+                  child: Text("Degree",
+                    style: TextStyle(
+                        fontSize: 16
+                    ),
+
+                  )),
+              TextFormField(
+                // here is where you fill the TextFormField
                 controller: _degree,
-                keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.black),
-//scrollPadding: EdgeInsets.all(10),
                 decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.account_balance_wallet_rounded,
-                    color: Color(0xFF1CBFA8),
-                    size: 20,
+                  labelText: DOCTOR_INITIAL.degree,
+                  fillColor: Colors.black.withOpacity(0.07),
+                  focusColor: Colors.black.withOpacity(0.07),
+                  hoverColor: Colors.black.withOpacity(0.07),
+
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(15.0),
                   ),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-//contentPadding: EdgeInsets.all(20),
-                  hintText: "Enter your degree",
                 ),
+                readOnly: false,
               ),
-            ),
+            ],
           ),
         ),
 
-        ///chember
-        Padding(
-          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black.withOpacity(0.07)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: TextField(
-                controller: _chember,
-                keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.black),
-//scrollPadding: EdgeInsets.all(10),
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.account_balance_wallet_rounded,
-                    color: Color(0xFF1CBFA8),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-//contentPadding: EdgeInsets.all(20),
-                  hintText: "Enter your chember",
-                ),
-              ),
-            ),
-          ),
-        ),
+
+        // /// chamber
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+        //   child: TextFormField(
+        //     // here is where you fill the TextFormField
+        //     controller: _department,
+        //     decoration: InputDecoration(
+        //      // labelText: DOCTOR_INITIAL.chambers,
+        //       fillColor: Colors.black.withOpacity(0.07),
+        //       focusColor: Colors.black.withOpacity(0.07),
+        //       hoverColor: Colors.black.withOpacity(0.07),
+        //
+        //       border: new OutlineInputBorder(
+        //         borderRadius: new BorderRadius.circular(15.0),
+        //       ),
+        //     ),
+        //     readOnly: false,
+        //   ),
+        // ),
         ///adress
 
         Padding(
-          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black.withOpacity(0.07)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: TextField(
-                controller: _address,
-                keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.black),
-//scrollPadding: EdgeInsets.all(10),
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.account_balance_wallet_rounded,
-                    color: Color(0xFF1CBFA8),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-//contentPadding: EdgeInsets.all(20),
-                  hintText: "Enter your address",
-                ),
-              ),
-            ),
-          ),
-        ),
-        ///introduction
-        Padding(
-          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black.withOpacity(0.07)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: TextField(
-                controller: _introduction,
-                keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.black),
-//scrollPadding: EdgeInsets.all(10),
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.account_balance_wallet_rounded,
-                    color: Color(0xFF1CBFA8),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-//contentPadding: EdgeInsets.all(20),
-                  hintText: "Enter your introduction",
-                ),
-              ),
-            ),
-          ),
-        ),
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+          child: Column(
+            children: [
+              Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10, bottom: 10),
 
+                  child: Text("Address",
+                    style: TextStyle(
+                        fontSize: 16
+                    ),
+
+                  )),
+              TextFormField(
+                // here is where you fill the TextFormField
+                controller: _address,
+                decoration: InputDecoration(
+                  labelText: DOCTOR_INITIAL.address,
+                  fillColor: Colors.black.withOpacity(0.07),
+                  focusColor: Colors.black.withOpacity(0.07),
+                  hoverColor: Colors.black.withOpacity(0.07),
+
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(15.0),
+                  ),
+                ),
+                readOnly: false,
+              ),
+            ],
+          ),
+        ),
+        // ///introduction
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+        //   child: TextFormField(
+        //     // here is where you fill the TextFormField
+        //     controller: _introduction,
+        //     decoration: InputDecoration(
+        //       labelText: DOCTOR_INITIAL.i,
+        //       fillColor: Colors.black.withOpacity(0.07),
+        //       focusColor: Colors.black.withOpacity(0.07),
+        //       hoverColor: Colors.black.withOpacity(0.07),
+        //
+        //       border: new OutlineInputBorder(
+        //         borderRadius: new BorderRadius.circular(15.0),
+        //       ),
+        //     ),
+        //     readOnly: false,
+        //   ),
+        // ),
+
+
+
+        ///chember
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+          child: Column(
+            children: [
+              Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10, bottom: 10),
+
+                  child: Text("Chember",
+                    style: TextStyle(
+                        fontSize: 16
+                    ),
+
+                  )),
+              TextFormField(
+                // here is where you fill the TextFormField
+                controller: _chember,
+                decoration: InputDecoration(
+                  labelText: DOCTOR_INITIAL.chambers,
+                  fillColor: Colors.black.withOpacity(0.07),
+                  focusColor: Colors.black.withOpacity(0.07),
+                  hoverColor: Colors.black.withOpacity(0.07),
+
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(15.0),
+                  ),
+                ),
+                readOnly: false,
+              ),
+            ],
+          ),
+        ),
         ///gender
         Padding(
-          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black.withOpacity(0.07)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: TextField(
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+          child: Column(
+            children: [
+              Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10, bottom: 10),
+
+                  child: Text("Gender",
+                    style: TextStyle(
+                        fontSize: 16
+                    ),
+
+                  )),
+              TextFormField(
+                // here is where you fill the TextFormField
                 controller: _gender,
-                keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.black),
-//scrollPadding: EdgeInsets.all(10),
                 decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.account_balance_wallet_rounded,
-                    color: Color(0xFF1CBFA8),
-                    size: 20,
+                  labelText: DOCTOR_INITIAL.gender,
+                  fillColor: Colors.black.withOpacity(0.07),
+                  focusColor: Colors.black.withOpacity(0.07),
+                  hoverColor: Colors.black.withOpacity(0.07),
+
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(15.0),
                   ),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-//contentPadding: EdgeInsets.all(20),
-                  hintText: "Gender",
                 ),
+                readOnly: false,
               ),
-            ),
+            ],
           ),
         ),
 
@@ -659,8 +672,8 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
                   'department': "${_department.text}",
                   'degree': "${_degree.text}",
                   'address': "${_address.text}",
-                  'introduction': "${_introduction.text}",
-                  'chambers': "${_chember.text}",
+                  //'introduction': "${_introduction.text}",
+                 // 'chambers': "${_chember.text}",
                   'gender': "${_gender.text}",
 
 
@@ -679,7 +692,7 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
                   EasyLoading.dismiss();
                   if(value.statusCode==200){
                     SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully Added', Colors.green);
-                    //return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+                    return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
 
                   }else{
                     SnackbarDialogueHelper().showSnackbarDialog(context, value.body.replaceAll('"', ' ')

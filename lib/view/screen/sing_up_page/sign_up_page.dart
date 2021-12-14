@@ -353,17 +353,17 @@ class _SingUpPageState extends State<SingUpPage> {
                             print(value.statusCode);
                             print(value.body);
 
-                            final Map parsed = json.decode(value.body);
 
-
-                            SharedPreferences sharedPreferences =
-                            await SharedPreferences.getInstance();
-                            final loginobject = login.User.fromJson(parsed);
-                            DOCTOR_INITIAL = loginobject;
-                            print(loginobject.token);
-                            sharedPreferences.setString("token", loginobject.token);
                             //EasyLoading.dismiss();
                             if (value.statusCode == 200) {
+                              final Map parsed = json.decode(value.body);
+                              SharedPreferences sharedPreferences =
+                              await SharedPreferences.getInstance();
+                              var reobj = login.DoctorLoginResponse.fromJson(json.decode(value.body));
+                              var loginobject = reobj.data.user;
+                              DOCTOR_INITIAL = loginobject;
+                              print(loginobject.token);
+                              sharedPreferences.setString("token", loginobject.token);
                               sharedPreferences.setString("mobile", _phoneNumber.text);
                               sharedPreferences.setString("password", _password.text);
                               SnackbarDialogueHelper().showSnackbarDialog(context, "Registration successful",Colors.green);
@@ -382,9 +382,6 @@ class _SingUpPageState extends State<SingUpPage> {
                               .replaceAll('}', ' ')
                               .replaceAll('[', ' ')
                               .replaceAll(']', ' '), Colors.red);
-
-
-
                         }
                       });
 
