@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_create_controller.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_appointment_slot_controller.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_appointment_slot_delete_controller.dart';
 import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
 import 'package:care_plus_doctor/model/doctor/doctor_appointment_create_slot_model.dart';
 import 'package:care_plus_doctor/model/manage_schedule_model/manage_schedule_model.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_appointment_slot_responses.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,14 +49,15 @@ class _ManageScheduleState extends State<ManageSchedule> {
   void addItemToList() {
     setState(() {
       //valuetwo = [] as NewObject2;
-
-      manageSchedule.add(ManageScheduleModel(myCurrentPos,startTime.format(context),endTime.format(context),));
+      manageSchedule.add(ManageScheduleModel(99999999,myCurrentPos,startTime.format(context),endTime.format(context),));
       // holder = dropdownValue ;
     });
   }
 
   @override
   void initState() {
+
+    fetchAllmySlots();
 
     // TODO: implement initState
     super.initState();
@@ -184,7 +190,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
                 child: ElevatedButton(
                     onPressed: () {
                       // getDropDownItem();
-                      addItemToList();
+                      // addItemToList();
                       addVisitingTime(myCurrentPos.substring(0,3),startTime,endTime);
                     },
                     child: Text('Add Visiting Time',
@@ -221,7 +227,21 @@ class _ManageScheduleState extends State<ManageSchedule> {
                             child: Icon(Icons.delete),
                           onTap: (){
                               setState(() {
-                                manageSchedule.remove(manageSchedule[index]);
+                                DoctorAppointmentSlotDeleteController.requestThenResponsePrint(USERTOKEN,manageSchedule[index].id).then((value){
+                                  print(value.statusCode);
+                                  print(value.body);
+                                  setState(() {
+                                    if(value.statusCode==200){
+                                      manageSchedule.remove(manageSchedule[index]);
+                                      SnackbarDialogueHelper().showSnackbarDialog(context, 'Timeslot Delete Successfully', Colors.orange);
+                                      fetchAllmySlots();
+                                    }else{
+                                      SnackbarDialogueHelper().showSnackbarDialog(context, 'Timeslot Delete not Successful', Colors.red);
+                                    }
+                                  });
+
+                                });
+
                               });
                           },
                         ),
@@ -285,11 +305,36 @@ class _ManageScheduleState extends State<ManageSchedule> {
     ), USERTOKEN).then((value) {
        print(value.statusCode);
         if(value.statusCode==201){
-          SnackbarDialogueHelper().showSnackbarDialog(context, 'TimeSlot Added Successfully', Colors.green);
-       }else{
+          SnackbarDialogueHelper().showSnackbarDialog(context, 'Timeslot Added Successfully', Colors.green);
+          fetchAllmySlots();
+        }else{
           SnackbarDialogueHelper().showSnackbarDialog(context, 'Could not added successfully', Colors.red);
           // SnackbarDialogueHelper().showSnackbarDialog(context, value.body, Colors.red);
        }
+    });
+  }
+
+  void fetchAllmySlots() {
+    DoctorAppointmentSlotController.requestThenResponsePrint(USERTOKEN).then((value){
+      setState(() {
+        print(value.statusCode);
+        if(value.statusCode==200){
+          DoctorAppointmentSlotResponse doctorAppointmentSlotResponse = DoctorAppointmentSlotResponse.fromJson(json.decode(value.body));
+          print(doctorAppointmentSlotResponse.message);
+
+          manageSchedule.clear();
+          for(var ms in doctorAppointmentSlotResponse.data){
+            manageSchedule.add(
+                ManageScheduleModel(ms.id,ms.day,ms.startTime,ms.endTime),
+            );
+          }
+
+          setState(() {
+
+          });
+
+        }
+      });
     });
   }
 }

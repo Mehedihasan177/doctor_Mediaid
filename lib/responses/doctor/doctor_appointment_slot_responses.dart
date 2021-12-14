@@ -11,25 +11,25 @@ String doctorAppointmentSlotResponseToJson(DoctorAppointmentSlotResponse data) =
 class DoctorAppointmentSlotResponse {
   DoctorAppointmentSlotResponse({
     required this.message,
-    required this.doctorAppointmentSlotResponses,
+    required this.data,
   });
 
   String message;
-  DoctorAppointmentSlotResponses doctorAppointmentSlotResponses;
+  List<Datum> data;
 
   factory DoctorAppointmentSlotResponse.fromJson(Map<String, dynamic> json) => DoctorAppointmentSlotResponse(
     message: json["message"],
-    doctorAppointmentSlotResponses: DoctorAppointmentSlotResponses.fromJson(json["DoctorAppointmentSlotResponses"]),
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "message": message,
-    "DoctorAppointmentSlotResponses": doctorAppointmentSlotResponses.toJson(),
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
   };
 }
 
-class DoctorAppointmentSlotResponses {
-  DoctorAppointmentSlotResponses({
+class Datum {
+  Datum({
     required this.id,
     required this.doctorId,
     required this.startTime,
@@ -38,20 +38,20 @@ class DoctorAppointmentSlotResponses {
     required this.status,
     required this.createdAt,
     required this.updatedAt,
-    this.deletedAt,
+    required this.deletedAt,
   });
 
   int id;
-  int doctorId;
+  String doctorId;
   String startTime;
   String endTime;
   String day;
-  int status;
+  String status;
   DateTime createdAt;
   DateTime updatedAt;
   dynamic deletedAt;
 
-  factory DoctorAppointmentSlotResponses.fromJson(Map<String, dynamic> json) => DoctorAppointmentSlotResponses(
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
     doctorId: json["doctor_id"],
     startTime: json["start_time"],

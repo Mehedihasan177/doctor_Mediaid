@@ -8,7 +8,7 @@ static Future<http.Response> requestThenResponsePrint(String token) async {
 
 String domain = apiDomainRoot;
 
-var url = '$domain/api/doctor/appointment-slot/10';
+var url = '$domain/api/doctor/appointment-slot';
 
 var response = await http.get(Uri.parse(url),
 headers: {
