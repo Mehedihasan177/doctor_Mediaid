@@ -9,6 +9,7 @@ import 'package:care_plus_doctor/responses/doctor/doctor_update_profile_response
 import 'package:care_plus_doctor/view/screen/add_services/add_services.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/setUp_Profile/image_upload_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 TextEditingController _experience = TextEditingController();
@@ -29,10 +30,12 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
         Card(
           child: Row(
             children: [
-              ClipRRect(
+              Expanded(
+                flex: 2,
+                child: ClipRRect(
                 borderRadius: BorderRadius.circular(5.0),
                 child: Container(
-                  width: 100.0,
+                  width: 130.0,
                   height: 130.0,
                   child: Image.network(
                     "$apiDomainRoot/images/${myProfile.image}",
@@ -41,39 +44,69 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
 
                   ),
                 ),
-              ),
+              ),),
               Expanded(
+                flex: 4,
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 100),
+                  padding: const EdgeInsets.only(right: 10),
                   child: Column(
                     children: [
-                      Container(
-                        height: 35,
-                        width: 35,
-                        alignment: Alignment.topLeft,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF1CBFA8),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.camera_alt,
-                            color: Colors.white,
-                          ),
-                          iconSize: 20,
-                          onPressed: () {
-                            Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage(page: 1)));
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
+                      // Container(
+                      //   height: 35,
+                      //   width: 35,
+                      //   alignment: Alignment.topLeft,
+                      //   decoration: BoxDecoration(
+                      //     color: Color(0xFF1CBFA8),
+                      //     borderRadius: BorderRadius.circular(30),
+                      //   ),
+                      //   child: IconButton(
+                      //     icon: Icon(
+                      //       Icons.camera_alt,
+                      //       color: Colors.white,
+                      //     ),
+                      //     iconSize: 20,
+                      //     onPressed: () {
+                      //       Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage(page: 1)));
+                      //     },
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text("${myProfile.name}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
                         child: Container(
                             alignment: Alignment.centerLeft,
-                            child: Text("Change Profile Picture")),
+                            child: Text("${myProfile.gender}",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 12),)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text("${myProfile.email}",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 14),)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text("${myProfile.phone_number}",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 14),)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20,top: 10),
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage(page: 1)));
+                          },
+                          child: Container(
+                              alignment: Alignment.centerLeft,
+                              child: Text("Change Profile Picture",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 14,color: Colors.blue,decoration: TextDecoration.underline,),)),
+                        )
                       ),
                     ],
                   ),
@@ -82,93 +115,7 @@ Widget MyProfileWidget(MyProfileModel myProfile, BuildContext context) =>
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black.withOpacity(0.07)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.person_pin,
-                    color: Color(0xFF1CBFA8),
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    myProfile.name,
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black.withOpacity(0.07)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.phone_android_sharp,
-                    color: Color(0xFF1CBFA8),
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    myProfile.phone_number.toString(),
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black.withOpacity(0.07)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.email,
-                    color: Color(0xFF1CBFA8),
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    myProfile.email,
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+
 
 
 
