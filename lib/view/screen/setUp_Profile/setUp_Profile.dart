@@ -410,7 +410,7 @@ class _SetupProfileState extends State<SetupProfile> {
 
                     final doctorProfile = DoctorUpdateProfile.fromJson(parsed);
                     DOCTORUPDATEPROFILERESPONSES = doctorProfile;
-                    DoctorSigninController();
+                   // DoctorSigninController();
                     print(value.statusCode);
                     print(value.body);
 //EasyLoading.dismiss();

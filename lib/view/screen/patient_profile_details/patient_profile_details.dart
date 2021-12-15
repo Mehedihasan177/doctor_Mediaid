@@ -1,11 +1,21 @@
+import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/data/patient_profile_details_data/patient_profile_details_data.dart';
 import 'package:care_plus_doctor/model/ui_model/patient_profile_details_model/patient_profile_details_model.dart';
+import 'package:care_plus_doctor/view/screen/care_plus_lab_report_list/care_plus_lab_report_list.dart';
+import 'package:care_plus_doctor/view/screen/health_record/health_record.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
+import 'package:care_plus_doctor/view/screen/problem_page/problem_page.dart';
 import 'package:care_plus_doctor/widget/patient_profile_widget/patient_profile_widget.dart';
 import 'package:flutter/material.dart';
 
 class PatientProfileDetailsPage extends StatefulWidget {
-  const PatientProfileDetailsPage({Key? key}) : super(key: key);
+  final String name, gender, email, mobile, address, status, image, reschedule, appointment_for, rescheduleDate, district, height,
+  weight, medicare_no;
+
+  const PatientProfileDetailsPage({Key? key,
+    required this.image, required this.name, required this.gender, required this.email, required this.height,
+    required this.weight, required this.mobile, required this.medicare_no, required this.address,
+    required this.status, required this.district, required this.appointment_for, required this.rescheduleDate, required this.reschedule}) : super(key: key);
 
   @override
   _PatientProfileDetailsPageState createState() => _PatientProfileDetailsPageState();
@@ -24,62 +34,419 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
       child: Scaffold(
         body: ListView(
           physics: NeverScrollableScrollPhysics(), // <-- this will disable scroll
-          shrinkWrap: true,
+          //shrinkWrap: true,
           children: [
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 20),
-            //   child: Row(
-            //     children: [
-            //       FlatButton(
-            //         child: Icon(
-            //           Icons.arrow_back_ios,
-            //           size: 30,
-            //           color: Colors.black.withOpacity(0.5),
-            //         ),
-            //         splashColor: Colors.transparent,
-            //         onPressed: () {},
-            //       ),
-            //       Text("About Doctor",
-            //         style: TextStyle(
-            //           fontSize: 23,
-            //           color: Colors.black.withOpacity(0.5),
-            //           fontWeight: FontWeight.bold,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 30,
-            // ),
             SizedBox(
               height: 40,
             ),
-            Row(
-              children: [
-                Flexible(
-                  child: Container(
-                    //padding: EdgeInsets.only(left: 20),
-                    alignment: Alignment.centerLeft,
-                    height: 750,
-                    child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        //controller: PageController(viewportFraction: 0.3),
-                        scrollDirection: Axis.vertical,
-                        itemCount: patientProfileDetails.length,
-                        itemBuilder: (context,index) {
-                          //var information = carePlushPrescriptionList[index];
-                          return PatientProfileWidget(
-                              patientProfileDetails[index],
-                              context);
-
-                        }
+                  Container(
+                    alignment: Alignment.center,
+                    child: Text("Patient Profile",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.black.withOpacity(0.5)
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 20,),
+            Card(
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: Container(
+                        width: 130.0,
+                        height: 130.0,
+                        child: Image.network(
+                          "$apiDomainRoot/images/${widget.image}",
+                          fit: BoxFit.fill,
+
+
+                        ),
+                      ),
+                    ),),
+                  Expanded(
+                    flex: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Column(
+
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text("${widget.name}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, top: 10),
+                            child: Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text("${"Gender: "+widget.gender}",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 12),)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, top: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text("Height: "+"${widget.height}",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 14),)),
+                                Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text("${"Weight: "+widget.weight}",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 14),)),
+                              ],
+                            ),
+                          ),
+
+
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
+                  Stack(
+                    children: [
+                      designPortion(),
+                      designPortion1(),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 40, left: 20),
+                                      child: Container(
+                                        height: 50,
+                                        width: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(0.6),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(40),
+                                          ),
+                                        ),
+                                        child: Center(
+                                            child:
+                                            Icon(Icons.calendar_today_rounded, color: Colors.black.withOpacity(0.3),)
+                                        ),
+                                      ),
+                                    ),
+                                    Column(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                          const EdgeInsets.only(left: 20, top: 40),
+                                          child: Text(
+                                            "Appointment date and time",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        SizedBox(height: 5,),
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 20),
+                                              child: Text(
+                                                "Reshedule date: "+widget.rescheduleDate.replaceAll("null", "0"),
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                            SizedBox(width: 10,),
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 5),
+                                              child: Text(
+                                                " Reschedule: "+widget.reschedule,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+
+
+
+                          ///appointment for
+                          Padding(
+                            padding: EdgeInsets.only(top: 90, left: 30),
+                            child: Column(
+                              children: [
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Appointment Purpose",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black.withOpacity(0.5)),
+                                  ),
+                                ),
+                                SizedBox(height: 10,),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      widget.appointment_for.replaceAll("null", "Haven't any details"),
+                                      textAlign: TextAlign.justify,
+                                      style:
+                                      TextStyle(color: Colors.black.withOpacity(0.5)),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+
+
+                          ///medicare no
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, left: 30),
+                            child: Row(
+                              children: [
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Medicare No: ",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black.withOpacity(0.5)),
+                                  ),
+                                ),
+                                SizedBox(height: 10,),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      widget.medicare_no.replaceAll("null", "Haven't any medicare no."),
+                                      textAlign: TextAlign.justify,
+                                      style:
+                                      TextStyle(color: Colors.black.withOpacity(0.5)),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          ///address
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, left: 30),
+                            child: Column(
+                              children: [
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Address",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black.withOpacity(0.5)),
+                                  ),
+                                ),
+                                SizedBox(height: 10,),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      widget.address.replaceAll("null", "Haven't any address"),
+                                      textAlign: TextAlign.justify,
+                                      style:
+                                      TextStyle(color: Colors.black.withOpacity(0.5)),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+
+                          Padding(
+                            padding: const EdgeInsets.only(top: 30, left: 30, right: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text("Appointment Status",
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.black.withOpacity(0.5),
+                                          fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                    SizedBox(height: 5,),
+                                    Text(widget.status,
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.black.withOpacity(0.5),
+                                          fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Text("Investigating",
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.orange.withOpacity(0.9),
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+
+
+
+                          //icon gula ekbare niche namate hobe.
+                          Padding(
+                            padding: const EdgeInsets.only(top: 60, right: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Container(
+                                    height: 45,
+                                    width: 120,
+                                    child: FlatButton(
+                                      //minWidth: 10,
+                                      onPressed: () {
+                                        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListToday()));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Icon(Icons.call, color: Color(0xFF1CBFA8),size: 25,),
+
+                                          Text(
+                                              "Call",
+                                              style:
+                                              TextStyle(color: Colors.black.withOpacity(0.5))
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Container(
+                                    height: 45,
+                                    width: 120,
+                                    child: FlatButton(
+                                      //minWidth: 10,
+                                      onPressed: () {
+                                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          ImageIcon(
+                                            AssetImage("images/test_results.png"),
+                                            color: Color(0xFF1CBFA8),
+                                          ),
+
+                                          Text(
+                                              "Lab Report",
+                                              style:
+                                              TextStyle(color: Colors.black.withOpacity(0.5))
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Container(
+                                    height: 45,
+                                    width: 120,
+                                    child: FlatButton(
+                                      //minWidth: 10,
+                                      onPressed: () {
+                                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProblemPage()));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          ImageIcon(
+                                            AssetImage("images/prescription.png"),
+                                            color: Color(0xFF1CBFA8),
+                                          ),
+
+                                          Text(
+                                              "Prescription",
+                                              style:
+                                              TextStyle(color: Colors.black.withOpacity(0.5))
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                          ),
+
+
+
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Container(
+                            child: ElevatedButton(
+                              child: Text(
+                                "Health Records",
+                                style: TextStyle(color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () async {
+                                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HealthRecord()));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(350, 59),
+                                //maximumSize: const Size(350, 59),
+                                primary: Color(0xFF1CBFA8),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              //color: Color(0xF60D72),
+                                borderRadius: BorderRadius.circular(18)),
+                          ),
+
+                        ],
+                      ),
+                    ],
+                  ),
+
           ],
         ),
       ),

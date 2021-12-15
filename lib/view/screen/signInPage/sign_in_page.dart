@@ -135,12 +135,12 @@ class _SingInPageState extends State<SingInPage> {
                 ),
                 onPressed: () async {
 
-                  EasyLoading.show(status: 'loading...');
+                  //EasyLoading.show(status: 'loading...');
                   // SharedPreferences sharedPreferences =
                   // await SharedPreferences.getInstance();
                   DoctorSignInModel myInfo = new DoctorSignInModel(
                       mobile: _textMobile.text, password: _textPassword.text);
-                  EasyLoading.show(status: 'loading...');
+                  //EasyLoading.show(status: 'loading...');
                   await DoctorSigninController.requestThenResponsePrint(myInfo)
                       .then((value) async {
                     print(value.statusCode);

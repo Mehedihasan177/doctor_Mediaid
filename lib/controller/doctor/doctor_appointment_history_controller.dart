@@ -6,7 +6,8 @@ static Future<http.Response> requestThenResponsePrint(String token) async {
 
 String domain = apiDomainRoot;
 
-var url = '$domain/api/doctor/appointment/history';
+var url = '$domain/api/doctor/appointment-schedule';
+///'$domain/api/doctor/appointment-schedule'; test korle data ase. but what is difference between history and appointment schedule
 
 var response = await http.get(Uri.parse(url),
 headers: {
