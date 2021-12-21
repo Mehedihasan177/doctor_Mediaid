@@ -1,10 +1,15 @@
+import 'dart:convert';
+
+import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/controller/others/viewUserHealthHistory.dart';
 import 'package:care_plus_doctor/data/health_history/health_history_data.dart';
 import 'package:care_plus_doctor/model/health_histoy/health_history_model.dart';
+import 'package:care_plus_doctor/responses/others/userHealthHistory.dart';
 import 'package:care_plus_doctor/view/screen/patient_profile_details/patient_profile_details.dart';
 import 'package:care_plus_doctor/widget/health_history_ui_widget/health_history_widget_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HealthRecord extends StatefulWidget {
   const HealthRecord({Key? key}) : super(key: key);
@@ -14,7 +19,7 @@ class HealthRecord extends StatefulWidget {
 }
 
 class _HealthRecordState extends State<HealthRecord> {
-  List<Health_History> health_history = List.of(healthHistory);
+  List<Health_History> health_history = [];
 
   @override
   void initState() {
@@ -90,10 +95,34 @@ class _HealthRecordState extends State<HealthRecord> {
   }
 
   void getPatientHealthHistory() {
-
+    health_history.clear();
     DocViewUserHistory.requestThenResponsePrint(currentPatientID).then((value){
       print(value.statusCode);
       print(value.body);
+
+      var myvar = UserHealthHistory.fromJson(jsonDecode(value.body));
+      print(myvar);
+
+      myvar.report.forEach((element) {
+        setState(() {
+          print(element.name);
+          health_history.add(Health_History(
+            name: element.name,lab_report_type: element.type,time: DateFormat('hh:mm a').format(element.createdAt),date: DateFormat('dd MMM yyyy').format(element.createdAt), image: '$apiDomainRoot/files/${element.file.toString()}', id: element.id.toString()
+          ));
+
+
+        });
+      });
+      myvar.epres.forEach((element) {
+        setState(() {
+          print(element.doctor.name);
+          health_history.add(Health_History(
+            name: element.doctor.name,lab_report_type: 'Care+ Prescription',time: DateFormat('hh:mm a').format(element.createdAt),date: DateFormat('dd MMM yyyy').format(element.createdAt), image: '$apiDomainRoot/images/${element.doctor.image.toString()}',id: element.id.toString()
+          ));
+
+
+        });
+      });
 
     });
 

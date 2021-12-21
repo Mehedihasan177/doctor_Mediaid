@@ -4,14 +4,21 @@ import 'package:flutter/material.dart';
 Widget Health_History_List(Health_History health_history) => Card(
   child: Row(
     children: [
-      Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: Image.asset(health_history.image,
-          height: 90,
-          width: 90,
+      Expanded(
+        flex: 2,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20,right: 5),
+          child: Container(
+            width: 90,height: 90,
+            child: Image.network(health_history.image,
+              height: 90,
+              width: 90,
+            ),
+          ),
         ),
       ),
       Expanded(
+        flex: 5,
         child: Column(
           children: [
             Container(
@@ -55,42 +62,45 @@ Widget Health_History_List(Health_History health_history) => Card(
           ],
         ),
       ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          // height: MediaQuery.of(context).size.height * 0.07,
-          // width: MediaQuery.of(context).size.width * 0.9,
-          //color: Color(0xF60D72),
-          child: GestureDetector(
-            onTap: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) =>
-              //             CardDemo(Health_History[index])));
-            },
-            child: ElevatedButton(
-
-              child: Text(
-                "View",
-                style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
-              onPressed: () async {
-                // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Otp()));
-
+      Expanded(
+        flex: 2,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            // height: MediaQuery.of(context).size.height * 0.07,
+            // width: MediaQuery.of(context).size.width * 0.9,
+            //color: Color(0xF60D72),
+            child: GestureDetector(
+              onTap: () {
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) =>
+                //             CardDemo(Health_History[index])));
               },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(0, 25),
-                // maximumSize: const Size(50, 25),
-                primary: Color(0xFF1CBFA8),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40)),
+              child: ElevatedButton(
+
+                child: Text(
+                  "View",
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
+                onPressed: () async {
+                  // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Otp()));
+
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(0, 25),
+                  // maximumSize: const Size(50, 25),
+                  primary: Color(0xFF1CBFA8),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40)),
+                ),
               ),
             ),
+            // decoration: BoxDecoration(
+            //   //color: Color(0xF60D72),
+            //     borderRadius: BorderRadius.circular(18)),
           ),
-          // decoration: BoxDecoration(
-          //   //color: Color(0xF60D72),
-          //     borderRadius: BorderRadius.circular(18)),
         ),
       ),
     ],
