@@ -1,12 +1,14 @@
 
 class CaseStudymodel {
-  late final String image;
-  late final String name;
-  late final String lab_report_type;
-  late final String date;
-  late final String time;
+  late String id;
+  late String image;
+  late String name;
+  late String lab_report_type;
+  late String date;
+  late String time;
 
   CaseStudymodel({
+    required this.id,
     required this.image,
     required this.name,
     required this.lab_report_type,

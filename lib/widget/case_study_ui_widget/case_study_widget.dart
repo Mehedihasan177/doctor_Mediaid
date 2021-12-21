@@ -6,9 +6,12 @@ Widget Case_Study(CaseStudymodel case_study) => Card(
     children: [
       Padding(
         padding: const EdgeInsets.only(top: 10, bottom: 5),
-        child: Image.asset(case_study.image,
-          height: 70,
-          width: 70,
+        child: Container(
+          height: 70,width: 70,
+            child: Image.network(case_study.image,
+              height: 70,
+              width: 70,
+            ),
         ),
       ),
       Expanded(

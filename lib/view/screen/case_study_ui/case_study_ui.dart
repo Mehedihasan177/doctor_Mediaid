@@ -1,7 +1,13 @@
+import 'dart:convert';
+
+import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_appointment_history_controller.dart';
 import 'package:care_plus_doctor/data/case_study_data/case_study_data.dart';
 import 'package:care_plus_doctor/model/ui_model/case_study_model/case_study_model.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_appointment_history_responses.dart';
 import 'package:care_plus_doctor/widget/case_study_ui_widget/case_study_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CaseStudyNavBar extends StatefulWidget {
   const CaseStudyNavBar({Key? key}) : super(key: key);
@@ -11,7 +17,14 @@ class CaseStudyNavBar extends StatefulWidget {
 }
 
 class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
-  List<CaseStudymodel> case_study = List.of(caseStudyData);
+  List<CaseStudymodel> case_study = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getCompletedAppointments();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +90,34 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
         ],
       ),
     );
+  }
+
+
+  List<DoctorAppointmentHistoryResponseElement> doctorAppointmentHistory= [];
+
+  void getCompletedAppointments() {
+    DoctorAppointmentHistoryController.requestThenResponsePrint(USERTOKEN).then((value) {
+      setState(() {
+        print(value.statusCode);
+        print(value.body);
+        if(value.statusCode==200){
+          print(value.body);
+          Map<String, dynamic> decoded = json.decode("${value.body}");
+          Iterable AppointmentHistory = decoded['data'];
+          print(decoded['data']);
+          doctorAppointmentHistory =
+              AppointmentHistory.map((model) => DoctorAppointmentHistoryResponseElement.fromJson(model)).toList();
+          print(doctorAppointmentHistory);
+
+          case_study.clear();
+          for(var each in doctorAppointmentHistory){
+            if((each.active.toString()!='0')&&(each.consult=='1'))
+            case_study.add(CaseStudymodel(id: each.id.toString(),date: DateFormat('dd MMM yyyy').format(each.date),time: DateFormat('hh:mm a').format(each.date),image: "$apiDomainRoot/images/${each.user.image}",name: each.user.name,lab_report_type: each.appointmentFor,));
+          }
+
+        }
+      });
+    });
   }
 }
 
