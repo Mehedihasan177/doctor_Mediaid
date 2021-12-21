@@ -391,7 +391,7 @@ else setState(() =>
 
         ),
         onTap: () {
-          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(
+          Navigator.push(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(
             image: doctorAppointmentHistory.user.image,
               name: doctorAppointmentHistory.user.name,
             gender: doctorAppointmentHistory.user.gender,
@@ -405,7 +405,7 @@ else setState(() =>
             district: doctorAppointmentHistory.user.district,
             appointment_for: doctorAppointmentHistory.appointmentFor,
             reschedule: doctorAppointmentHistory.reschedule,
-            rescheduleDate: doctorAppointmentHistory.rescheduleDate,
+            rescheduleDate: DateFormat('dd MMM yyyy || hh:mm a').format(doctorAppointmentHistory.date),
             //district: doctorAppointmentHistory.user.,
 
           )));

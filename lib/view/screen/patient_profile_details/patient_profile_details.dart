@@ -28,7 +28,7 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
@@ -158,24 +158,14 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
                                             Padding(
                                               padding: const EdgeInsets.only(left: 20),
                                               child: Text(
-                                                "Reshedule date: "+widget.rescheduleDate.replaceAll("null", "0"),
+                                                widget.rescheduleDate.replaceAll("null", "0"),
                                                 style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.bold),
                                               ),
                                             ),
-                                            SizedBox(width: 10,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(left: 5),
-                                              child: Text(
-                                                " Reschedule: "+widget.reschedule,
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold),
-                                              ),
-                                            ),
+
                                           ],
                                         ),
                                       ],
@@ -302,22 +292,16 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
                                       ),
                                     ),
                                     SizedBox(height: 5,),
-                                    Text(widget.status,
+                                    Text(widget.status.replaceAll('1', 'Active').replaceAll('7', 'Emergency'),
                                       style: TextStyle(
                                           fontSize: 17,
-                                          color: Colors.black.withOpacity(0.5),
+                                          color: Colors.orange.withOpacity(0.9),
                                           fontWeight: FontWeight.bold
                                       ),
                                     ),
                                   ],
                                 ),
-                                Text("Investigating",
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.orange.withOpacity(0.9),
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                ),
+
                               ],
                             ),
                           ),
