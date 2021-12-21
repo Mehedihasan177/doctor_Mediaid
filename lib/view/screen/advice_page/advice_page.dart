@@ -220,6 +220,7 @@ class _AdvicePageState extends State<AdvicePage> {
       print(value.body);
       if(value.statusCode==200){
         appointmentSheduleId = '';
+        currentPatientID = '';
         appointmentFor = '';
         advicef = '';
         cc = '';

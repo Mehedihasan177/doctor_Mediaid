@@ -4,3 +4,4 @@ String advicef = '';
 String cc = '';
 String oe = '';
 String rx = '';
+String currentPatientID = '';

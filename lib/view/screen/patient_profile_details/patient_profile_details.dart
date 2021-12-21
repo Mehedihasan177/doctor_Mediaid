@@ -1,4 +1,5 @@
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/data/patient_profile_details_data/patient_profile_details_data.dart';
 import 'package:care_plus_doctor/model/ui_model/patient_profile_details_model/patient_profile_details_model.dart';
 import 'package:care_plus_doctor/view/screen/care_plus_lab_report_list/care_plus_lab_report_list.dart';
@@ -9,13 +10,13 @@ import 'package:care_plus_doctor/widget/patient_profile_widget/patient_profile_w
 import 'package:flutter/material.dart';
 
 class PatientProfileDetailsPage extends StatefulWidget {
-  final String name, gender, email, mobile, address, status, image, reschedule, appointment_for, rescheduleDate, district, height,
+  final String name, gender, email, mobile, address, status, image, id, appointment_for, rescheduleDate, district, height,
   weight, medicare_no;
 
   const PatientProfileDetailsPage({Key? key,
     required this.image, required this.name, required this.gender, required this.email, required this.height,
     required this.weight, required this.mobile, required this.medicare_no, required this.address,
-    required this.status, required this.district, required this.appointment_for, required this.rescheduleDate, required this.reschedule}) : super(key: key);
+    required this.status, required this.district, required this.appointment_for, required this.rescheduleDate, required this.id}) : super(key: key);
 
   @override
   _PatientProfileDetailsPageState createState() => _PatientProfileDetailsPageState();
@@ -344,11 +345,11 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
                                   padding: const EdgeInsets.only(top: 10),
                                   child: Container(
                                     height: 45,
-                                    width: 120,
+                                    // width: 120,
                                     child: FlatButton(
                                       //minWidth: 10,
                                       onPressed: () {
-                                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
+                                        Navigator.push(context,MaterialPageRoute(builder: (context) => HealthRecord()));
                                       },
                                       child: Column(
                                         children: [
@@ -358,7 +359,7 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
                                           ),
 
                                           Text(
-                                              "Lab Report",
+                                              "Health Records",
                                               style:
                                               TextStyle(color: Colors.black.withOpacity(0.5))
                                           ),
@@ -375,7 +376,18 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
                                     child: FlatButton(
                                       //minWidth: 10,
                                       onPressed: () {
-                                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProblemPage()));
+
+                                        appointmentSheduleId = '';
+                                        appointmentFor = '';
+                                        advicef = '';
+                                        cc = '';
+                                        oe = '';
+                                        rx = '';
+
+                                        appointmentSheduleId = widget.id.toString();
+                                        appointmentFor = widget.appointment_for.toString();
+
+                                        Navigator.push(context,MaterialPageRoute(builder: (context) => ProblemPage()));
                                       },
                                       child: Column(
                                         children: [
@@ -401,30 +413,6 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
 
 
 
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Container(
-                            child: ElevatedButton(
-                              child: Text(
-                                "Health Records",
-                                style: TextStyle(color: Colors.white, fontSize: 20),
-                              ),
-                              onPressed: () async {
-                                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HealthRecord()));
-                              },
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(350, 59),
-                                //maximumSize: const Size(350, 59),
-                                primary: Color(0xFF1CBFA8),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              //color: Color(0xF60D72),
-                                borderRadius: BorderRadius.circular(18)),
-                          ),
 
                         ],
                       ),

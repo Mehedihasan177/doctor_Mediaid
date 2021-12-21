@@ -341,13 +341,14 @@ class _AppointmentListState extends State<AppointmentList> {
                               onPressed: () {
 
                                 appointmentSheduleId = '';
+                                currentPatientID = '';
                                 appointmentFor = '';
                                 advicef = '';
                                 cc = '';
                                 oe = '';
                                 rx = '';
-
                                 appointmentSheduleId = doctorAppointmentHistory.id.toString();
+                                currentPatientID = doctorAppointmentHistory.user.id.toString();
                                 appointmentFor = doctorAppointmentHistory.appointmentFor.toString();
 
                                 Navigator.push(context,MaterialPageRoute(builder: (context) => ProblemPage()));
@@ -402,6 +403,19 @@ class _AppointmentListState extends State<AppointmentList> {
 
         ),
         onTap: () {
+
+
+          appointmentSheduleId = '';
+          currentPatientID = '';
+          appointmentFor = '';
+          advicef = '';
+          cc = '';
+          oe = '';
+          rx = '';
+          appointmentSheduleId = doctorAppointmentHistory.id.toString();
+          currentPatientID = doctorAppointmentHistory.user.id.toString();
+          appointmentFor = doctorAppointmentHistory.appointmentFor.toString();
+
           Navigator.push(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(
             image: doctorAppointmentHistory.user.image,
               name: doctorAppointmentHistory.user.name,
@@ -415,7 +429,7 @@ class _AppointmentListState extends State<AppointmentList> {
             status: doctorAppointmentHistory.user.status,
             district: doctorAppointmentHistory.user.district,
             appointment_for: doctorAppointmentHistory.appointmentFor,
-            reschedule: doctorAppointmentHistory.reschedule,
+            id: doctorAppointmentHistory.id.toString(),
             rescheduleDate: DateFormat('dd MMM yyyy || hh:mm a').format(doctorAppointmentHistory.date),
             //district: doctorAppointmentHistory.user.,
 

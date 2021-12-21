@@ -1,3 +1,5 @@
+import 'package:care_plus_doctor/constents/prescription_constants.dart';
+import 'package:care_plus_doctor/controller/others/viewUserHealthHistory.dart';
 import 'package:care_plus_doctor/data/health_history/health_history_data.dart';
 import 'package:care_plus_doctor/model/health_histoy/health_history_model.dart';
 import 'package:care_plus_doctor/view/screen/patient_profile_details/patient_profile_details.dart';
@@ -15,12 +17,19 @@ class _HealthRecordState extends State<HealthRecord> {
   List<Health_History> health_history = List.of(healthHistory);
 
   @override
+  void initState() {
+    // TODO: implement initState
+    getPatientHealthHistory();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(mobile: '', gender: '', name: '', email: '', status: '', address: '',
-          image: '', height: '', district: '', medicare_no: '', weight: '', reschedule: '', appointment_for: '', rescheduleDate: '',)));
+        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(mobile: '', gender: '', name: '', email: '', status: '', address: '',
+        //   image: '', height: '', district: '', medicare_no: '', weight: '', reschedule: '', appointment_for: '', rescheduleDate: '',)));
         return true;
       },
       child: Scaffold(
@@ -38,8 +47,8 @@ class _HealthRecordState extends State<HealthRecord> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(mobile: '', gender: '', name: '', email: '', status: '', address: '',
-                        image: '', height: '', district: '', medicare_no: '', weight: '', reschedule: '', appointment_for: '', rescheduleDate: '',)));
+                      // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(mobile: '', gender: '', name: '', email: '', status: '', address: '',
+                      //   image: '', height: '', district: '', medicare_no: '', weight: '', reschedule: '', appointment_for: '', rescheduleDate: '',)));
                     },
                   ),
                   Expanded(
@@ -78,5 +87,15 @@ class _HealthRecordState extends State<HealthRecord> {
         ),
       ),
     );
+  }
+
+  void getPatientHealthHistory() {
+
+    DocViewUserHistory.requestThenResponsePrint(currentPatientID).then((value){
+      print(value.statusCode);
+      print(value.body);
+
+    });
+
   }
 }
