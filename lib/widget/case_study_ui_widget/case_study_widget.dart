@@ -1,7 +1,9 @@
+import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/model/ui_model/case_study_model/case_study_model.dart';
+import 'package:care_plus_doctor/view/screen/health_record/health_record.dart';
 import 'package:flutter/material.dart';
 
-Widget Case_Study(CaseStudymodel case_study) => Card(
+Widget Case_Study(CaseStudymodel case_study, BuildContext context) => Card(
   child: Row(
     children: [
       Padding(
@@ -86,6 +88,10 @@ Widget Case_Study(CaseStudymodel case_study) => Card(
               ),
               onPressed: () async {
                 // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Otp()));
+
+                currentPatientID = '';
+                currentPatientID = case_study.id.toString();
+                Navigator.push(context,MaterialPageRoute(builder: (context) => HealthRecord()));
 
               },
               style: ElevatedButton.styleFrom(

@@ -38,6 +38,8 @@ class _MedicinePageState extends State<MedicinePage> {
         SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe days properly', Colors.red);
       }else if(_quantity.text.isEmpty){
         SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe quantity properly', Colors.red);
+      }else if((_medicine.text.contains('+'))||(_note.text.contains('+'))||(_dose.text.contains('+'))||(_day.text.contains('+'))||(_quantity.text.contains('+'))){
+        SnackbarDialogueHelper().showSnackbarDialog(context, 'Please avoid + symbol', Colors.red);
       }else{
         medicine.add(CreateMedicine(_medicine.text,_dose.text,_note.text,_day.text,_quantity.text));
         _medicine.clear();
@@ -87,7 +89,7 @@ class _MedicinePageState extends State<MedicinePage> {
                   }
                   if (medicineToGo.isNotEmpty) {
                     rx = medicineToGo.substring(0, medicineToGo.length - 1);
-                    SnackbarDialogueHelper().showSnackbarDialog(context, rx, Colors.red);
+                    // SnackbarDialogueHelper().showSnackbarDialog(context, rx, Colors.red);
                     Navigator.push(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
                   }
 
@@ -231,7 +233,7 @@ class _MedicinePageState extends State<MedicinePage> {
                     child: TextField(
                       controller: _quantity,
                       maxLines: null,
-                      keyboardType: TextInputType.multiline,
+                      keyboardType: TextInputType.number,
                       style: TextStyle(color: Colors.black),
                       //scrollPadding: EdgeInsets.all(10),
                       decoration: InputDecoration(

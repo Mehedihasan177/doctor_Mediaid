@@ -83,7 +83,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
                 scrollDirection: Axis.vertical,
                 itemCount: case_study.length,
                 itemBuilder: (context, index) {
-                  return Case_Study(case_study[index]);
+                  return Case_Study(case_study[index],context);
                 }),
 
           ),
@@ -112,7 +112,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
           case_study.clear();
           for(var each in doctorAppointmentHistory){
             if((each.active.toString()!='0')&&(each.consult=='1'))
-            case_study.add(CaseStudymodel(id: each.id.toString(),date: DateFormat('dd MMM yyyy').format(each.date),time: DateFormat('hh:mm a').format(each.date),image: "$apiDomainRoot/images/${each.user.image}",name: each.user.name,lab_report_type: each.appointmentFor,));
+            case_study.add(CaseStudymodel(id: each.user.id.toString(),date: DateFormat('dd MMM yyyy').format(each.date),time: DateFormat('hh:mm a').format(each.date),image: "$apiDomainRoot/images/${each.user.image}",name: each.user.name,lab_report_type: each.appointmentFor,));
           }
 
         }

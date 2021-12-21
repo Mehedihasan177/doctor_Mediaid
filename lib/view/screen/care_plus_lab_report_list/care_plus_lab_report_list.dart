@@ -67,7 +67,7 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
                   }
                   if (labtestToGo.isNotEmpty) {
                     oe = labtestToGo.substring(0, labtestToGo.length - 1);
-                    SnackbarDialogueHelper().showSnackbarDialog(context, oe, Colors.red);
+                    // SnackbarDialogueHelper().showSnackbarDialog(context, oe, Colors.red);
                     Navigator.push(context,MaterialPageRoute(builder: (context) => AdvicePage()));
 
                   }

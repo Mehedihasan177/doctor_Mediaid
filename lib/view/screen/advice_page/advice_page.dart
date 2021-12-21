@@ -69,7 +69,7 @@ class _AdvicePageState extends State<AdvicePage> {
                   // cc = appointmentFor+' | '+problemToGo;
                   // cc =problemToGo;
 
-                  SnackbarDialogueHelper().showSnackbarDialog(context, advicef, Colors.green);
+                  // SnackbarDialogueHelper().showSnackbarDialog(context, advicef, Colors.green);
 
 
                 }else{
@@ -100,10 +100,10 @@ class _AdvicePageState extends State<AdvicePage> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MedicinePage()));
+                      // Navigator.pushReplacement(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => MedicinePage()));
                     },
                   ),
                   Expanded(
