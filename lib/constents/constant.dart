@@ -1,4 +1,5 @@
 import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart' as login;
+import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_registration_responses.dart' as registration;
 import 'package:care_plus_doctor/responses/doctor/doctor_update_profile_responses.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,4 +15,4 @@ String PHONE_NUMBER= '';
 String PASSWORD= '';
 late registration.Data REGISTRATIONRESPONSE;
 late DoctorUpdateProfile DOCTORUPDATEPROFILERESPONSES;
-late login.User DOCTOR_INITIAL;
+late SignInResponse DOCTOR_INITIAL;

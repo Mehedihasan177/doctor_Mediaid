@@ -34,11 +34,11 @@ class Data {
     required this.token,
   });
 
-  User user;
+  SignInResponse user;
   String token;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    user: User.fromJson(json["user"]),
+    user: SignInResponse.fromJson(json["user"]),
     token: json["token"],
   );
 
@@ -48,8 +48,8 @@ class Data {
   };
 }
 
-class User {
-  User({
+class SignInResponse {
+  SignInResponse({
     required this.id,
     required this.token,
     this.adminId,
@@ -121,7 +121,7 @@ class User {
   dynamic deletedAt;
    String doctorService; //List<dynamic>
 
-  factory User.fromJson(Map<dynamic, dynamic> json) => User(
+  factory SignInResponse.fromJson(Map<dynamic, dynamic> json) => SignInResponse(
     id: json["id"].toString(),
     token: json["token"].toString(),
     adminId: json["admin_id"].toString(),

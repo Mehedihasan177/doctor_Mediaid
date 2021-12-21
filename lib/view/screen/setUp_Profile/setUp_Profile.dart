@@ -459,7 +459,7 @@ class _SetupProfileState extends State<SetupProfile> {
       print(value.body);
       final Map parsed = json.decode(value.body);
 
-      final loginobject = User.fromJson(parsed);
+      final loginobject = SignInResponse.fromJson(parsed);
       DOCTOR_INITIAL = loginobject;
       print(loginobject.token);
       print(loginobject.token);

@@ -13,55 +13,64 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context) => Container(
             padding: const EdgeInsets.only(left: 20, top: 20),
             child: Row(
               children: [
-                Container(
-                  height: 165,
-                  width: 165,
-                  child: Image.network("$apiDomainRoot/images/${DOCTOR_INITIAL.image}",
-                  height: 160,
-                    width: 160,
-
-                  ),
+                CircleAvatar(
+                  radius: 68,
+                  backgroundColor: Colors.white,
+                  child: ClipOval(
+                      child: Image.network(
+                        '$apiDomainRoot/images/${DOCTOR_INITIAL.image}',
+                        fit: BoxFit.fill,
+                        width: 140,
+                        height: 150,
+                      )),
                 ),
 
                 Expanded(
+                  flex: 1,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 40),
-                              child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(DOCTOR_INITIAL.name,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                      //alignment: Alignment.centerLeft,
+                                    padding: EdgeInsets.only(bottom: 10),
+                                      child: Text("Welcome",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ),
+
+                                  Container(
+                                      //alignment: Alignment.centerLeft,
+                                    padding: EdgeInsets.only(bottom: 3),
+                                      child: Text(DOCTOR_INITIAL.name,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                      ),
                                   ),
-                                  ),
+                                ],
                               ),
                             ),
+
                             Padding(
-                              padding: const EdgeInsets.only(bottom: 70),
+                              padding: const EdgeInsets.only(bottom: 30),
                               child: Row(
                                 children: [
-                                  // Container(
-                                  //   height: 30,
-                                  //   width: 30,
-                                  //   child: IconButton(
-                                  //     icon: Icon(
-                                  //       Icons.watch_later_outlined,
-                                  //     ),
-                                  //     iconSize: 25,
-                                  //     color: Color(0xFF1CBFA8),
-                                  //     splashColor: Color(0xFF1CBFA8),
-                                  //     onPressed: () {
-                                  //       Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NotificationPage()));
-                                  //     },
-                                  //   ),
-                                  // ),
+
                                   Padding(
                                     padding: const EdgeInsets.only(right: 20, left: 10),
                                     child: Container(
@@ -86,6 +95,42 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context) => Container(
                             ),
 
                           ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 0),
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(DOCTOR_INITIAL.designation,
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  //fontWeight: FontWeight.bold
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 0),
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(DOCTOR_INITIAL.specialization,
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  // fontWeight: FontWeight.bold
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 0),
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(DOCTOR_INITIAL.chambers,
+                              style: TextStyle(
+                                fontSize: 15,
+                                // fontWeight: FontWeight.bold
+                              ),
+                            ),
+                          ),
                         ),
                         SizedBox(height: 20,),
                         Padding(

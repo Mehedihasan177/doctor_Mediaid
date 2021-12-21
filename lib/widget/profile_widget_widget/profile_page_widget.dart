@@ -1,6 +1,7 @@
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/model/ui_model/my_profile_model/my_profile_model.dart';
 import 'package:care_plus_doctor/model/ui_model/profile_model/profile_model.dart';
+import 'package:care_plus_doctor/view/screen/my_profile/my_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -58,8 +59,8 @@ Widget Profile_Page(MyProfileModel myProfile, BuildContext context) => Card(
                 icon: Image.asset('images/edit_icon.png'),
                 iconSize: 30,
                 onPressed: () {
-                  // Navigator.pushReplacement(context,
-                  //     MaterialPageRoute(builder: (context) => UpdateProfile()));
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => MyProfile()));
                 },
               ),
             ),
