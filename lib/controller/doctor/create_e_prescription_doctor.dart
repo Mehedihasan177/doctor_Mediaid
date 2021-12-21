@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class CreateEPrescriptionController{
   //this class is for make understand how it works actually
 
-  static Future<http.Response> requestThenResponsePrint(BuildContext context, token, CreateEPrescriptionModel ePrescription ) async {
+  static Future<http.Response> requestThenResponsePrint( token, CreateEPrescriptionModel ePrescription ) async {
 
     // This is a a callof global veriable
     String domain = apiDomainRoot;
@@ -13,15 +13,11 @@ class CreateEPrescriptionController{
     var url = '$domain/api/doctor/e-prescription';
 
     Map data1 = {
-      'userId': "${ePrescription.userId}",
-      'appointment_schedule_id': "${ePrescription.appointment_schedule_id}",
-      'advice': "${ePrescription.advice}",
-      'cc': "${ePrescription.cc}",
-      'id': "${ePrescription.id}",
-      'createdAt': "${ePrescription.createdAt}",
-      'updatedAt': "${ePrescription.updatedAt}",
-      'updatedAt': "${ePrescription.doctorId}",
-
+      'appointment_schedule_id': '${ePrescription.appointment_schedule_id}',
+      'advice': '${ePrescription.advice}',
+      'cc': '${ePrescription.cc}',
+      'oe': '${ePrescription.oe}',
+      'rx': '${ePrescription.rx}'
     };
 
     // Here we are getting the response

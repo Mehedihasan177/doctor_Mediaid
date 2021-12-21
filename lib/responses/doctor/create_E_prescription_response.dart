@@ -74,22 +74,12 @@
 
 
 class CreateEPrescriptionModel{
-  late String userId;
   late String appointment_schedule_id;
   late String advice;
   late String cc;
-  late String doctorId;
-  late String updatedAt;
-  late String createdAt;
-  late String id;
-  CreateEPrescriptionModel({
-    required this.userId,
-    required this.appointment_schedule_id,
-    required this.advice,
-    required this.cc,
-    required this.doctorId,
-    required this.updatedAt,
-    required this.createdAt,
-    required this.id,
-});
+  late String oe;
+  late String rx;
+
+  CreateEPrescriptionModel(
+      this.appointment_schedule_id, this.advice, this.cc, this.oe, this.rx);
 }

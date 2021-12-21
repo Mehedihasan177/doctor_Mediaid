@@ -1,6 +1,8 @@
 
 
+import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/data/care_plus_lab_report_list_data/care_plus_lab_report_list_data.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
 import 'package:care_plus_doctor/model/care_plus_lab_report_list_model/care_plus_lab_report_list_model.dart';
 import 'package:care_plus_doctor/model/lab_report/lab_report.dart';
 import 'package:care_plus_doctor/view/screen/advice_page/advice_page.dart';
@@ -24,7 +26,16 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
   TextEditingController _note = TextEditingController();
   void addItemToList() {
     setState(() {
-      lab_report.add(LabReport(_lab.text, _note.text));
+      if(_lab.text.isEmpty){
+        SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe lab test name properly', Colors.red);
+      }else if(_note.text.isEmpty){
+        SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe lab test note properly', Colors.red);
+      }else{
+        lab_report.add(LabReport(_lab.text, _note.text));
+        _lab.clear();
+        _note.clear();
+      }
+
     });
   }
 
@@ -33,22 +44,40 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => MedicinePage()));
+        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => MedicinePage()));
         return true;
       },
       child: Scaffold(
         floatingActionButton: Container(
           height: 50,
           width: 50,
-          child: new FloatingActionButton(
+          child: FloatingActionButton(
               elevation: 0.0,
               child: new Icon(Icons.check),
               backgroundColor: new Color(0xFF1CBFA8),
               onPressed: (){
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AdvicePage()));
+
+                String labtestToGo = '';
+                if(lab_report.isNotEmpty){
+                  for (var lb in lab_report) {
+                    setState(() {
+                      labtestToGo += lb.lab_details + ' - ' + lb.notes;
+                      labtestToGo += ',';
+                    });
+                  }
+                  if (labtestToGo.isNotEmpty) {
+                    oe = labtestToGo.substring(0, labtestToGo.length - 1);
+                    SnackbarDialogueHelper().showSnackbarDialog(context, oe, Colors.red);
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => AdvicePage()));
+
+                  }
+
+                }else{
+                  oe='';
+                  SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe lab tests properly', Colors.red);
+                }
+
+
               }
           ),
         ),
@@ -103,9 +132,9 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
                       keyboardType: TextInputType.multiline,
                       style: TextStyle(color: Colors.black),
                       //scrollPadding: EdgeInsets.all(10),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         //contentPadding: EdgeInsets.all(20),
-                        hintText: "Enter lab details",
+                        hintText: "Enter lab tests",
                       ),
                     ),
                   ),
@@ -126,7 +155,7 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
                       keyboardType: TextInputType.multiline,
                       style: TextStyle(color: Colors.black),
                       //scrollPadding: EdgeInsets.all(10),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         //contentPadding: EdgeInsets.all(20),
                         hintText: "Enter notes",
                       ),
@@ -142,10 +171,9 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
                  child: ElevatedButton(
                       onPressed: () {
                         addItemToList();
-                        _lab.clear();
-                        _note.clear();
+
                       },
-                      child: Text('SUBMIT',
+                      child: Text('ADD',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold

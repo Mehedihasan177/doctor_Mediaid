@@ -1,3 +1,5 @@
+import 'package:care_plus_doctor/constents/prescription_constants.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
 import 'package:care_plus_doctor/model/ui_model/patient_profile_details_model/patient_profile_details_model.dart';
 import 'package:care_plus_doctor/view/screen/medicine_page/medicine_page.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
@@ -14,10 +16,17 @@ class ProblemPage extends StatefulWidget {
 
 class _ProblemPageState extends State<ProblemPage> {
   final List<String> problem = <String>[];
-  TextEditingController _textEmail = TextEditingController();
+  TextEditingController _textProblem = TextEditingController();
   void addItemToList() {
     setState(() {
-      problem.insert(0, _textEmail.text);
+      if(_textProblem.text.length<1){
+        SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe problems properly', Colors.red);
+      }else if(_textProblem.text==''){
+        SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe problems properly', Colors.red);
+      }else{
+        problem.insert(0, _textProblem.text);
+        _textProblem.clear();
+      }
     });
   }
 
@@ -26,23 +35,48 @@ class _ProblemPageState extends State<ProblemPage> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
         floatingActionButton: Container(
           height: 50,
           width: 50,
-          child: new FloatingActionButton(
+          child: FloatingActionButton(
 
               elevation: 0.0,
               child: new Icon(Icons.check),
               backgroundColor: new Color(0xFF1CBFA8),
               onPressed: (){
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MedicinePage()));
+
+                if(problem.isNotEmpty){
+                  String problemToGo='';
+                  for (var element in problem) {
+                    setState(() {
+                      problemToGo+=element+',';
+                    });
+                  }
+
+                  if (problemToGo != null && problemToGo.length > 0) {
+                    cc = appointmentFor+' | '+problemToGo.substring(0, problemToGo.length - 1);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MedicinePage()));
+                  }
+
+                  // cc = appointmentFor+' | '+problemToGo;
+                  // cc =problemToGo;
+
+                  SnackbarDialogueHelper().showSnackbarDialog(context, cc, Colors.green);
+
+
+                }else{
+                  cc='';
+                  SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe problems properly', Colors.red);
+                }
+
+
               }
           ),
         ),
@@ -61,10 +95,11 @@ class _ProblemPageState extends State<ProblemPage> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BottomNevigation()));
+                      Navigator.pop(context);
+                      // Navigator.pushReplacement(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => BottomNevigation()));
                     },
                   ),
                   Expanded(
@@ -99,7 +134,7 @@ class _ProblemPageState extends State<ProblemPage> {
                   Expanded(
                     flex: 4,
                     child: TextField(
-                      controller: _textEmail,
+                      controller: _textProblem,
                       maxLines: null,
                       keyboardType: TextInputType.multiline,
                       style: TextStyle(color: Colors.black),
@@ -115,7 +150,7 @@ class _ProblemPageState extends State<ProblemPage> {
                     child: ElevatedButton(
                         onPressed: () {
                           addItemToList();
-                          _textEmail.clear();
+
                         },
                         child: Text('+'),
                         style: ElevatedButton.styleFrom(

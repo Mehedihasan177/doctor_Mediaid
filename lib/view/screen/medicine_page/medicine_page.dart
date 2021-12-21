@@ -1,3 +1,5 @@
+import 'package:care_plus_doctor/constents/prescription_constants.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
 import 'package:care_plus_doctor/model/pres_model/medicine_create.dart';
 import 'package:care_plus_doctor/view/screen/advice_page/advice_page.dart';
 import 'package:care_plus_doctor/view/screen/care_plus_lab_report_list/care_plus_lab_report_list.dart';
@@ -26,7 +28,26 @@ class _MedicinePageState extends State<MedicinePage> {
   void addItemToList() {
     setState(() {
 
-      medicine.add(CreateMedicine(_medicine.text,_dose.text,_note.text,_day.text,_quantity.text));
+      if(_medicine.text.isEmpty){
+        SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe medicine name properly', Colors.red);
+      }else if(_note.text.isEmpty){
+        SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe note properly', Colors.red);
+      }else if(_dose.text.isEmpty){
+        SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe dose properly', Colors.red);
+      }else if(_day.text.isEmpty){
+        SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe days properly', Colors.red);
+      }else if(_quantity.text.isEmpty){
+        SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe quantity properly', Colors.red);
+      }else{
+        medicine.add(CreateMedicine(_medicine.text,_dose.text,_note.text,_day.text,_quantity.text));
+        _medicine.clear();
+        _note.clear();
+        _dose.clear();
+        _day.clear();
+        _quantity.clear();
+      }
+
+
 
       //
       // medicine.insert(0, 'Medicine: ${_medicine.text} \nNote: ${_note.text} \nDose: ${_dose.text} \nDay: ${_day.text} \nQuantity: ${_quantity.text}');
@@ -43,7 +64,7 @@ class _MedicinePageState extends State<MedicinePage> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProblemPage()));
+        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProblemPage()));
         return true;
       },
       child: Scaffold(
@@ -55,9 +76,29 @@ class _MedicinePageState extends State<MedicinePage> {
               child: new Icon(Icons.check),
               backgroundColor: new Color(0xFF1CBFA8),
               onPressed: () {
+
+                String medicineToGo='';
+                if(medicine.isNotEmpty){
+                  for (var med in medicine) {
+                    setState(() {
+                      medicineToGo += med.medName + ',' + med.dose + ',' + med.day.toString() + ',' + med.note.toString();
+                      medicineToGo += '+';
+                    });
+                  }
+                  if (medicineToGo.isNotEmpty) {
+                    rx = medicineToGo.substring(0, medicineToGo.length - 1);
+                    SnackbarDialogueHelper().showSnackbarDialog(context, rx, Colors.red);
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
+                  }
+
+                }else{
+                  rx='';
+                  SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe medicines properly', Colors.red);
+                }
+
                 // Navigator.pushReplacement(context,
                 //     MaterialPageRoute(builder: (context) => AdvicePage()));
-                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
+
               }),
         ),
         body: ListView(
@@ -117,7 +158,7 @@ class _MedicinePageState extends State<MedicinePage> {
                       //scrollPadding: EdgeInsets.all(10),
                       decoration: InputDecoration(
                         //contentPadding: EdgeInsets.all(20),
-                        hintText: "Enter medicines name",
+                        hintText: "Enter medicine name",
                       ),
                     ),
                   ),
@@ -174,8 +215,8 @@ class _MedicinePageState extends State<MedicinePage> {
                       padding: const EdgeInsets.only(right: 20),
                       child: TextField(
                         controller: _day,
-                        maxLines: null,
-                        keyboardType: TextInputType.multiline,
+                        // maxLines: null,
+                        keyboardType: TextInputType.number,
                         style: TextStyle(color: Colors.black),
                         //scrollPadding: EdgeInsets.all(10),
                         decoration: InputDecoration(
@@ -209,13 +250,9 @@ class _MedicinePageState extends State<MedicinePage> {
                 child: ElevatedButton(
                     onPressed: () {
                       addItemToList();
-                      _medicine.clear();
-                      _note.clear();
-                      _dose.clear();
-                      _day.clear();
-                      _quantity.clear();
+
                     },
-                    child: Text('SUBMIT',
+                    child: Text('ADD',
                     style: TextStyle(
                       fontSize: 17
                     ),

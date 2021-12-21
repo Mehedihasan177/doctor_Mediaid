@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_cencel_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_done_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_history_controller.dart';
@@ -48,10 +49,9 @@ class _AppointmentListState extends State<AppointmentList> {
     );
 
     if (newDate == null) return;
-else setState(() =>
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListToday())),
-
-    );
+    // else setState(() =>
+    //     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListToday())),
+    // );
 
   }
 
@@ -339,7 +339,18 @@ else setState(() =>
                               color: Color(0xFF1CBFA8),
                               splashColor: Color(0xFF1CBFA8),
                               onPressed: () {
-                                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProblemPage()));
+
+                                appointmentSheduleId = '';
+                                appointmentFor = '';
+                                advicef = '';
+                                cc = '';
+                                oe = '';
+                                rx = '';
+
+                                appointmentSheduleId = doctorAppointmentHistory.id.toString();
+                                appointmentFor = doctorAppointmentHistory.appointmentFor.toString();
+
+                                Navigator.push(context,MaterialPageRoute(builder: (context) => ProblemPage()));
                               },
                             ),
                           ),

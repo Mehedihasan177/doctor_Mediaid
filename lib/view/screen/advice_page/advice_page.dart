@@ -1,3 +1,8 @@
+import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/prescription_constants.dart';
+import 'package:care_plus_doctor/controller/doctor/create_e_prescription_doctor.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
+import 'package:care_plus_doctor/responses/doctor/create_E_prescription_response.dart';
 import 'package:care_plus_doctor/view/screen/medicine_page/medicine_page.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +16,16 @@ class AdvicePage extends StatefulWidget {
 
 class _AdvicePageState extends State<AdvicePage> {
   final List<String> advice = <String>[];
-  TextEditingController _textEmail = TextEditingController();
+  TextEditingController _textAdvice = TextEditingController(text: 'Visit again after 30 days');
   void addItemToList() {
     setState(() {
-      advice.insert(0, _textEmail.text);
+      if(_textAdvice.text.isEmpty){
+        SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe advices properly', Colors.red);
+      }else{
+        advice.insert(0, _textAdvice.text);
+        _textAdvice.clear();
+      }
+
     });
   }
 
@@ -23,23 +34,54 @@ class _AdvicePageState extends State<AdvicePage> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => MedicinePage()));
+        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => MedicinePage()));
         return true;
       },
       child: Scaffold(
         floatingActionButton: Container(
           height: 50,
           width: 50,
-          child: new FloatingActionButton(
+          child: FloatingActionButton(
 
               elevation: 0.0,
               child: new Icon(Icons.check),
               backgroundColor: new Color(0xFF1CBFA8),
               onPressed: (){
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BottomNevigation()));
+
+
+                if(advice.isNotEmpty){
+                  String adviceToGo='';
+                  for (var element in advice) {
+                    setState(() {
+                      adviceToGo+=element+',';
+                    });
+                  }
+
+                  if (adviceToGo != null && adviceToGo.length > 0) {
+                    advicef = adviceToGo.substring(0, adviceToGo.length - 1);
+
+
+                    submitThePrescription();
+
+
+                  }
+
+                  // cc = appointmentFor+' | '+problemToGo;
+                  // cc =problemToGo;
+
+                  SnackbarDialogueHelper().showSnackbarDialog(context, advicef, Colors.green);
+
+
+                }else{
+                  advicef='';
+                  SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe advices properly', Colors.red);
+                }
+
+
+                // Navigator.pushReplacement(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => BottomNevigation()));
               }
           ),
         ),
@@ -96,7 +138,7 @@ class _AdvicePageState extends State<AdvicePage> {
                   Expanded(
                     flex: 4,
                     child: TextField(
-                      controller: _textEmail,
+                      controller: _textAdvice,
                       maxLines: null,
                       keyboardType: TextInputType.multiline,
                       style: TextStyle(color: Colors.black),
@@ -112,7 +154,6 @@ class _AdvicePageState extends State<AdvicePage> {
                     child: ElevatedButton(
                         onPressed: () {
                           addItemToList();
-                          _textEmail.clear();
                         },
                         child: Text('+'),
                         style: ElevatedButton.styleFrom(
@@ -168,5 +209,29 @@ class _AdvicePageState extends State<AdvicePage> {
         ),
       ),
     );
+  }
+
+  void submitThePrescription() {
+    CreateEPrescriptionModel ePrescription = CreateEPrescriptionModel(
+        appointmentSheduleId,advicef,cc,oe,rx
+    );
+    CreateEPrescriptionController.requestThenResponsePrint(USERTOKEN, ePrescription).then((value){
+      print(value.statusCode);
+      print(value.body);
+      if(value.statusCode==200){
+        appointmentSheduleId = '';
+        appointmentFor = '';
+        advicef = '';
+        cc = '';
+        oe = '';
+        rx = '';
+
+        SnackbarDialogueHelper().showSnackbarDialog(context,'Prescription successfully created',Colors.green);
+
+      }else{
+        SnackbarDialogueHelper().showSnackbarDialog(context,'Prescription creation failed',Colors.red);
+
+      }
+    });
   }
 }
