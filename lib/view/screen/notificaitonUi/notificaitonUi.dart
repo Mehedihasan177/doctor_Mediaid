@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_notification_controller.dart';
 import 'package:care_plus_doctor/data/notification_data/notification_data.dart';
 import 'package:care_plus_doctor/model/ui_model/notification_model/notification_model.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_notification_responses.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/profile/profile.dart';
 import 'package:care_plus_doctor/widget/notification_widget/notification_widget.dart';
@@ -14,7 +19,34 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
-  List<NotificationModel> notification = List.of(notification_data);
+  List<Doctornotification> notification = [];
+
+
+
+  _getNotification() async {
+
+
+    DoctorNotificationController.requestThenResponsePrint( USERTOKEN).then((value) {
+      setState(() {
+        print(value.body);
+        Map<String, dynamic> decoded = json.decode("${value.body}");
+        Iterable listNotification = decoded['data'];
+        print(decoded['data']);
+        notification =
+            listNotification.map((model) => Doctornotification.fromJson(model)).toList();
+        print(notification);
+
+      });
+    });
+  }
+
+
+  @override
+  void initState() {
+    _getNotification();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

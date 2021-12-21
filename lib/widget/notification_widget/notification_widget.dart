@@ -1,180 +1,91 @@
 import 'package:care_plus_doctor/model/ui_model/notification_model/notification_model.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_notification_responses.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-Widget NotificationWidget(NotificationModel notification) => Container(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 5),
-        child: Column(
-          children: [
+Widget NotificationWidget(Doctornotification notification) =>
+    Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10),
+      child:   Card(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 15, bottom: 10, left: 10),
+          child: Row(
+            children: [
 
-            Card(
-              child: Padding(
-                  padding: const EdgeInsets.only(left: 30, bottom: 20),
-                  child: Column(
-                    children: [
-                      Container(
-                          padding: EdgeInsets.only(left: 10, top: 20),
-                          alignment: Alignment.centerLeft,
-                          child: Text(notification.date)),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                color: Colors.blue.withOpacity(0.2),
-                              ),
-                              child: Icon(
-                                Icons.notification_important_rounded,
-                                color: Colors.blue.withOpacity(0.9),
-                                size: 35,
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 20),
-                                    child: Container(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          "Serial Reminder",
-                                          style: TextStyle(fontSize: 15),
-                                        )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 20),
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        notification.serial_remainder,
-                                        style: TextStyle(fontSize: 10),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 30),
-                        child: Divider(
-                          color: Colors.black,
-                        ),
-                      ),
 
-                      Padding(
-                        padding: const EdgeInsets.only(top: 0),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(20)),
-                                color: Colors.blue.withOpacity(0.2),
-                              ),
-                              child: Icon(
-                                Icons.watch_later_outlined,
-                                color: Colors.deepOrange.withOpacity(0.6),
-                                size: 35,
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 20),
-                                    child: Container(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          "Appointment Reminder",
-                                          style: TextStyle(fontSize: 15),
-                                        )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 20),
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        notification.appointment_remainder,
-                                        style: TextStyle(fontSize: 10),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 30),
-                        child: Divider(
-                            color: Colors.black,
-                          ),
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(top: 0),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(20)),
-                                color: Colors.blue.withOpacity(0.2),
-                              ),
-                              child: Icon(
-                                Icons.credit_card_outlined,
-                                color: Colors.blue.withOpacity(0.7),
-                                size: 35,
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 20),
-                                    child: Container(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          "Serial Reminder",
-                                          style: TextStyle(fontSize: 15),
-                                        )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 20),
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        notification.serial_remainder,
-                                        style: TextStyle(fontSize: 10),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+              Container(
+                height: 45,
+                width: 45,
+                decoration: BoxDecoration(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(10)),
+                  color: Colors.blue.withOpacity(0.2),
                 ),
+                child: Icon(
+                  Icons.notification_important_rounded,
+                  color: Colors.blue.withOpacity(0.9),
+                  size: 30,
+                ),
+              ),
 
-            ),
-            SizedBox(height: 20,)
-          ],
+
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(notification.title,
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold
+                          ),
+                        )
+                    ),
+
+                    SizedBox(height: 10,),
+
+                    Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(notification.body,
+                          style: TextStyle(
+                            fontSize: 9,
+                            //fontWeight: FontWeight.bold
+                          ),
+                        )
+                    ),
+
+
+                    SizedBox(height: 10,),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Text(DateFormat("dd-MMMM-yyyy").format(notification.createdAt))
+                        ),
+
+
+                        Text("    ||    "),
+
+
+                        Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Text(DateFormat.jm().format(DateTime.parse(notification.createdAt.toString())))
+                        ),
+
+                      ],
+                    ),
+
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
