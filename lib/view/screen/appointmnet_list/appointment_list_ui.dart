@@ -16,6 +16,7 @@ import 'package:care_plus_doctor/responses/doctor/doctor_appointment_schedule_in
 import 'package:care_plus_doctor/view/screen/appointmnet_list/appointment_list_today/appointment_list_today.dart';
 import 'package:care_plus_doctor/view/screen/appointmnet_list/appointment_ui_tomorrow/appointment_ui_tomorrow.dart';
 import 'package:care_plus_doctor/view/screen/care_plus_lab_report_list/care_plus_lab_report_list.dart';
+import 'package:care_plus_doctor/view/screen/health_record/health_record.dart';
 import 'package:care_plus_doctor/view/screen/notificaitonUi/notificaitonUi.dart';
 import 'package:care_plus_doctor/view/screen/patient_profile_details/patient_profile_details.dart';
 import 'package:care_plus_doctor/view/screen/problem_page/problem_page.dart';
@@ -385,8 +386,18 @@ class _AppointmentListState extends State<AppointmentList> {
                               color: Color(0xFF1CBFA8),
                               splashColor: Color(0xFF1CBFA8),
                               onPressed: () {
-                                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
 
+                                appointmentSheduleId = '';
+                                currentPatientID = '';
+                                appointmentFor = '';
+                                advicef = '';
+                                cc = '';
+                                oe = '';
+                                rx = '';
+                                appointmentSheduleId = doctorAppointmentHistory.id.toString();
+                                currentPatientID = doctorAppointmentHistory.user.id.toString();
+                                appointmentFor = doctorAppointmentHistory.appointmentFor.toString();
+                                Navigator.push(context,MaterialPageRoute(builder: (context) => HealthRecord()));
                               },
                             ),
                           ),

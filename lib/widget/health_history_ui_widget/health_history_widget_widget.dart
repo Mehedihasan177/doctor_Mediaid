@@ -1,8 +1,10 @@
+
+import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/model/health_histoy/health_history_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 
-Widget Health_History_List(Health_History health_history) => Card(
+Widget Health_History_List(Health_History health_history,BuildContext context) => Card(
   child: Row(
     children: [
       Expanded(
@@ -86,6 +88,12 @@ Widget Health_History_List(Health_History health_history) => Card(
                   style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
                 onPressed: () async {
+
+                  String url = health_history.image;
+                  if(health_history.lab_report_type.toString().toLowerCase()=='care+ prescription'){
+                    url =  "$apiDomainRoot/api/e-prescription/" + health_history.id.toString();
+                  }
+                  _launchURL(context,url);
                   // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Otp()));
 
                 },

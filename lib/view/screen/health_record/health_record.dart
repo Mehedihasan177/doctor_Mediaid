@@ -81,7 +81,7 @@ class _HealthRecordState extends State<HealthRecord> {
                   scrollDirection: Axis.vertical,
                   itemCount: health_history.length,
                   itemBuilder: (context, index) {
-                    return Health_History_List(health_history[index]);
+                    return Health_History_List(health_history[index],context);
 
 
                   }
@@ -103,6 +103,17 @@ class _HealthRecordState extends State<HealthRecord> {
       var myvar = UserHealthHistory.fromJson(jsonDecode(value.body));
       print(myvar);
 
+      myvar.epres.forEach((element) {
+        setState(() {
+          print(element.doctor.name);
+          health_history.add(Health_History(
+              name: element.doctor.name,lab_report_type: 'Care+ Prescription',time: DateFormat('hh:mm a').format(element.createdAt),date: DateFormat('dd MMM yyyy').format(element.createdAt), image: '$apiDomainRoot/images/${element.doctor.image.toString()}',id: element.id.toString()
+          ));
+
+
+        });
+      });
+
       myvar.report.forEach((element) {
         setState(() {
           print(element.name);
@@ -113,16 +124,7 @@ class _HealthRecordState extends State<HealthRecord> {
 
         });
       });
-      myvar.epres.forEach((element) {
-        setState(() {
-          print(element.doctor.name);
-          health_history.add(Health_History(
-            name: element.doctor.name,lab_report_type: 'Care+ Prescription',time: DateFormat('hh:mm a').format(element.createdAt),date: DateFormat('dd MMM yyyy').format(element.createdAt), image: '$apiDomainRoot/images/${element.doctor.image.toString()}',id: element.id.toString()
-          ));
 
-
-        });
-      });
 
     });
 
