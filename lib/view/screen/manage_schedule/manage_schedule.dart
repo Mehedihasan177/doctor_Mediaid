@@ -193,7 +193,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
                       // addItemToList();
                       addVisitingTime(myCurrentPos.substring(0,3),startTime,endTime);
                     },
-                    child: Text('Add Visiting Time',
+                    child: const Text('Add Visiting Time',
                       style: TextStyle(
                           fontSize: 17
                       ),
@@ -209,7 +209,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
             Container(
               padding: EdgeInsets.all(10),
 
-              child: Text('List of Visiting Times',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+              child: Text('List of Visiting Times',style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
             ),
 
             Container(
