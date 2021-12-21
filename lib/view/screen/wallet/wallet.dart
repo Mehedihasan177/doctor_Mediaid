@@ -1,5 +1,11 @@
+import 'dart:convert';
+
+import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_wallet_controller.dart';
 import 'package:care_plus_doctor/data/wallet_data/wallet_data.dart';
 import 'package:care_plus_doctor/model/ui_model/wallet_model/wallet_model.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_wallet_log_responses.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_wallet_response.dart';
 import 'package:care_plus_doctor/view/screen/profile/profile.dart';
 import 'package:care_plus_doctor/view/screen/transfer_money_back/transfer_money_bank.dart';
 import 'package:care_plus_doctor/widget/money_wallet_wdget/money_wallet_wdget.dart';
@@ -16,6 +22,35 @@ class walletUi extends StatefulWidget {
 
 class _walletUiState extends State<walletUi> {
   List<Wallet_Model> moneyWallet = List.of(wallet_data);
+  String userbalance = '0';
+
+
+
+  void getWalletBal() {
+    DoctorWalletController.requestThenResponsePrint(USERTOKEN).then((value) {
+      setState(() {
+        print(value.statusCode);
+        print(value.body);
+
+        if(value.statusCode==200){
+          Map<String, dynamic> decoded = json.decode("${value.body}");
+          var walletbal = DoctorWalletResponse.fromJson(decoded);
+          print(walletbal.data);
+          userbalance = walletbal.data;
+        }
+
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getWalletBal();
+    //getTrxHist();
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +115,7 @@ class _walletUiState extends State<walletUi> {
                       child: Container(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "\$520",
+                          "\$${userbalance}",
                           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -164,6 +199,28 @@ class _walletUiState extends State<walletUi> {
       ),
     );
   }
+
+
+
+
+  // void getTrxHist() {
+  //
+  //   WalletLogController.requestThenResponsePrint(USERTOKEN).then((value) {
+  //     setState(() {
+  //       Map<String, dynamic> decoded = json.decode("${value.body}");
+  //       Iterable listTrx = decoded['data'];
+  //       print(decoded['data']);
+  //       moneyWallet =
+  //           listTrx.map((model) => DoctorWalletLogResponseElement.fromJson(model)).toList();
+  //
+  //       print('moneyWallet');
+  //       print(moneyWallet);
+  //
+  //
+  //
+  //     });
+  //   });
+  // }
 }
 
 
