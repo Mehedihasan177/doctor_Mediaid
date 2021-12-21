@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_appointment_cencel_controller.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_appointment_done_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_history_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_schedule_index_controller.dart';
 import 'package:care_plus_doctor/data/appointment_list_navbar/appointment_history_data.dart';
 import 'package:care_plus_doctor/data/appointment_list_navbar/appointment_list_navbar_data.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
 import 'package:care_plus_doctor/model/ui_model/appointment_list_navBar/appointment_history_navBar.dart';
 import 'package:care_plus_doctor/model/ui_model/appointment_list_navBar/appointment_list_navBar.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_appointment_history_responses.dart';
@@ -145,7 +148,7 @@ else setState(() =>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                    "Today",
+                    "Next",
                     style:
                         TextStyle(fontSize: 17, color: Colors.black.withOpacity(0.5)),
                   ),
@@ -174,64 +177,31 @@ else setState(() =>
                 scrollDirection: Axis.vertical,
                 itemCount: doctorAppointmentHistory.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return index<3 ? buildDoctorAppointmentHistoryTile(
-                      doctorAppointmentHistory[index]):Container();
+                  // return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
+
+                  if((doctorAppointmentHistory[index].active.toString()!='0')&&(doctorAppointmentHistory[index].consult=='0')){
+                    return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
+                  }else{
+                    return Container();
+                  }
+
+
+
+                  // return index<3 ? buildDoctorAppointmentHistoryTile(
+                  //     doctorAppointmentHistory[index]):Container();
                 }
                 ),
           ),
           SizedBox(
             height: 10,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Tomorrow",
-                  style:
-                  TextStyle(fontSize: 17, color: Colors.black.withOpacity(0.5)),
-                ),
 
-                FlatButton(
-                  minWidth: 10,
-                  onPressed: () {
-                    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListTomorrow()));
-                  },
-                  child: Text(
-                      "See All",
-                      style:
-                      TextStyle(color: Colors.black.withOpacity(0.5))
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-
-            // color: Colors.red,
-            child: ListView.builder(
-                physics:
-                    NeverScrollableScrollPhysics(), // <-- this will disable scroll
-                shrinkWrap: true,
-                // scrollDirection: Axis.vertical,
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return Appointment_List(
-                      appointmentHistoy[index].image,
-                      appointmentHistoy[index].name,
-                      appointmentHistoy[index].reason,
-                      appointmentHistoy[index].date,
-                      appointmentHistoy[index].time,
-                      context);
-                }),
-          ),
         ],
       ),
     );
   }
   // $apiDomainRoot/images/${doctorAppointmentHistory.user.image}
-  Widget buildDoctorAppointmentHistoryTile(DoctorAppointmentHistoryResponseElement doctorAppointmentHistory) =>
+  Widget buildDoctorAppointmentHistoryTile(DoctorAppointmentHistoryResponseElement doctorAppointmentHistory,int index) =>
       GestureDetector(
         child: Card(
           child: Row(
@@ -286,13 +256,20 @@ else setState(() =>
                                 }
                               },
                               itemBuilder: (_) => <PopupMenuEntry>[
-                                const PopupMenuItem(
+                                PopupMenuItem(
                                   child: ListTile(
                                     leading: Icon(Icons.cancel),
-                                    title:  Align(
+                                    title:  const Align(
                                       child: Text("Cancel"),
                                       alignment: Alignment(-1.4, 0),
                                     ),
+                                    onTap: (){
+                                      print(doctorAppointmentHistory.id.toString());
+                                      print(doctorAppointmentHistory.user.id.toString());
+                                      print(doctorAppointmentHistory.doctorId.toString());
+                                      print(doctorAppointmentHistory.appointmentSlotId.toString());
+                                      cancelThisAppointment(doctorAppointmentHistory.id.toString(),index);
+                                    },
                                   ),
                                   value: 0,
                                 ),
@@ -306,13 +283,20 @@ else setState(() =>
                                 //   ),
                                 //   value: 1,
                                 // ),
-                                const PopupMenuItem(
+                                PopupMenuItem(
                                   child: ListTile(
                                     leading: Icon(Icons.done),
                                     title:  Align(
-                                      child: Text("Confirm"),
+                                      child: Text("Complete"),
                                       alignment: Alignment(-1.5, 0),
                                     ),
+                                    onTap: (){
+                                      print(doctorAppointmentHistory.id.toString());
+                                      print(doctorAppointmentHistory.user.id.toString());
+                                      print(doctorAppointmentHistory.doctorId.toString());
+                                      print(doctorAppointmentHistory.appointmentSlotId.toString());
+                                      completeThisAppointment(doctorAppointmentHistory.id.toString(),index);
+                                    },
                                   ),
                                   value: 2,
                                 ),
@@ -327,8 +311,7 @@ else setState(() =>
                     Container(
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.only(left: 10, bottom: 10),
-                        child: Text(doctorAppointmentHistory.user.gender
-                        )
+                        child: Text(DateFormat('dd MMM yyyy || hh:mm a').format(doctorAppointmentHistory.date))
                     ),
 
                     Row(
@@ -339,7 +322,7 @@ else setState(() =>
                           child: Container(
                               alignment: Alignment.centerLeft,
                               padding: EdgeInsets.only(left: 10, bottom: 20),
-                              child: Text(doctorAppointmentHistory.user.email),
+                              child: Text('male'),
                           ),
                         ),
 
@@ -430,4 +413,36 @@ else setState(() =>
       );
 
 
+
+  void completeThisAppointment(String appointmentID,index) {
+    DoctorAppointmentDoneController.requestThenResponsePrint(USERTOKEN, appointmentID).then((value) {
+      setState(() {
+        print(value.statusCode);
+        print(value.body);
+        if(value.statusCode==200){
+
+          setState(() {
+            Navigator.pop(context);
+            doctorAppointmentHistory.removeAt(index);
+          });
+          // SnackbarDialogueHelper.showSnackbarDialog(context,'Appointment Completed Successful', Colors.green);
+        }
+      });
+    });
+  }
+
+  void cancelThisAppointment(String appointmentID, int index) {
+    AppointmentCencelController.requestThenResponsePrint(USERTOKEN, appointmentID).then((value) {
+      setState(() {
+        print(value.statusCode);
+        print(value.body);
+        if(value.statusCode==200){
+          setState(() {
+            Navigator.pop(context);
+            doctorAppointmentHistory.removeAt(index);
+          });
+        }
+      });
+    });
+  }
 }

@@ -3,6 +3,8 @@
 import 'package:care_plus_doctor/data/care_plus_lab_report_list_data/care_plus_lab_report_list_data.dart';
 import 'package:care_plus_doctor/model/care_plus_lab_report_list_model/care_plus_lab_report_list_model.dart';
 import 'package:care_plus_doctor/model/lab_report/lab_report.dart';
+import 'package:care_plus_doctor/view/screen/advice_page/advice_page.dart';
+import 'package:care_plus_doctor/view/screen/medicine_page/medicine_page.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/patient_profile_details/patient_profile_details.dart';
 import 'package:care_plus_doctor/widget/care_plus_lab_report_list_Widget/care_plus_lab_report_list_widget.dart';
@@ -31,7 +33,7 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => MedicinePage()));
         return true;
       },
       child: Scaffold(
@@ -39,7 +41,6 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
           height: 50,
           width: 50,
           child: new FloatingActionButton(
-
               elevation: 0.0,
               child: new Icon(Icons.check),
               backgroundColor: new Color(0xFF1CBFA8),
@@ -47,7 +48,7 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => BottomNevigation()));
+                        builder: (context) => AdvicePage()));
               }
           ),
         ),

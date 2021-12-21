@@ -1,5 +1,6 @@
 import 'package:care_plus_doctor/model/pres_model/medicine_create.dart';
 import 'package:care_plus_doctor/view/screen/advice_page/advice_page.dart';
+import 'package:care_plus_doctor/view/screen/care_plus_lab_report_list/care_plus_lab_report_list.dart';
 import 'package:care_plus_doctor/view/screen/problem_page/problem_page.dart';
 import 'package:flutter/material.dart';
 
@@ -49,13 +50,14 @@ class _MedicinePageState extends State<MedicinePage> {
         floatingActionButton: Container(
           height: 50,
           width: 50,
-          child: new FloatingActionButton(
+          child: FloatingActionButton(
               elevation: 0.0,
               child: new Icon(Icons.check),
               backgroundColor: new Color(0xFF1CBFA8),
               onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => AdvicePage()));
+                // Navigator.pushReplacement(context,
+                //     MaterialPageRoute(builder: (context) => AdvicePage()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
               }),
         ),
         body: ListView(
