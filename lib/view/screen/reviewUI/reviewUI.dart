@@ -30,6 +30,16 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
   List<ReviewModel> rivewlist = List.of(Reviewdata);
   List<ReviewPatientModel> petientreviewlist = [];
 
+  int fiveC = 0;
+  int fourC = 0;
+  int threeC = 0;
+  int twoC = 0;
+  int oneC = 0;
+  int totalRated = 0;
+  int totalRatings = 0;
+  double myRating = 0;
+
+
   _getReview() async {
 
 
@@ -50,6 +60,23 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
         for(var each in review.data){
           petientreviewlist.add(ReviewPatientModel(image: each.user.image, details: each.comment, date: DateFormat("dd MMM yyyy").format(each.createdAt), reason: "Fiver", rating_person_name: each.user.name, rating_other_person: each.rating.toString()));
           setState(() {
+            if(each.rating=='1'){
+              oneC++;
+            }else if(each.rating=='2'){
+              twoC++;
+            }else if(each.rating=='3'){
+              threeC++;
+            }else if(each.rating=='4'){
+              fourC++;
+            }else if(each.rating=='5'){
+              fiveC++;
+            }
+
+            totalRated++;
+            totalRatings+=int.parse(each.rating);
+            myRating=totalRatings/totalRated;
+            quick = QuickRateClass(fiveC, fourC, threeC, twoC, oneC, totalRated, totalRatings, myRating);
+
 
           });
         }
@@ -62,10 +89,13 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
 
   @override
   void initState() {
+    quick = QuickRateClass(fiveC, fourC, threeC, twoC, oneC, totalRated, totalRatings, myRating);
     _getReview();
     // TODO: implement initState
     super.initState();
   }
+
+  late QuickRateClass quick;
 
   @override
   Widget build(BuildContext context) {
@@ -94,13 +124,31 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
                         itemCount: rivewlist.length,
                         itemBuilder: (context,index) {
                           //var information = carePlushPrescriptionList[index];
-                          return ReviewUIWidget(rivewlist[index], context);
+
+                          quick = QuickRateClass(fiveC, fourC, threeC, twoC, oneC, totalRated, totalRatings, myRating);
+
+                          return ReviewUIWidget(rivewlist[index], context,quick);
 
                         }
                     ),
                   ),
                 ),
               ],
+            ),
+
+            Container(
+              width: MediaQuery.of(context).size.width - 50,
+              child: ListView.builder(
+                reverse: true,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 5,
+                itemBuilder: (BuildContext context, int index) {
+
+                  quick = QuickRateClass(fiveC, fourC, threeC, twoC, oneC, totalRated, totalRatings, myRating);
+                  return progressBar(context, index,quick);
+                },
+              ),
             ),
 
             Row(
@@ -163,6 +211,20 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
       ),
     );
   }
+}
+
+class QuickRateClass{
+  int fiveC = 0;
+  int fourC = 0;
+  int threeC = 0;
+  int twoC = 0;
+  int oneC = 0;
+  int totalRated = 0;
+  int totalRatings = 0;
+  double myRating = 0;
+
+  QuickRateClass(this.fiveC, this.fourC, this.threeC, this.twoC, this.oneC,
+      this.totalRated, this.totalRatings, this.myRating);
 }
 
 
