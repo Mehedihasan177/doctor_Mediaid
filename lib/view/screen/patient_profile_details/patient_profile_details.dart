@@ -4,10 +4,12 @@ import 'package:care_plus_doctor/data/patient_profile_details_data/patient_profi
 import 'package:care_plus_doctor/model/ui_model/patient_profile_details_model/patient_profile_details_model.dart';
 import 'package:care_plus_doctor/view/screen/care_plus_lab_report_list/care_plus_lab_report_list.dart';
 import 'package:care_plus_doctor/view/screen/health_record/health_record.dart';
+import 'package:care_plus_doctor/view/screen/lib/pages/call_page.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/problem_page/problem_page.dart';
 import 'package:care_plus_doctor/widget/patient_profile_widget/patient_profile_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class PatientProfileDetailsPage extends StatefulWidget {
   final String name, gender, email, mobile, address, status, image, id, appointment_for, rescheduleDate, district, height,
@@ -324,8 +326,21 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
                                     width: 120,
                                     child: FlatButton(
                                       //minWidth: 10,
-                                      onPressed: () {
-                                        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListToday()));
+                                      onPressed: () async {
+                                        String channelName = "abcdefg";
+                                        if (channelName.isNotEmpty) {
+                                          // await for camera and mic permissions before pushing video page
+                                          //await _handleCameraAndMic();
+                                          await _handleCameraAndMic(Permission.camera);
+                                          await _handleCameraAndMic(Permission.microphone);
+                                          // push video page with given channel name
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => CallPage(channelName),//testing
+                                            ),
+                                          );
+                                        }
                                       },
                                       child: Column(
                                         children: [
@@ -423,6 +438,10 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
         ),
       ),
     );
+  }
+  Future<void> _handleCameraAndMic(Permission permission) async {
+    final status = await permission.request();
+    print(status);
   }
 }
 
