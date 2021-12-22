@@ -224,7 +224,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         print('dddddddd');
                         print(value.statusCode);
                         if (value.statusCode == 200) {
-
+                          PASSWORD = _confirmPassword.text;
                           signInAgain(context);
                           SnackbarDialogueHelper().showSnackbarDialog(context, 'Password changed successfully', Colors.green);
                           //SnackbarDialogueHelper().showSnackbarDialog(context, "New Passowrd",value.body);
