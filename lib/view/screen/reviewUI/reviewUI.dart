@@ -23,12 +23,7 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
   List<ReviewModel> rivewlist = List.of(Reviewdata);
   List<ReviewPatientModel> petientreviewlist = List.of(ReviewPatientdata);
 
-  @override
-  Future<void> initState() async {
 
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

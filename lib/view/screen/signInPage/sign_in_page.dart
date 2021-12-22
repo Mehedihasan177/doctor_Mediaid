@@ -36,10 +36,12 @@ class _SingInPageState extends State<SingInPage> {
   void addData(String data) {
     databaseRef.push().set({'name': data, 'comment': 'A good season'});
   }
-
+  final fb = FirebaseDatabase.instance;
+  final name = "Name";
 
   @override
   Widget build(BuildContext context) {
+    final ref = fb.reference();
     return Scaffold(
       body: ListView(
 
@@ -143,8 +145,9 @@ class _SingInPageState extends State<SingInPage> {
           RaisedButton(
               child: Text("Demo button"),
               onPressed: (){
-                Map <String,dynamic> data = {"field1" :  _textMobile.text};
-                FirebaseFirestore.instance.collection("test").add(data);
+                // Map <String,dynamic> data = {"field1" :  _textMobile.text};
+                // FirebaseFirestore.instance.collection("test").add(data);
+                ref.child(name).set(_textPassword.text);
               }
           ),
           Center(
