@@ -1,3 +1,14 @@
+import 'dart:convert';
+
+import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_reset_password_controller.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_signIn_controller.dart';
+import 'package:care_plus_doctor/helper/alertDialogue.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
+import 'package:care_plus_doctor/model/doctor/doctor_reset_password_model.dart';
+import 'package:care_plus_doctor/model/doctor/doctor_sinIn_model.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
+import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/otp/otp_two.dart';
 import 'package:care_plus_doctor/view/screen/signInPage/sign_in_page.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +21,7 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _ForgetPasswordState extends State<ForgetPassword> {
-  TextEditingController _textEmail = TextEditingController();
+  TextEditingController _textMobile = TextEditingController(text: '01575397823');
   TextEditingController _textPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -75,7 +86,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     width: 20,
                   ),
                   TextField(
-                    controller: _textEmail,
+                    controller: _textMobile,
                     keyboardType: TextInputType.emailAddress,
                     style: TextStyle(color: Colors.black),
                     //scrollPadding: EdgeInsets.all(10),
@@ -99,8 +110,27 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     "Next",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
-                  onPressed: () async {
-                    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => OTPTwo()));
+                  onPressed: () {
+                    print("token of user\n");
+                    print("token at call mehedi hasan who are you: " + USERTOKEN);
+                    DoctorResetPasswordModel passChange = DoctorResetPasswordModel(mobile: _textMobile.text);
+
+                    DoctorResetPasswordController.requestThenResponsePrint(passChange ).then((value) {
+                      print('dddddddd');
+                      print(value.statusCode);
+                      if (value.statusCode == 200) {
+                        print("successfully done");
+                        SnackbarDialogueHelper().showSnackbarDialog(context, value.body, Colors.green);
+                        return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SingInPage()),);
+                      }else{
+                        SnackbarDialogueHelper().showSnackbarDialog(context, value.body, Colors.red);
+
+                        // BasicFunctions.showAlertDialogTOView(context,
+                        //     AppLocalizations.of(context).translate("passwordRecheckTitle"),
+                        //     AppLocalizations.of(context).translate("passwordRecheckMessage"));
+                        // BasicFunctions.showAlertDialogTOView(context, "Warning", "Please recheck your passwords to change");
+                      }
+                    });
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(350, 59),
@@ -124,4 +154,5 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       ),
     );
   }
+
 }

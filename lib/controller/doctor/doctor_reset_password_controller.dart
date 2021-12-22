@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/model/doctor/doctor_reset_password_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 class DoctorResetPasswordController{
   //this class is for make understand how it works actually
 
-  static Future<http.Response> requestThenResponsePrint(String loginPhone) async {
+  static Future<http.Response> requestThenResponsePrint(DoctorResetPasswordModel resetPasswordModel) async {
 
     // This is a a callof global veriable
     String domain = apiDomainRoot;
@@ -14,8 +15,7 @@ class DoctorResetPasswordController{
     var url = '$domain/api/doctor-reset-password';
 
     Map resetpassword = {
-      'mobile': '$loginPhone',
-
+      'mobile': "${resetPasswordModel.mobile}",
     };
     var body = json.encode(resetpassword);
     // Here we are getting the response

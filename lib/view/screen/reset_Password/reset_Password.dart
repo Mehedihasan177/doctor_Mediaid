@@ -1,3 +1,14 @@
+import 'dart:convert';
+
+import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_reset_password_controller.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_signIn_controller.dart';
+import 'package:care_plus_doctor/helper/alertDialogue.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
+import 'package:care_plus_doctor/model/doctor/doctor_reset_password_model.dart';
+import 'package:care_plus_doctor/model/doctor/doctor_sinIn_model.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
+import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:flutter/material.dart';
 
 class ResetPassword extends StatefulWidget {
@@ -8,8 +19,8 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  TextEditingController _textEmail = TextEditingController();
-  TextEditingController _textPassword = TextEditingController();
+  TextEditingController _textMobile = TextEditingController();
+  //TextEditingController _textPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -71,7 +82,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                               width: 20,
                             ),
                             Text(
-                              "Email",
+                              "Phone Number",
                               style: TextStyle(fontSize: 17),
                             ),
                           ],
@@ -80,8 +91,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                           width: 20,
                         ),
                         TextField(
-                          controller: _textEmail,
-                          keyboardType: TextInputType.emailAddress,
+                          controller: _textMobile,
+                          keyboardType: TextInputType.text,
                           style: TextStyle(color: Colors.black),
                           //scrollPadding: EdgeInsets.all(10),
                           decoration: InputDecoration(
@@ -137,8 +148,26 @@ class _ResetPasswordState extends State<ResetPassword> {
                           "Next",
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
-                        onPressed: () async {
-                          // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomePage()));
+                        onPressed: () {
+                          print("token of user\n");
+                          print("token at call mehedi hasan who are you: " + USERTOKEN);
+                          DoctorResetPasswordModel passChange = new DoctorResetPasswordModel(mobile: _textMobile.text);
+
+                          DoctorResetPasswordController.requestThenResponsePrint(passChange ).then((value) {
+                            print('dddddddd');
+                            print(value.statusCode);
+                            if (value.statusCode == 200) {
+                              print("successfully done");
+                              PHONE_NUMBER = _textMobile.text;
+                              signInAgain(context);
+                              SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully reset password', Colors.green);
+                            }else{
+                              // BasicFunctions.showAlertDialogTOView(context,
+                              //     AppLocalizations.of(context).translate("passwordRecheckTitle"),
+                              //     AppLocalizations.of(context).translate("passwordRecheckMessage"));
+                              // BasicFunctions.showAlertDialogTOView(context, "Warning", "Please recheck your passwords to change");
+                            }
+                          });
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(350, 59),
@@ -166,6 +195,43 @@ class _ResetPasswordState extends State<ResetPassword> {
       ),
     );
   }
+
+  Future<void> signInAgain(BuildContext context) async {
+    //EasyLoading.show(status: 'loading...');
+
+    DoctorSignInModel myInfo = new DoctorSignInModel(mobile: PHONE_NUMBER, password: PASSWORD, );
+    await DoctorSigninController.requestThenResponsePrint(myInfo).then((value) async {
+      print(value.statusCode);
+      print(value.body);
+      final Map parsed = json.decode(value.body);
+
+      final loginobject = SignInResponse.fromJson(parsed);
+      DOCTOR_INITIAL = loginobject;
+      print(loginobject.token);
+      print(loginobject.token);
+
+
+
+      USERTOKEN = loginobject.token;
+      // sharedPreferences.setString("token", loginobject.accessToken);
+      //EasyLoading.dismiss();
+      if (value.statusCode == 200) {
+        PASSWORD = PASSWORD;
+        PHONE_NUMBER = PHONE_NUMBER;
+        return Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => BottomNevigation()),
+        );
+      } else {
+        // return LoginController.requestThenResponsePrint(jsonData);
+        AlertDialogueHelper().showAlertDialog(
+            context, 'Warning', 'Please recheck email and password');
+      }
+    });
+  }
+
+
+
   Widget _textFieldOTP({required bool first, last}) {
     return Container(
       height: 35,
