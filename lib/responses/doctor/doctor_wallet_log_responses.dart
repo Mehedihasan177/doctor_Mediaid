@@ -1,31 +1,31 @@
 // To parse this JSON data, do
 //
-//     final doctorWalletLogResponse = doctorWalletLogResponseFromJson(jsonString);
+//     final walletLogResponses = walletLogResponsesFromJson(jsonString);
 
 import 'dart:convert';
 
-DoctorWalletLogResponse doctorWalletLogResponseFromJson(String str) => DoctorWalletLogResponse.fromJson(json.decode(str));
+WalletLogResponses walletLogResponsesFromJson(String str) => WalletLogResponses.fromJson(json.decode(str));
 
-String doctorWalletLogResponseToJson(DoctorWalletLogResponse data) => json.encode(data.toJson());
+String walletLogResponsesToJson(WalletLogResponses data) => json.encode(data.toJson());
 
-class DoctorWalletLogResponse {
-  DoctorWalletLogResponse({
-    required this.doctorWalletLogResponses,
+class WalletLogResponses {
+  WalletLogResponses({
+    required this.data,
   });
 
-  List<DoctorWalletLogResponseElement> doctorWalletLogResponses;
+  List<DoctorWalletLog> data;
 
-  factory DoctorWalletLogResponse.fromJson(Map<String, dynamic> json) => DoctorWalletLogResponse(
-    doctorWalletLogResponses: List<DoctorWalletLogResponseElement>.from(json["DoctorWalletLogResponses"].map((x) => DoctorWalletLogResponseElement.fromJson(x))),
+  factory WalletLogResponses.fromJson(Map<String, dynamic> json) => WalletLogResponses(
+    data: List<DoctorWalletLog>.from(json["data"].map((x) => DoctorWalletLog.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "DoctorWalletLogResponses": List<dynamic>.from(doctorWalletLogResponses.map((x) => x.toJson())),
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
   };
 }
 
-class DoctorWalletLogResponseElement {
-  DoctorWalletLogResponseElement({
+class DoctorWalletLog {
+  DoctorWalletLog({
     required this.id,
     required this.trxId,
     this.userId,
@@ -44,18 +44,18 @@ class DoctorWalletLogResponseElement {
   int id;
   String trxId;
   dynamic userId;
-  int doctorId;
+  String doctorId;
   dynamic serviceProviderId;
   String type;
-  int amount;
-  int deposit;
+  String amount;
+  String deposit;
   String paymentGateway;
   String paymentNote;
   DateTime createdAt;
   DateTime updatedAt;
   dynamic deletedAt;
 
-  factory DoctorWalletLogResponseElement.fromJson(Map<String, dynamic> json) => DoctorWalletLogResponseElement(
+  factory DoctorWalletLog.fromJson(Map<String, dynamic> json) => DoctorWalletLog(
     id: json["id"],
     trxId: json["trx_id"],
     userId: json["user_id"],

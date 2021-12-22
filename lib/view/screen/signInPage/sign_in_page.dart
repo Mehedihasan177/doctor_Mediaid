@@ -24,7 +24,7 @@ class SingInPage extends StatefulWidget {
 
 class _SingInPageState extends State<SingInPage> {
   TextEditingController _textMobile = TextEditingController(text: '01575397823');
-  TextEditingController _textPassword = TextEditingController(text: '1122334455');
+  TextEditingController _textPassword = TextEditingController(text: '11223344');
   @override
   Widget build(BuildContext context) {
     return Scaffold(

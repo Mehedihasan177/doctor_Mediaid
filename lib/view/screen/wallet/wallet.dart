@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_wallet_controller.dart';
+import 'package:care_plus_doctor/controller/doctor/doctor_wallet_log_controller.dart';
 import 'package:care_plus_doctor/data/wallet_data/wallet_data.dart';
 import 'package:care_plus_doctor/model/ui_model/wallet_model/wallet_model.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_wallet_log_responses.dart';
@@ -21,7 +22,7 @@ class walletUi extends StatefulWidget {
 }
 
 class _walletUiState extends State<walletUi> {
-  List<Wallet_Model> moneyWallet = List.of(wallet_data);
+  List<DoctorWalletLog> moneyWallet = [];
   String userbalance = '0';
 
 
@@ -43,10 +44,30 @@ class _walletUiState extends State<walletUi> {
     });
   }
 
+
+  _getWalletLog() async {
+
+
+    DoctorWalletLogController.requestThenResponsePrint( USERTOKEN).then((value) {
+      setState(() {
+        print(value.body);
+        Map<String, dynamic> decoded = json.decode("${value.body}");
+        Iterable listWallet = decoded['data'];
+        print(decoded['data']);
+        moneyWallet =
+            listWallet.map((model) => DoctorWalletLog.fromJson(model)).toList();
+        print(moneyWallet);
+
+      });
+    });
+  }
+
+
   @override
   void initState() {
     // TODO: implement initState
     getWalletBal();
+    _getWalletLog();
     //getTrxHist();
     super.initState();
   }
