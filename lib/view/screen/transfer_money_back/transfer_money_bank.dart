@@ -1,10 +1,14 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/controller/doctor/doctorCashOutReq.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_wallet_controller.dart';
 import 'package:care_plus_doctor/data/transfer_money_bank_data/transfer_money_bank_data.dart';
+import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
+import 'package:care_plus_doctor/model/transfer_money_model.dart';
 import 'package:care_plus_doctor/model/ui_model/transfer_money_bank_model/transfer_money_bank_model.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_wallet_response.dart';
+import 'package:care_plus_doctor/responses/doctor/transfer_,money_bank_responses.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/profile/profile.dart';
 import 'package:care_plus_doctor/widget/transfer_money_bank_widget/transfer_money_bank_widget.dart';
@@ -20,6 +24,12 @@ class TransferMoneyBank extends StatefulWidget {
 class _TransferMoneyBankState extends State<TransferMoneyBank> {
 
   List<transfer_money_bank_model> transferMoneyBank = List.of(transferMoneyBankData);
+  TextEditingController _textName = TextEditingController();
+  TextEditingController _textBankName = TextEditingController();
+  TextEditingController _textBranchName = TextEditingController();
+  TextEditingController _textBranchCode = TextEditingController();
+  TextEditingController _textAccountNumber= TextEditingController();
+  TextEditingController _textAmount= TextEditingController();
 
 
   String userbalance = '0';
@@ -154,7 +164,7 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: TextField(
-                //controller: _textEmail,
+                controller: _textName,
                 // keyboardType: TextInputType.emailAddress,
                 style: TextStyle(color: Colors.black),
                 //scrollPadding: EdgeInsets.all(10),
@@ -190,7 +200,7 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: TextField(
-                  //controller: _textEmail,
+                  controller: _textBankName,
                   // keyboardType: TextInputType.emailAddress,
                   style: TextStyle(color: Colors.black),
                   //scrollPadding: EdgeInsets.all(10),
@@ -228,8 +238,8 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: TextField(
-                  //controller: _textEmail,
-                  // keyboardType: TextInputType.emailAddress,
+                  controller: _textBranchCode,
+                   keyboardType: TextInputType.text,
                   style: TextStyle(color: Colors.black),
                   //scrollPadding: EdgeInsets.all(10),
                   decoration: InputDecoration(
@@ -266,8 +276,8 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: TextField(
-                  //controller: _textEmail,
-                  // keyboardType: TextInputType.emailAddress,
+                  controller: _textAccountNumber,
+                  keyboardType: TextInputType.emailAddress,
                   style: TextStyle(color: Colors.black),
                   //scrollPadding: EdgeInsets.all(10),
                   decoration: InputDecoration(
@@ -295,7 +305,7 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
             child: Container(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Account to Transfer",
+                "Amount to Transfer",
                 style: TextStyle(fontSize: 16),
               ),
             ),
@@ -312,8 +322,8 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
               ),
               child: TextField(
                 textAlign: TextAlign.left,
-                // controller: _textEmail,
-                keyboardType: TextInputType.emailAddress,
+                controller: _textAmount,
+                keyboardType: TextInputType.number,
                 style: TextStyle(color: Colors.black),
                 //scrollPadding: EdgeInsets.all(10),
                 decoration: InputDecoration(
@@ -335,6 +345,40 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () async {
+                  Map data1 = {
+                    'amount': '${_textAmount.text}',
+                    'note': '${_textName.text + _textBankName.text + _textBranchCode.text}',
+                    'mobile': '${_textAccountNumber}',
+
+                  };
+                  TransferMoney myInfo = new TransferMoney(
+                      mobile: _textAccountNumber.text, note: " User Name:  " + _textName.text + ", Bank Name:  " + _textBankName.text+ ", Branch code:  " + _textBranchCode.text, amount: _textAmount.text);
+                  await DocCashOut.requestThenResponsePrint( context, USERTOKEN,  myInfo).then((value) async {
+                    print(value.statusCode);
+                    print(value.body);
+                    final Map parsed = json.decode(value.body);
+
+                    final transferMoney = TransferMoneyToBank.fromJson(parsed);
+
+                    // DoctorSigninController();
+                    print(value.statusCode);
+                    print(value.body);
+//EasyLoading.dismiss();
+                    if(value.statusCode==200){
+                      //signInAgain(context);
+                      SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully added money', Colors.green);
+                      return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+
+                    }else{
+                      SnackbarDialogueHelper().showSnackbarDialog(context, value.body.replaceAll('"', ' ')
+                          .replaceAll('{', ' ')
+                          .replaceAll('}', ' ')
+                          .replaceAll('[', ' ')
+                          .replaceAll(']', ' '), Colors.red);
+                    }
+                  }
+                  );
+
                   //Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
                 },
                 style: ElevatedButton.styleFrom(
