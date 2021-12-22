@@ -28,7 +28,7 @@ class _MyProfileState extends State<MyProfile> {
 
   TextEditingController _experience = TextEditingController(text: DOCTOR_INITIAL.experience);
   TextEditingController _fee = TextEditingController(text: DOCTOR_INITIAL.fee);
-  TextEditingController _serviceAt = TextEditingController(text: DOCTOR_INITIAL.doctorService);
+  TextEditingController _serviceAt = TextEditingController(text: DOCTOR_INITIAL.hospitalName);
   TextEditingController _gender = TextEditingController();
   TextEditingController _chember = TextEditingController(text: DOCTOR_INITIAL.chambers);
   TextEditingController _department = TextEditingController(text: DOCTOR_INITIAL.department);
