@@ -157,7 +157,7 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context) => Container(
           ),
 
           Padding(
-            padding: const EdgeInsets.only(left: 30, top: 30, bottom: 10),
+            padding: const EdgeInsets.only(left: 30, bottom: 10),
             child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text("Average Reviews",
@@ -212,47 +212,7 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context) => Container(
               ),
             ],
           ),
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 15, right: 30),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.account_box_rounded, size: 23, color: Color(0xFF1CBFA8),),
-                          SizedBox(width: 5,),
-                          Text(rivewlist.total_people_rated.toString(),
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black.withOpacity(0.5)
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 95),
-                        child: Row(
-                          children: [
-                            Icon(Icons.check_box, size: 23, color: Color(0xFF1CBFA8),),
-                            SizedBox(width: 5,),
-                            Text(rivewlist.appointment_booked.toString(),
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black.withOpacity(0.5)
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+
 
         ],
       ),

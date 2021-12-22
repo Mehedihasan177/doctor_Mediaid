@@ -2,7 +2,7 @@ class ReviewPatientModel{
 
   late String rating_person_name;
   late String image;
-  late double rating_other_person;
+  late String rating_other_person;
   late String reason;
   late String date;
   late String details;

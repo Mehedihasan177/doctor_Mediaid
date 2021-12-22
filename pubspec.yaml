@@ -54,6 +54,7 @@ dependencies:
   permission_handler: ^8.2.5
   audioplayer: ^0.8.1
   path_provider:
+  flutter_rating_bar: ^4.0.0
 
 dev_dependencies:
   flutter_test:

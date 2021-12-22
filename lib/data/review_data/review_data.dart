@@ -5,9 +5,8 @@ final Reviewdata =[
   ReviewModel(
     image: "images/boy_doctor.png",
     name: "Dr. \nJoseph \nWilliamson",
-    rating: 4.5,
-    total_people_rated: 78,
-    appointment_booked: 129
+    rating: "4.5",
+
 
 ),
 ];
