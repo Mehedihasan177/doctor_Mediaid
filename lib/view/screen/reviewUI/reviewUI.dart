@@ -7,6 +7,7 @@ import 'package:care_plus_doctor/view/screen/review_page_list/review_page_list.d
 import 'package:care_plus_doctor/widget/review_widget/rating_ui_widget.dart';
 import 'package:care_plus_doctor/widget/review_widget/review_patient_widget.dart';
 import 'package:care_plus_doctor/widget/review_widget/review_rating_widget.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -21,6 +22,13 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
 
   List<ReviewModel> rivewlist = List.of(Reviewdata);
   List<ReviewPatientModel> petientreviewlist = List.of(ReviewPatientdata);
+
+  @override
+  Future<void> initState() async {
+
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

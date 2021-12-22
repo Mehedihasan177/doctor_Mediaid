@@ -11,6 +11,9 @@ import 'package:care_plus_doctor/view/screen/change_password/change_password.dar
 import 'package:care_plus_doctor/view/screen/forget_password/forget_password.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/sing_up_page/sign_up_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +28,16 @@ class SingInPage extends StatefulWidget {
 class _SingInPageState extends State<SingInPage> {
   TextEditingController _textMobile = TextEditingController(text: '01575397823');
   TextEditingController _textPassword = TextEditingController(text: '11223344');
+
+
+  final databaseRef = FirebaseDatabase.instance.reference();
+  final Future<FirebaseApp> _future = Firebase.initializeApp();
+
+  void addData(String data) {
+    databaseRef.push().set({'name': data, 'comment': 'A good season'});
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,6 +139,14 @@ class _SingInPageState extends State<SingInPage> {
           SizedBox(
             height: 30,
           ),
+
+          RaisedButton(
+              child: Text("Demo button"),
+              onPressed: (){
+                Map <String,dynamic> data = {"field1" :  _textMobile.text};
+                FirebaseFirestore.instance.collection("test").add(data);
+              }
+          ),
           Center(
             child: Container(
               child: ElevatedButton(
@@ -134,7 +155,7 @@ class _SingInPageState extends State<SingInPage> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () async {
-
+                  addData(_textMobile.text);
                   //EasyLoading.show(status: 'loading...');
                   // SharedPreferences sharedPreferences =
                   // await SharedPreferences.getInstance();
