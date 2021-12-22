@@ -21,7 +21,7 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _ForgetPasswordState extends State<ForgetPassword> {
-  TextEditingController _textMobile = TextEditingController(text: '01575397823');
+  TextEditingController _textMobile = TextEditingController();
   TextEditingController _textPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
