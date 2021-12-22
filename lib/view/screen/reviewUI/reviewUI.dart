@@ -115,7 +115,7 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
                   child: Container(
                     //padding: EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
-                    height: 510,
+                    height: 310,
                     child: ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -136,18 +136,22 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
               ],
             ),
 
-            Container(
-              width: MediaQuery.of(context).size.width - 50,
-              child: ListView.builder(
-                reverse: true,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) {
+            Center(
+              child: Container(
+                height: 200,
+                //color: Colors.red,
+                //width: MediaQuery.of(context).size.width ,
+                child: ListView.builder(
+                  reverse: true,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: 5,
+                  itemBuilder: (BuildContext context, int index) {
 
-                  quick = QuickRateClass(fiveC, fourC, threeC, twoC, oneC, totalRated, totalRatings, myRating);
-                  return progressBar(context, index,quick);
-                },
+                    quick = QuickRateClass(fiveC, fourC, threeC, twoC, oneC, totalRated, totalRatings, myRating);
+                    return progressBar(context, index,quick);
+                  },
+                ),
               ),
             ),
 

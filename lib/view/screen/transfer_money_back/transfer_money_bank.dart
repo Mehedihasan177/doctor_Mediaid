@@ -11,6 +11,7 @@ import 'package:care_plus_doctor/responses/doctor/doctor_wallet_response.dart';
 import 'package:care_plus_doctor/responses/doctor/transfer_,money_bank_responses.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/profile/profile.dart';
+import 'package:care_plus_doctor/view/screen/wallet/wallet.dart';
 import 'package:care_plus_doctor/widget/transfer_money_bank_widget/transfer_money_bank_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -68,7 +69,8 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => walletUi()));
+        //Navigator.pop(context);
         return true;
       },
       child: Scaffold(

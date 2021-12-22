@@ -13,6 +13,7 @@ import 'package:care_plus_doctor/responses/doctor/doctor_specialization_response
 import 'package:care_plus_doctor/responses/doctor/doctor_update_profile_responses.dart';
 import 'package:care_plus_doctor/view/screen/add_services/add_services.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
+import 'package:care_plus_doctor/view/screen/profile/profile.dart';
 import 'package:care_plus_doctor/view/screen/setUp_Profile/image_upload_page.dart';
 import 'package:care_plus_doctor/widget/my_profile_widget/my_profile_widget.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,13 @@ class _MyProfileState extends State<MyProfile> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        //Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => ProfilePage()),
+        // );
+
+        //Navigator.pop(context);
         return true;
       },
       child: Scaffold(

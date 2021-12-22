@@ -7,11 +7,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-Widget ReviewUIWidget(ReviewModel rivewlist, context,QuickRateClass quick) => Container(
-      child: Column(
+Widget ReviewUIWidget(ReviewModel rivewlist, context,QuickRateClass quick) => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 20, top: 20),
+            padding: const EdgeInsets.only(left: 20, top: 0),
             child: Row(
               children: [
                 CircleAvatar(
@@ -166,7 +167,7 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context,QuickRateClass quick) => Co
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 20, right: 30),
+                  padding: const EdgeInsets.only(left: 0, top: 40, right: 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -252,5 +253,5 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context,QuickRateClass quick) => Co
 
 
         ],
-      ),
-    );
+      );
+
