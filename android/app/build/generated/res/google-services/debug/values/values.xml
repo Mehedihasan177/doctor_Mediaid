@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">620804623253-fbd47mhgrqegthphb0sbc0kbjs1qmg9p.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">620804623253</string>
+    <string name="google_api_key" translatable="false">AIzaSyBuPYXi230DFcuQH0PeHI0LOSgMkK8PL8I</string>
+    <string name="google_app_id" translatable="false">1:620804623253:android:c8d77cbe9ff8979625049c</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBuPYXi230DFcuQH0PeHI0LOSgMkK8PL8I</string>
+    <string name="google_storage_bucket" translatable="false">care-plus-doctor.appspot.com</string>
+    <string name="project_id" translatable="false">care-plus-doctor</string>
+</resources>
