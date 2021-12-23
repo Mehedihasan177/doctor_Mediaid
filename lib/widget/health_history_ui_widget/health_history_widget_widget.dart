@@ -123,9 +123,9 @@ void _launchURL(BuildContext context,String url) async {
   try {
     await launch(
       url,
-      customTabsOption: CustomTabsOption(
+      customTabsOption: const CustomTabsOption(
 
-        extraCustomTabs: const <String>[
+        extraCustomTabs: <String>[
           // ref. https://play.google.com/store/apps/details?id=org.mozilla.firefox
           'org.mozilla.firefox',
           // ref. https://play.google.com/store/apps/details?id=com.microsoft.emmx

@@ -6,6 +6,7 @@ import 'package:care_plus_doctor/helper/alertDialogue.dart';
 import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
 import 'package:care_plus_doctor/model/doctor/doctor_sinIn_model.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
+import 'package:care_plus_doctor/services/firebase_services.dart';
 import 'package:care_plus_doctor/view/screen/appointmnet_list/appointment_list_ui.dart';
 import 'package:care_plus_doctor/view/screen/change_password/change_password.dart';
 import 'package:care_plus_doctor/view/screen/forget_password/forget_password.dart';
@@ -30,18 +31,18 @@ class _SingInPageState extends State<SingInPage> {
   TextEditingController _textPassword = TextEditingController(text: '12345678');
 
 
-  final databaseRef = FirebaseDatabase.instance.reference();
-  final Future<FirebaseApp> _future = Firebase.initializeApp();
-
-  void addData(String data) {
-    databaseRef.push().set({'name': data, 'comment': 'A good season'});
-  }
-  final fb = FirebaseDatabase.instance;
-  final name = "Name";
+  // final databaseRef = FirebaseDatabase.instance.reference();
+  // final Future<FirebaseApp> _future = Firebase.initializeApp();
+  //
+  // void addData(String data) {
+  //   databaseRef.push().set({'name': data, 'comment': 'A good season'});
+  // }
+  // final fb = FirebaseDatabase.instance;
+  // final name = "Name";
 
   @override
   Widget build(BuildContext context) {
-    final ref = fb.reference();
+    // final ref = fb.reference();
     return Scaffold(
       body: ListView(
 
@@ -142,14 +143,7 @@ class _SingInPageState extends State<SingInPage> {
             height: 30,
           ),
 
-          RaisedButton(
-              child: Text("Demo button"),
-              onPressed: (){
-                // Map <String,dynamic> data = {"field1" :  _textMobile.text};
-                // FirebaseFirestore.instance.collection("test").add(data);
-                ref.child(name).set(_textPassword.text);
-              }
-          ),
+
           Center(
             child: Container(
               child: ElevatedButton(
@@ -158,7 +152,7 @@ class _SingInPageState extends State<SingInPage> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () async {
-                  addData(_textMobile.text);
+                  // addData(_textMobile.text);
                   //EasyLoading.show(status: 'loading...');
                   // SharedPreferences sharedPreferences =
                   // await SharedPreferences.getInstance();
