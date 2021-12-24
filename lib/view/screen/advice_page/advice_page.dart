@@ -86,6 +86,7 @@ class _AdvicePageState extends State<AdvicePage> {
           ),
         ),
         body: ListView(
+          physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
 
             Padding(
@@ -228,6 +229,11 @@ class _AdvicePageState extends State<AdvicePage> {
         rx = '';
 
         SnackbarDialogueHelper().showSnackbarDialog(context,'Prescription successfully created',Colors.green);
+        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+            BottomNevigation()), (Route<dynamic> route) => false);
+
 
       }else{
         SnackbarDialogueHelper().showSnackbarDialog(context,'Prescription creation failed',Colors.red);

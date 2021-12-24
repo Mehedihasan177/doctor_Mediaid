@@ -19,6 +19,7 @@ import 'package:care_plus_doctor/view/screen/appointmnet_list/appointment_ui_tom
 import 'package:care_plus_doctor/view/screen/care_plus_lab_report_list/care_plus_lab_report_list.dart';
 import 'package:care_plus_doctor/view/screen/health_record/health_record.dart';
 import 'package:care_plus_doctor/view/screen/lib/pages/call_page.dart';
+import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/notificaitonUi/notificaitonUi.dart';
 import 'package:care_plus_doctor/view/screen/patient_profile_details/patient_profile_details.dart';
 import 'package:care_plus_doctor/view/screen/problem_page/problem_page.dart';
@@ -94,114 +95,120 @@ class _AppointmentListState extends State<AppointmentList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: [
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        return true;
+      },
+      child: Scaffold(
+        body: ListView(
+          children: [
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                  padding: const EdgeInsets.only(right: 50, top: 20),
-                  child: Text(
-                    "Appointments",
-                    style:
-                    TextStyle(fontSize: 25, color: Colors.black.withOpacity(0.5)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.only(right: 50, top: 20),
+                    child: Text(
+                      "Appointments",
+                      style:
+                      TextStyle(fontSize: 25, color: Colors.black.withOpacity(0.5)),
+                    ),
                   ),
-                ),
 
-              Container(
-                height: 30,
-                width: 30,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.watch_later_outlined,
-                  ),
-                  iconSize: 25,
-                  color: Color(0xFF1CBFA8),
-                  splashColor: Color(0xFF1CBFA8),
-                  onPressed: () {
-                    pickDate(context);
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 20, left: 10),
-                child: Container(
-
+                Container(
                   height: 30,
                   width: 30,
                   child: IconButton(
                     icon: Icon(
-                      Icons.notifications_on_outlined,
+                      Icons.watch_later_outlined,
                     ),
                     iconSize: 25,
                     color: Color(0xFF1CBFA8),
                     splashColor: Color(0xFF1CBFA8),
                     onPressed: () {
-                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NotificationPage()));
+                      pickDate(context);
                     },
                   ),
                 ),
-              ),
-            ],
-          ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20, left: 10),
+                  child: Container(
 
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                    "Next",
-                    style:
-                        TextStyle(fontSize: 17, color: Colors.black.withOpacity(0.5)),
-                  ),
-
-                FlatButton(
-                  minWidth: 10,
-                  onPressed: () {
-                    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListToday()));
-                  },
-                  child: Text(
-                    "See All",
-                      style:
-                      TextStyle(color: Colors.black.withOpacity(0.5))
+                    height: 30,
+                    width: 30,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.notifications_on_outlined,
+                      ),
+                      iconSize: 25,
+                      color: Color(0xFF1CBFA8),
+                      splashColor: Color(0xFF1CBFA8),
+                      onPressed: () {
+                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NotificationPage()));
+                      },
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-          Container(
-            // height: 400,
-            // color: Colors.red,
-            child: ListView.builder(
-                physics:
-                    NeverScrollableScrollPhysics(), // <-- this will disable scroll
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: doctorAppointmentHistory.length,
-                itemBuilder: (BuildContext context, int index) {
-                  // return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
 
-                  if((doctorAppointmentHistory[index].active.toString()!='0')&&(doctorAppointmentHistory[index].consult=='0')){
-                    return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
-                  }else{
-                    return Container();
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                      "Next",
+                      style:
+                          TextStyle(fontSize: 17, color: Colors.black.withOpacity(0.5)),
+                    ),
+
+                  FlatButton(
+                    minWidth: 10,
+                    onPressed: () {
+                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListToday()));
+                    },
+                    child: Text(
+                      "See All",
+                        style:
+                        TextStyle(color: Colors.black.withOpacity(0.5))
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              // height: 400,
+              // color: Colors.red,
+              child: ListView.builder(
+                  physics:
+                      NeverScrollableScrollPhysics(), // <-- this will disable scroll
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: doctorAppointmentHistory.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    // return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
+
+                    if((doctorAppointmentHistory[index].active.toString()!='0')&&(doctorAppointmentHistory[index].consult=='0')){
+                      return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
+                    }else{
+                      return Container();
+                    }
+
+
+
+                    // return index<3 ? buildDoctorAppointmentHistoryTile(
+                    //     doctorAppointmentHistory[index]):Container();
                   }
+                  ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
 
-
-
-                  // return index<3 ? buildDoctorAppointmentHistoryTile(
-                  //     doctorAppointmentHistory[index]):Container();
-                }
-                ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-
-        ],
+          ],
+        ),
       ),
     );
   }

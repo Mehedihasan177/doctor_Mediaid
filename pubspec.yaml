@@ -55,6 +55,7 @@ dependencies:
   audioplayer: ^0.8.1
   path_provider:
   flutter_rating_bar: ^4.0.0
+  double_back_to_close_app: ^2.1.0
 
 dev_dependencies:
   flutter_test:
