@@ -32,6 +32,8 @@ class _SingUpPageState extends State<SingUpPage> {
   TextEditingController _password = TextEditingController();
   TextEditingController _confirmPassword = TextEditingController();
   TextEditingController _phoneNumber = TextEditingController();
+
+  String countryCode = '+880';
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -185,42 +187,70 @@ class _SingUpPageState extends State<SingUpPage> {
                   padding: const EdgeInsets.only(left: 0, right: 20),
                   child: Column(
                     children: [
+
+                      Container(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.phone,
+                              size: 18,
+                              color: Colors.black.withOpacity(0.6),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "Phone Number",
+                              style: TextStyle(fontSize: 17),
+                            ),
+                          ],
+                        ),
+                      ),
+
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CountryCodePicker(
-                            onChanged: print,
-                            showFlag: false,
-                            // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                            initialSelection: 'IT',
-                            favorite: ['+39', 'FR'],
-                            showCountryOnly: false,
-                            // optional. Shows only country name and flag when popup is closed.
-                            showOnlyCountryWhenClosed: false,
+                          Expanded(
+                            flex:1,
+                            child: CountryCodePicker(
+                              onChanged: (code){
+                                setState(() {
+                                  countryCode = code.code!;
+                                });
+                              },
+                              showFlag: true,
+                              // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                              initialSelection: 'IT',
+                              favorite: ['+880', 'BD'],
+                              showCountryOnly: false,
+                              // optional. Shows only country name and flag when popup is closed.
+                              showOnlyCountryWhenClosed: false,
+                            ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 12),
-                            child: Text(
-                              "Phone Number",
-                              style: TextStyle(fontSize: 17),
+                          Expanded(
+                            flex: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 0),
+                              child: TextField(
+                                controller: _phoneNumber,
+                                keyboardType: TextInputType.text,
+                                style: TextStyle(color: Colors.black),
+                                //scrollPadding: EdgeInsets.all(10),
+                                decoration: InputDecoration(
+                                  //contentPadding: EdgeInsets.all(20),
+                                  hintText: "Enter your phone number",
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: TextField(
-                          controller: _phoneNumber,
-                          keyboardType: TextInputType.text,
-                          style: TextStyle(color: Colors.black),
-                          //scrollPadding: EdgeInsets.all(10),
-                          decoration: InputDecoration(
-                            //contentPadding: EdgeInsets.all(20),
-                            hintText: "Enter your phone number",
-                          ),
-                        ),
-                      ),
+
                     ],
                   ),
                 ),
@@ -329,7 +359,7 @@ class _SingUpPageState extends State<SingUpPage> {
                           //username: "",
                           email: _textEmail.text,
                           bmdc_reg: _AHPRANo.text,
-                          mobile: _phoneNumber.text,
+                          mobile: countryCode+_phoneNumber.text,
                           password: _password.text,
                           password_confirmation: _confirmPassword.text,
                           //image: "assets/download.jpg",
