@@ -82,6 +82,7 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
           ),
         ),
         body: ListView(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
 
             Padding(
@@ -96,10 +97,10 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BottomNevigation()));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => BottomNevigation()));
                     },
                   ),
                   Expanded(
@@ -188,6 +189,7 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
             Container(
               height: 660,
               child: ListView.builder(
+                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                   padding: const EdgeInsets.all(8),
                   itemCount: lab_report.length,
                   itemBuilder: (BuildContext context, int index) {

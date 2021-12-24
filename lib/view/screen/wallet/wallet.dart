@@ -84,6 +84,7 @@ class _walletUiState extends State<walletUi> {
       },
       child: Scaffold(
         body: ListView(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 20),
@@ -97,7 +98,7 @@ class _walletUiState extends State<walletUi> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+                      // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
                     },
                   ),
                   Expanded(
@@ -202,6 +203,7 @@ class _walletUiState extends State<walletUi> {
                     alignment: Alignment.centerLeft,
                     height: 700,
                     child: ListView.builder(
+                        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                       //controller: PageController(viewportFraction: 0.3),
                         scrollDirection: Axis.vertical,
                         itemCount: moneyWallet.length,

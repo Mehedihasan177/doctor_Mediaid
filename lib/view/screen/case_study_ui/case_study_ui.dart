@@ -31,7 +31,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
@@ -85,6 +85,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
             Container(
               height: 760,
               child: ListView.builder(
+                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemCount: case_study.length,

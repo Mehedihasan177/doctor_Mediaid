@@ -224,8 +224,8 @@ class _ResetPasswordState extends State<ResetPassword> {
         );
       } else {
         // return LoginController.requestThenResponsePrint(jsonData);
-        AlertDialogueHelper().showAlertDialog(
-            context, 'Warning', 'Please recheck email and password');
+        // AlertDialogueHelper().showAlertDialog(
+        //     context, 'Warning', 'Please recheck email and password');
       }
     });
   }

@@ -77,6 +77,7 @@ class _HealthRecordState extends State<HealthRecord> {
             Container(
               height: 750,
               child: ListView.builder(
+                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemCount: health_history.length,

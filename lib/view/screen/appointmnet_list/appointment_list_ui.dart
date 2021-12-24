@@ -38,9 +38,8 @@ class AppointmentList extends StatefulWidget {
 }
 
 class _AppointmentListState extends State<AppointmentList> {
-  List<Appointment_list_navBar> appointmentlist = List.of(appointmentList);
-  List<Appointment_History_navBar> appointmentHistoy =
-      List.of(appointmentHistory);
+  List<Appointment_list_navBar> appointmentlist = [];
+  List<Appointment_History_navBar> appointmentHistoy =[];
 
 
   late DateTime date;
@@ -102,6 +101,7 @@ class _AppointmentListState extends State<AppointmentList> {
       },
       child: Scaffold(
         body: ListView(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
 
             Row(

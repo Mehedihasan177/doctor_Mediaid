@@ -75,6 +75,7 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
       },
       child: Scaffold(
         body: ListView(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 20),

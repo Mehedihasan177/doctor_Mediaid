@@ -78,9 +78,11 @@ class _NotificationPageState extends State<NotificationPage> {
                 Flexible(
                   child: Container(
                     //padding: EdgeInsets.only(left: 20),
+
                     alignment: Alignment.centerLeft,
                     height: 780,
                     child: ListView.builder(
+                        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                       //controller: PageController(viewportFraction: 0.3),
                         scrollDirection: Axis.vertical,
                         itemCount: notification.length,

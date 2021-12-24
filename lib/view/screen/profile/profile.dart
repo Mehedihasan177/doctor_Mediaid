@@ -36,6 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
       },
       child: Scaffold(
         body: ListView(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 20, bottom: 20),
@@ -71,6 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 20,
             ),
             GridView.count(
+              physics: NeverScrollableScrollPhysics(),
                 childAspectRatio: (1 / .55),
                 shrinkWrap: true,
                 crossAxisCount: 2,

@@ -63,6 +63,7 @@ class _MyProfileState extends State<MyProfile> {
       },
       child: Scaffold(
         body: ListView(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
 
             Padding(
@@ -77,7 +78,7 @@ class _MyProfileState extends State<MyProfile> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+                      // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
                     },
                   ),
                   Expanded(

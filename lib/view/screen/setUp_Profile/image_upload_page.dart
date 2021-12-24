@@ -37,11 +37,11 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
     return WillPopScope(
 
       onWillPop: () async {
-        if(widget.page == 1){
-          Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
-        }else{
-          Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()));
-        }
+        // if(widget.page == 1){
+        //   Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        // }else{
+        //   Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()));
+        // }
         return true;
       },
       child: Scaffold(

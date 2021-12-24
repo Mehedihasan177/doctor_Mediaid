@@ -66,11 +66,12 @@ class _ReviewPageListState extends State<ReviewPageList> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
         body: ListView(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 20),
@@ -84,7 +85,7 @@ class _ReviewPageListState extends State<ReviewPageList> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+                      // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
                     },
                   ),
                   Expanded(

@@ -67,11 +67,12 @@ class _ManageScheduleState extends State<ManageSchedule> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
         body: ListView(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 20, bottom: 20),
@@ -215,6 +216,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
             Container(
               // height: 420,
               child: ListView.builder(
+                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                 shrinkWrap: true,
                   padding: const EdgeInsets.all(8),
                   itemCount: manageSchedule.length,

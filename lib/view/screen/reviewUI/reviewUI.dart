@@ -112,6 +112,7 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
             content: Text('Tap back again to leave'),
           ),
           child: ListView(
+              physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             children:[
 
               Row(
