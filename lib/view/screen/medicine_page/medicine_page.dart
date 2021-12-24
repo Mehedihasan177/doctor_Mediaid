@@ -66,7 +66,7 @@ class _MedicinePageState extends State<MedicinePage> {
     return WillPopScope(
 
       onWillPop: () async {
-        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProblemPage()));
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => ProblemPage()));
         return true;
       },
       child: Scaffold(
@@ -98,7 +98,7 @@ class _MedicinePageState extends State<MedicinePage> {
                   SnackbarDialogueHelper().showSnackbarDialog(context, 'Please describe medicines properly', Colors.red);
                 }
 
-                // Navigator.pushReplacement(context,
+                // Navigator.push(context,
                 //     MaterialPageRoute(builder: (context) => AdvicePage()));
 
               }),
@@ -117,7 +117,7 @@ class _MedicinePageState extends State<MedicinePage> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.pushReplacement(context,
+                      Navigator.push(context,
                           MaterialPageRoute(builder: (context) => ProblemPage()));
                     },
                   ),

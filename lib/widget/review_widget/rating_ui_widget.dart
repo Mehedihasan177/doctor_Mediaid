@@ -87,7 +87,7 @@ Widget ReviewUIWidget(ReviewModel rivewlist, context,QuickRateClass quick) => Co
                                         color: Color(0xFF1CBFA8),
                                         splashColor: Color(0xFF1CBFA8),
                                         onPressed: () {
-                                          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NotificationPage()));
+                                          Navigator.push(context,MaterialPageRoute(builder: (context) => NotificationPage()));
                                         },
                                       ),
                                     ),

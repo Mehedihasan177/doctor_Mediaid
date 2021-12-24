@@ -91,7 +91,7 @@ Widget Appointment_List(
                                 color: Color(0xFF1CBFA8),
                                 splashColor: Color(0xFF1CBFA8),
                                 onPressed: () {
-                                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProblemPage()));
+                                  Navigator.push(context,MaterialPageRoute(builder: (context) => ProblemPage()));
                                 },
                               ),
                             ),
@@ -120,7 +120,7 @@ Widget Appointment_List(
                               color: Color(0xFF1CBFA8),
                               splashColor: Color(0xFF1CBFA8),
                               onPressed: () {
-                                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
+                                Navigator.push(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
 
                               },
                             ),
@@ -136,7 +136,7 @@ Widget Appointment_List(
         ),
       ),
       onTap: () {
-        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(mobile: '', gender: '', name: '', email: '', status: '', address: '',
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(mobile: '', gender: '', name: '', email: '', status: '', address: '',
         //   image: '', height: '', district: '', medicare_no: '', weight: '', reschedule: '', appointment_for: '', rescheduleDate: '',)));
   },
     );

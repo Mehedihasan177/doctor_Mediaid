@@ -59,7 +59,7 @@ Widget Profile_Page(MyProfileModel myProfile, BuildContext context) => Card(
                 icon: Image.asset('images/edit_icon.png'),
                 iconSize: 30,
                 onPressed: () {
-                  Navigator.pushReplacement(context,
+                  Navigator.push(context,
                       MaterialPageRoute(builder: (context) => MyProfile()));
                 },
               ),
@@ -127,7 +127,7 @@ Widget Profile_Page(MyProfileModel myProfile, BuildContext context) => Card(
 //           icon: Image.asset('images/edit_icon.png'),
 //           iconSize: 30,
 //           onPressed: () {
-//             Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => UpdateProfile()));
+//             Navigator.push(context,MaterialPageRoute(builder: (context) => UpdateProfile()));
 //           },
 //         ),
 //       )

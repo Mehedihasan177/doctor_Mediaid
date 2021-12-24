@@ -32,7 +32,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
@@ -228,7 +228,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           signInAgain(context);
                           SnackbarDialogueHelper().showSnackbarDialog(context, 'Password changed successfully', Colors.green);
                           //SnackbarDialogueHelper().showSnackbarDialog(context, "New Passowrd",value.body);
-                          return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+                          return Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
                         }
                         else{
                           // SnackbarDialogueHelper().showSnackbarDialog(context, 'Password not matched $passChange', Colors.red);
@@ -283,7 +283,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       if (value.statusCode == 200) {
         PASSWORD = PASSWORD;
         PHONE_NUMBER = PHONE_NUMBER;
-        return Navigator.pushReplacement(
+        return Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => BottomNevigation()),
         );

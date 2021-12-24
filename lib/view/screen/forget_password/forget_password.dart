@@ -28,7 +28,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SingInPage()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => SingInPage()));
         return true;
       },
       child: Scaffold(
@@ -121,7 +121,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       if (value.statusCode == 200) {
                         print("successfully done");
                         SnackbarDialogueHelper().showSnackbarDialog(context, value.body, Colors.green);
-                        return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SingInPage()),);
+                        return  Navigator.push(context,MaterialPageRoute(builder: (context) => SingInPage()),);
                       }else{
                         SnackbarDialogueHelper().showSnackbarDialog(context, value.body, Colors.red);
 

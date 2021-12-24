@@ -34,7 +34,7 @@ class _AdvicePageState extends State<AdvicePage> {
     return WillPopScope(
 
       onWillPop: () async {
-        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => MedicinePage()));
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => MedicinePage()));
         return true;
       },
       child: Scaffold(
@@ -78,7 +78,7 @@ class _AdvicePageState extends State<AdvicePage> {
                 }
 
 
-                // Navigator.pushReplacement(
+                // Navigator.push(
                 //     context,
                 //     MaterialPageRoute(
                 //         builder: (context) => BottomNevigation()));
@@ -101,7 +101,7 @@ class _AdvicePageState extends State<AdvicePage> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      // Navigator.pushReplacement(
+                      // Navigator.push(
                       //     context,
                       //     MaterialPageRoute(
                       //         builder: (context) => MedicinePage()));
@@ -229,7 +229,7 @@ class _AdvicePageState extends State<AdvicePage> {
         rx = '';
 
         SnackbarDialogueHelper().showSnackbarDialog(context,'Prescription successfully created',Colors.green);
-        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
 
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
             BottomNevigation()), (Route<dynamic> route) => false);

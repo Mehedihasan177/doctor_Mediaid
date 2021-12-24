@@ -26,7 +26,7 @@ class _ResetPasswordState extends State<ResetPassword> {
     return WillPopScope(
 
       onWillPop: () async {
-        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ChangePassword()));
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => ChangePassword()));
         return true;
       },
       child: Scaffold(
@@ -218,7 +218,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       if (value.statusCode == 200) {
         PASSWORD = PASSWORD;
         PHONE_NUMBER = PHONE_NUMBER;
-        return Navigator.pushReplacement(
+        return Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => BottomNevigation()),
         );

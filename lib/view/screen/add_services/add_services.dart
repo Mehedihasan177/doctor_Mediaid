@@ -68,7 +68,7 @@ class _AddServicesPageState extends State<AddServicesPage> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
@@ -158,7 +158,7 @@ class _AddServicesPageState extends State<AddServicesPage> {
 
                               //EasyLoading.dismiss();
                               if(value.statusCode==200){
-                                //return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+                                //return Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
                                 // SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully updated specializations', Colors.green);
 
                                 DoctorSignInModel myInfo = new DoctorSignInModel(

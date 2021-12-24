@@ -87,7 +87,7 @@ Widget Case_Study(CaseStudymodel case_study, BuildContext context) => Card(
                 style: TextStyle(color: Colors.white, fontSize: 15),
               ),
               onPressed: () async {
-                // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Otp()));
+                // Navigator.push(context,MaterialPageRoute(builder: (context) => Otp()));
 
                 currentPatientID = '';
                 currentPatientID = case_study.id.toString();

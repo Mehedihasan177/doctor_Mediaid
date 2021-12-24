@@ -52,7 +52,7 @@ class _MyProfileState extends State<MyProfile> {
     return WillPopScope(
 
       onWillPop: () async {
-        //Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        //Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         // Navigator.push(
         //   context,
         //   MaterialPageRoute(builder: (context) => ProfilePage()),
@@ -77,7 +77,7 @@ class _MyProfileState extends State<MyProfile> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
                     },
                   ),
                   Expanded(
@@ -139,7 +139,7 @@ class _MyProfileState extends State<MyProfile> {
                         //     ),
                         //     iconSize: 20,
                         //     onPressed: () {
-                        //       Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage(page: 1)));
+                        //       Navigator.push(context,MaterialPageRoute(builder: (context) => NewImageUploadPage(page: 1)));
                         //     },
                         //   ),
                         // ),
@@ -190,7 +190,7 @@ class _MyProfileState extends State<MyProfile> {
                             padding: const EdgeInsets.only(left: 20, top: 10),
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.pushReplacement(
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
@@ -707,7 +707,7 @@ class _MyProfileState extends State<MyProfile> {
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => AddServicesPage()),
@@ -788,7 +788,7 @@ class _MyProfileState extends State<MyProfile> {
                       signInAgain(context);
                       SnackbarDialogueHelper().showSnackbarDialog(
                           context, 'successfully Added', Colors.green);
-                      return Navigator.pushReplacement(
+                      return Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => BottomNevigation()),
@@ -849,7 +849,7 @@ class _MyProfileState extends State<MyProfile> {
       if (value.statusCode == 200) {
         PASSWORD = PASSWORD;
         PHONE_NUMBER = PHONE_NUMBER;
-        return Navigator.pushReplacement(
+        return Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => BottomNevigation()),
         );

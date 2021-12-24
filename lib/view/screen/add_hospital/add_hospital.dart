@@ -31,7 +31,7 @@ class _AddHospitalPageState extends State<AddHospitalPage> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
@@ -49,7 +49,7 @@ class _AddHospitalPageState extends State<AddHospitalPage> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
                     },
                   ),
                   Expanded(
@@ -126,7 +126,7 @@ class _AddHospitalPageState extends State<AddHospitalPage> {
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                   onPressed: () async {
-                    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(350, 50),

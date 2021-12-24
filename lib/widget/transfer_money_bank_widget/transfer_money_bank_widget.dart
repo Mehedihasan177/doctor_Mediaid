@@ -241,7 +241,7 @@ Widget TransferMoneyBankWidget(transfer_money_bank_model transferMoneyBank) =>
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onPressed: () async {
-                //Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+                //Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(350, 59),
