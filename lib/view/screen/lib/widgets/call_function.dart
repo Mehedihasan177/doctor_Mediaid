@@ -299,7 +299,7 @@ class _VideoCallState extends State<VideoCall> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Care+ Calling'),),
+      appBar: AppBar(title: Text('Care+ Calling'),backgroundColor: Color(0xFF1CBFA8),),
       body: Container(
         child: Center(
           child: Stack(

@@ -35,7 +35,7 @@ Widget NotificationWidget(Doctornotification notification) =>
 
 
               Expanded(
-                flex: 5,
+                flex: 6,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 15),
                   child: Column(
@@ -73,16 +73,16 @@ Widget NotificationWidget(Doctornotification notification) =>
                         children: [
                           Container(
                               alignment: Alignment.bottomLeft,
-                              child: Text(DateFormat("dd-MMMM-yyyy").format(notification.createdAt))
+                              child: Text(DateFormat("dd-MMM-yyyy").format(notification.createdAt))
                           ),
 
 
-                          Text("    ||    "),
+                          const Text(" || "),
 
 
                           Container(
                               alignment: Alignment.bottomLeft,
-                              child: Text(DateFormat.jm().format(DateTime.parse(notification.createdAt.toString())))
+                              child: Text(DateFormat.jms().format(DateTime.parse(notification.createdAt.toString())))
                           ),
 
                         ],
