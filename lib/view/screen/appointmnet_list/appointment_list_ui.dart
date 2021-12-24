@@ -56,7 +56,7 @@ class _AppointmentListState extends State<AppointmentList> {
 
     if (newDate == null) return;
     // else setState(() =>
-    //     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListToday())),
+    //     Navigator.push(context,MaterialPageRoute(builder: (context) => AppointmentListToday())),
     // );
 
   }
@@ -97,7 +97,7 @@ class _AppointmentListState extends State<AppointmentList> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
@@ -145,7 +145,7 @@ class _AppointmentListState extends State<AppointmentList> {
                       color: Color(0xFF1CBFA8),
                       splashColor: Color(0xFF1CBFA8),
                       onPressed: () {
-                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NotificationPage()));
+                        Navigator.push(context,MaterialPageRoute(builder: (context) => NotificationPage()));
                       },
                     ),
                   ),
@@ -167,7 +167,7 @@ class _AppointmentListState extends State<AppointmentList> {
                   FlatButton(
                     minWidth: 10,
                     onPressed: () {
-                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListToday()));
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => AppointmentListToday()));
                     },
                     child: Text(
                       "See All",

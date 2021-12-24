@@ -256,7 +256,7 @@
 //                                 child: FlatButton(
 //                                   //minWidth: 10,
 //                                   onPressed: () {
-//                                     // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AppointmentListToday()));
+//                                     // Navigator.push(context,MaterialPageRoute(builder: (context) => AppointmentListToday()));
 //                                   },
 //                                   child: Column(
 //                                     children: [
@@ -280,7 +280,7 @@
 //                                     child: FlatButton(
 //                                       //minWidth: 10,
 //                                       onPressed: () {
-//                                       Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
+//                                       Navigator.push(context,MaterialPageRoute(builder: (context) => CarePlusLabReportList()));
 //                                       },
 //                                       child: Column(
 //                                         children: [
@@ -307,7 +307,7 @@
 //                                 child: FlatButton(
 //                                   //minWidth: 10,
 //                                   onPressed: () {
-//                                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProblemPage()));
+//                                      Navigator.push(context,MaterialPageRoute(builder: (context) => ProblemPage()));
 //                                   },
 //                                   child: Column(
 //                                     children: [
@@ -343,7 +343,7 @@
 //                         style: TextStyle(color: Colors.white, fontSize: 20),
 //                       ),
 //                       onPressed: () async {
-//                         Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HealthRecord()));
+//                         Navigator.push(context,MaterialPageRoute(builder: (context) => HealthRecord()));
 //                       },
 //                       style: ElevatedButton.styleFrom(
 //                         minimumSize: const Size(350, 59),

@@ -94,7 +94,7 @@ Widget Health_History_List(Health_History health_history,BuildContext context) =
                     url =  "$apiDomainRoot/api/e-prescription/" + health_history.id.toString();
                   }
                   _launchURL(context,url);
-                  // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Otp()));
+                  // Navigator.push(context,MaterialPageRoute(builder: (context) => Otp()));
 
                 },
                 style: ElevatedButton.styleFrom(

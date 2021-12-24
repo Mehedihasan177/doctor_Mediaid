@@ -39,7 +39,7 @@ class _SingUpPageState extends State<SingUpPage> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SingInPage()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => SingInPage()));
         return true;
       },
       child: Scaffold(
@@ -397,7 +397,7 @@ class _SingUpPageState extends State<SingUpPage> {
                               sharedPreferences.setString("mobile", _phoneNumber.text);
                               sharedPreferences.setString("password", _password.text);
                               SnackbarDialogueHelper().showSnackbarDialog(context, "Registration successful",Colors.green);
-                              return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile(
+                              return Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile(
                               )),);
                             } else {
                               // return LoginController.requestThenResponsePrint(jsonData);
@@ -444,7 +444,7 @@ class _SingUpPageState extends State<SingUpPage> {
                       FlatButton(
                         minWidth: 10,
                         onPressed: () {
-                          Navigator.pushReplacement(
+                          Navigator.push(
                               context, MaterialPageRoute(builder: (context) => SingInPage()));
                         },
                         child: Text(
@@ -482,7 +482,7 @@ class _SingUpPageState extends State<SingUpPage> {
                       FlatButton(
                         minWidth: 5,
                         onPressed: () {
-                          // Navigator.pushReplacement(
+                          // Navigator.push(
                           //     context, MaterialPageRoute(builder: (context) => DoctorCatagory()));
                         },
                         child: Image.asset(
@@ -494,7 +494,7 @@ class _SingUpPageState extends State<SingUpPage> {
                       FlatButton(
                         minWidth: 5,
                         onPressed: () {
-                          // Navigator.pushReplacement(
+                          // Navigator.push(
                           //     context, MaterialPageRoute(builder: (context) => DoctorCatagory()));
                         },
                         child: Image.asset(

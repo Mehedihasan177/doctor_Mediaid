@@ -35,7 +35,7 @@ class _ProblemPageState extends State<ProblemPage> {
     return WillPopScope(
 
       onWillPop: () async {
-        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
@@ -96,7 +96,7 @@ class _ProblemPageState extends State<ProblemPage> {
                     splashColor: Colors.transparent,
                     onPressed: () {
                       Navigator.pop(context);
-                      // Navigator.pushReplacement(
+                      // Navigator.push(
                       //     context,
                       //     MaterialPageRoute(
                       //         builder: (context) => BottomNevigation()));

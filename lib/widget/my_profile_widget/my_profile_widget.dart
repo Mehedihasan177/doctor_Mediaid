@@ -66,7 +66,7 @@
 //                       //     ),
 //                       //     iconSize: 20,
 //                       //     onPressed: () {
-//                       //       Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage(page: 1)));
+//                       //       Navigator.push(context,MaterialPageRoute(builder: (context) => NewImageUploadPage(page: 1)));
 //                       //     },
 //                       //   ),
 //                       // ),
@@ -117,7 +117,7 @@
 //                           padding: const EdgeInsets.only(left: 20, top: 10),
 //                           child: GestureDetector(
 //                             onTap: () {
-//                               Navigator.pushReplacement(
+//                               Navigator.push(
 //                                   context,
 //                                   MaterialPageRoute(
 //                                       builder: (context) =>
@@ -634,7 +634,7 @@
 //                   alignment: Alignment.centerLeft,
 //                   child: GestureDetector(
 //                     onTap: () {
-//                       Navigator.pushReplacement(
+//                       Navigator.push(
 //                         context,
 //                         MaterialPageRoute(
 //                             builder: (context) => AddServicesPage()),
@@ -708,7 +708,7 @@
 //                   if (value.statusCode == 200) {
 //                     SnackbarDialogueHelper().showSnackbarDialog(
 //                         context, 'successfully Added', Colors.green);
-//                     return Navigator.pushReplacement(
+//                     return Navigator.push(
 //                       context,
 //                       MaterialPageRoute(
 //                           builder: (context) => BottomNevigation()),
@@ -741,4 +741,4 @@
 //         ),
 //       ],
 //     );
-// //Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+// //Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));

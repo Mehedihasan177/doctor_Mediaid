@@ -31,7 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
@@ -132,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       onTap: () {
-                        Navigator.pushReplacement(context,
+                        Navigator.push(context,
                             MaterialPageRoute(builder: (context) => walletUi()));
                       },
                     ),
@@ -140,7 +140,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   GridTile(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacement(context,
+                        Navigator.push(context,
                             MaterialPageRoute(builder: (context) => MyProfile()));
                       },
                       child: new Card(
@@ -205,7 +205,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   GridTile(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => AddServicesPage()));
@@ -388,7 +388,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   GridTile(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ManageSchedule()));
@@ -452,7 +452,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   GridTile(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ChangePassword()));
@@ -517,7 +517,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   GridTile(
                     child: GestureDetector(
                       onTap: (){
-                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SplashScreen()));
+                        Navigator.push(context,MaterialPageRoute(builder: (context) => SplashScreen()));
                       },
                       child: new Card(
                         color: Colors.white,

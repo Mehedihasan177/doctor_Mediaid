@@ -103,7 +103,7 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
     return WillPopScope(
 
       onWillPop: () async {
-        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
@@ -177,7 +177,7 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
                     child: FlatButton(
                       //minWidth: 10,
                       onPressed: () {
-                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ReviewPageList()));
+                        Navigator.push(context,MaterialPageRoute(builder: (context) => ReviewPageList()));
                       },
                       child: Text(
                           "See All",

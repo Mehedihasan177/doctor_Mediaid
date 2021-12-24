@@ -56,7 +56,7 @@ class _SetupProfileState extends State<SetupProfile> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => OTPpage()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => OTPpage()));
         return true;
       },
       child: Scaffold(
@@ -94,7 +94,7 @@ class _SetupProfileState extends State<SetupProfile> {
                         Center(
                           child: GestureDetector(
                             onTap: (){
-                              Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => NewImageUploadPage(page: 2)),);
+                              Navigator.push(context,MaterialPageRoute(builder: (context) => NewImageUploadPage(page: 2)),);
                             },
                             child: Container(
                               height: 130,
@@ -417,7 +417,7 @@ class _SetupProfileState extends State<SetupProfile> {
                     if(value.statusCode==200){
                       signInAgain(context);
                       SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully set up your profile', Colors.green);
-                      return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+                      return Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
 
                     }else{
                       SnackbarDialogueHelper().showSnackbarDialog(context, value.body.replaceAll('"', ' ')
@@ -472,7 +472,7 @@ class _SetupProfileState extends State<SetupProfile> {
       if (value.statusCode == 200) {
         PASSWORD = PASSWORD;
         PHONE_NUMBER = PHONE_NUMBER;
-        return Navigator.pushReplacement(
+        return Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => BottomNevigation()),
         );

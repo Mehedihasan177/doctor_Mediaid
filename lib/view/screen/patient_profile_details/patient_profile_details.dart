@@ -31,7 +31,7 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
     return WillPopScope(
 
       onWillPop: () async {
-        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(

@@ -38,9 +38,9 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
 
       onWillPop: () async {
         if(widget.page == 1){
-          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+          Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         }else{
-          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()));
+          Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()));
         }
         return true;
       },
@@ -212,10 +212,10 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
                                 });
 
                                 SnackbarDialogueHelper().showSnackbarDialog(context, "Image Uploaded successfully",Colors.green);
-                                return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+                                return Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
                               } else {
                                 // return LoginController.requestThenResponsePrint(jsonData);
-                                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+                                Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
                               }
 
                             });
@@ -267,7 +267,7 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
   //     if (value.statusCode == 200) {
   //       PHONE_NUMBER = PHONE_NUMBER;
   //       PASSWORD = PASSWORD;
-  //       return Navigator.pushReplacement(
+  //       return Navigator.push(
   //         context,
   //         MaterialPageRoute(builder: (context) => BottomNevigation()),
   //       );
@@ -287,10 +287,10 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
 //if (value.statusCode == 200) {
 //                           // Navigator.pop(context,"Bar");
 //                           if(widget.page == 1){
-//                             Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+//                             Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
 //                           }
 //                           else{
-//                             Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+//                             Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
 //                           }
 //
 //

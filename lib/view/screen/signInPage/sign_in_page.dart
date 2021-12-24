@@ -169,7 +169,7 @@ class _SingInPageState extends State<SingInPage> {
                     //EasyLoading.show(status: 'loading...');
                     if (value.statusCode == 200) {
                       //EasyLoading.dismiss();
-                      return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+                      return  Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
                     } else {
 
                       SnackbarDialogueHelper().showSnackbarDialog(context, "Please check mobile or password", Colors.red);
@@ -198,7 +198,7 @@ class _SingInPageState extends State<SingInPage> {
             child: FlatButton(
               minWidth: 10,
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                     context, MaterialPageRoute(builder: (context) => ForgetPassword()));
               },
               child: Text(
@@ -234,7 +234,7 @@ class _SingInPageState extends State<SingInPage> {
                 FlatButton(
                   minWidth: 5,
                   onPressed: () {
-                    // Navigator.pushReplacement(
+                    // Navigator.push(
                     //     context, MaterialPageRoute(builder: (context) => DoctorCatagory()));
                   },
                   child: Image.asset(
@@ -248,7 +248,7 @@ class _SingInPageState extends State<SingInPage> {
                 FlatButton(
                   minWidth: 5,
                   onPressed: () {
-                    // Navigator.pushReplacement(
+                    // Navigator.push(
                     //     context, MaterialPageRoute(builder: (context) => DoctorCatagory()));
                   },
                   child: Image.asset(
@@ -273,7 +273,7 @@ class _SingInPageState extends State<SingInPage> {
                FlatButton(
                     minWidth: 10,
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                           context, MaterialPageRoute(builder: (context) => SingUpPage()));
                     },
                     child: Text(

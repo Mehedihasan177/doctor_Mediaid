@@ -147,7 +147,7 @@
 //       // await for camera and mic permissions before pushing video page
 //       await _handleCameraAndMic();
 //       // push video page with given channel name
-//       await Navigator.pushReplacement(
+//       await Navigator.push(
 //         context,
 //         MaterialPageRoute(
 //           builder: (context) => CallPage(

@@ -69,7 +69,7 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => walletUi()));
+        //Navigator.push(context,MaterialPageRoute(builder: (context) => walletUi()));
         //Navigator.pop(context);
         return true;
       },
@@ -88,7 +88,7 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProfilePage()));
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => ProfilePage()));
                     },
                   ),
                   Expanded(
@@ -369,7 +369,8 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
                     if(value.statusCode==200){
                       //signInAgain(context);
                       SnackbarDialogueHelper().showSnackbarDialog(context, 'successfully added money', Colors.green);
-                      return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+                      return Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                          BottomNevigation()), (Route<dynamic> route) => false);
 
                     }else{
                       SnackbarDialogueHelper().showSnackbarDialog(context, value.body.replaceAll('"', ' ')
@@ -381,7 +382,7 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
                   }
                   );
 
-                  //Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+                  //Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(350, 59),

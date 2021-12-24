@@ -512,7 +512,7 @@
 //                                 sharedPreferences.setString("mobile", _phoneNumber.text);
 //                                 sharedPreferences.setString("password", _password.text);
 //
-//                                 return Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+//                                 return Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
 //                               } else {
 //                                 // return LoginController.requestThenResponsePrint(jsonData);
 //                                 AlertDialogueHelper().showAlertDialog(context, 'Warning', value.body);

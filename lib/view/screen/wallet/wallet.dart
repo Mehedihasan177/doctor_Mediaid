@@ -7,6 +7,7 @@ import 'package:care_plus_doctor/data/wallet_data/wallet_data.dart';
 import 'package:care_plus_doctor/model/ui_model/wallet_model/wallet_model.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_wallet_log_responses.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_wallet_response.dart';
+import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/profile/profile.dart';
 import 'package:care_plus_doctor/view/screen/transfer_money_back/transfer_money_bank.dart';
 import 'package:care_plus_doctor/widget/money_wallet_wdget/money_wallet_wdget.dart';
@@ -78,7 +79,7 @@ class _walletUiState extends State<walletUi> {
     return WillPopScope(
 
       onWillPop: () async {
-        //Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProfilePage()));
+        //Navigator.push(context,MaterialPageRoute(builder: (context) => ProfilePage()));
         return true;
       },
       child: Scaffold(
@@ -96,7 +97,7 @@ class _walletUiState extends State<walletUi> {
                     ),
                     splashColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ProfilePage()));
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
                     },
                   ),
                   Expanded(
@@ -164,7 +165,7 @@ class _walletUiState extends State<walletUi> {
                           style: TextStyle(color: Colors.white, fontSize: 15),
                         ),
                         onPressed: () async {
-                           Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => TransferMoneyBank()));
+                           Navigator.push(context,MaterialPageRoute(builder: (context) => TransferMoneyBank()));
 
                         },
                         style: ElevatedButton.styleFrom(

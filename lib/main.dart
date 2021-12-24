@@ -1,7 +1,4 @@
-import 'package:care_plus_doctor/testing_star.dart';
-import 'package:care_plus_doctor/view/screen/add_hospital/add_hospital.dart';
-import 'package:care_plus_doctor/view/screen/add_services/add_services.dart';
-import 'package:care_plus_doctor/view/screen/lib/index.dart';
+
 import 'package:care_plus_doctor/view/screen/splash_screen/splash_Screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
