@@ -19,7 +19,7 @@ class CaseStudyNavBar extends StatefulWidget {
 
 class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
   List<CaseStudymodel> case_study = [];
-
+  TextEditingController searchC = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -31,7 +31,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
@@ -50,13 +50,16 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
+                    controller: searchC,
+                    onChanged: onSearch,
+                    onSubmitted: onSearch,
                     style: TextStyle(color: Colors.black),
                     scrollPadding: EdgeInsets.all(10),
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(top: 14),
                       border: InputBorder.none,
-                      hintText: "Search your patients",
+                      hintText: "Search your patient",
                       hintStyle: TextStyle(
                           color: Colors.black.withOpacity(0.5), fontSize: 15),
                       prefixIcon: Icon(
@@ -82,24 +85,63 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
               ),
             ),
             SizedBox(height: 10,),
-            Container(
-              height: 760,
-              child: ListView.builder(
-                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: case_study.length,
-                  itemBuilder: (context, index) {
-                    return Case_Study(case_study[index],context);
-                  }),
+            // Container(
+            //   height: 760,
+            //   child: ListView.builder(
+            //       physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            //       shrinkWrap: true,
+            //       scrollDirection: Axis.vertical,
+            //       itemCount: case_study.length,
+            //       itemBuilder: (context, index) {
+            //         return Case_Study(case_study[index],context);
+            //       }),
+            //
+            // ),
+            Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: Container(
+                height: 900,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: case_study.length,
+                    itemBuilder: (context, index) {
 
+                      if(searchKey.length==0){
+                        return Case_Study(case_study[index], context);
+                      }else{
+                        if(case_study[index].name.toLowerCase().contains(searchKey)){
+                          return Case_Study(case_study[index], context);
+                        }else if(case_study[index].image.toLowerCase().contains(searchKey)){
+                          return Case_Study(case_study[index], context);
+                        }else if(case_study[index].id.toLowerCase().contains(searchKey)){
+                          return Case_Study(case_study[index], context);
+                        }else if(case_study[index].lab_report_type.toLowerCase().contains(searchKey)){
+                          return Case_Study(case_study[index], context);
+                        }else if(case_study[index].time.toLowerCase().contains(searchKey)){
+                          return Case_Study(case_study[index], context);
+                        }else if(case_study[index].date.toLowerCase().contains(searchKey)){
+                          return Case_Study(case_study[index], context);
+                        }else{
+                          return Container();
+                        }
+                      }
+
+
+                    }),
+              ),
             ),
           ],
         ),
       ),
     );
   }
-
+  String searchKey = '';
+  void onSearch(String value) {
+    setState(() {
+      searchKey=value;
+    });
+  }
 
   List<DoctorAppointmentHistoryResponseElement> doctorAppointmentHistory= [];
 

@@ -56,7 +56,7 @@ class _SetupProfileState extends State<SetupProfile> {
     return WillPopScope(
 
       onWillPop: () async {
-        Navigator.push(context,MaterialPageRoute(builder: (context) => OTPpage()));
+        //Navigator.push(context,MaterialPageRoute(builder: (context) => OTPpage()));
         return true;
       },
       child: Scaffold(
