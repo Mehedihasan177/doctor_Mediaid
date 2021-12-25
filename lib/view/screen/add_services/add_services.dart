@@ -88,15 +88,23 @@ class _AddServicesPageState extends State<AddServicesPage> {
                     shrinkWrap: true,
                     itemCount: doctorSpecializationlist.length,
                     itemBuilder: (context,index){
-                      return Row(
-                        children: [
-                          Checkbox(
+                      return Container(
+                        child: ListTile(
+                          title:AutoSizeText(doctorSpecializationlist[index].name,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
+
+                          ),
+
+                          leading: Checkbox(
                               activeColor: Colors.green,
                               checkColor: Colors.white,
                               /*side: MaterialStateBorderSide.resolveWith(
-                                    (states) => BorderSide(width: 1.0, color: Colors.green,style:BorderStyle.solid, weight ),
+                                                    (states) => BorderSide(width: 1.0, color: Colors.green,style:BorderStyle.solid, weight ),
 
-                              ),*/
+                                              ),*/
 
                               value: specialityStatusList[index], onChanged: (newValue){
                             setState(() {
@@ -106,18 +114,26 @@ class _AddServicesPageState extends State<AddServicesPage> {
 
 
                           ),
-                          AutoSizeText(doctorSpecializationlist[index].name,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
-                          ),
+                          trailing: Container(
+                            height: 30,
+                            width: 30,
+                            child: Image.network(
+                                //doctorSpecializationlist[index].icon
+                              "$apiDomainRoot/${doctorSpecializationlist[index].icon}",
+                              //"$apiDomainRoot/images/${doctorAppointmentHistory.user.image}",
+                            ),
+                          )
+                          // subtitle: Text('From ${manageSchedule[index].from} To ${manageSchedule[index].to}'),
 
-                          ),
-                        ],
+                        ),
                       );
                     },
                   ),
                 ),
+
+
+
+
 
 
 

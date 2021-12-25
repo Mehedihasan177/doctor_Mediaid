@@ -113,7 +113,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         SnackbarDialogueHelper().showSnackbarDialog(context, value.body, Colors.green);
                         return  Navigator.push(context,MaterialPageRoute(builder: (context) => SingInPage()),);
                       }else{
-                        SnackbarDialogueHelper().showSnackbarDialog(context, value.body, Colors.red);
+                        SnackbarDialogueHelper().showSnackbarDialog(context, "please enter valid mobile number", Colors.red);
 
                         // BasicFunctions.showAlertDialogTOView(context,
                         //     AppLocalizations.of(context).translate("passwordRecheckTitle"),
