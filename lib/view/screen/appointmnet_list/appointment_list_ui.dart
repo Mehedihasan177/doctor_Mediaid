@@ -101,17 +101,7 @@ class _AppointmentListState extends State<AppointmentList> {
         return true;
       },
       child: Scaffold(
-        appBar: myAppBar("Appointments", [IconButton(
-          icon: Icon(
-            Icons.notifications_on_outlined,
-          ),
-          //iconSize: 50,
-          color: Colors.white,
-          splashColor: Colors.purple,
-          onPressed: () {
-            Navigator.push(context,MaterialPageRoute(builder: (context) => NotificationPage()));
-          },
-        ),]),
+        appBar: myAppBar("Appointments", null),
         body: ListView(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
