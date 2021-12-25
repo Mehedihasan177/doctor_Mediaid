@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_reset_password_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_signIn_controller.dart';
 import 'package:care_plus_doctor/helper/alertDialogue.dart';
@@ -32,23 +33,12 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Forget Password", null),
+
         body: ListView(
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-
-            Padding(
-              padding: const EdgeInsets.only(top: 20, left: 30),
-              child: Container(
-                alignment: Alignment.topLeft,
-                child: Text("Forget Password", style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black.withOpacity(0.5)
-                ),
-                ),
-              ),
-            ),
 
             Center(
               child: Image(
@@ -69,7 +59,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Icon(
-                        Icons.email_outlined,
+                        Icons.mobile_screen_share_sharp,
                         size: 18,
                         color: Colors.black.withOpacity(0.6),
                       ),
@@ -77,7 +67,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         width: 20,
                       ),
                       Text(
-                        "Email",
+                        "Phone Number",
                         style: TextStyle(fontSize: 17),
                       ),
                     ],
@@ -92,7 +82,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     //scrollPadding: EdgeInsets.all(10),
                     decoration: InputDecoration(
                       //contentPadding: EdgeInsets.all(20),
-                      hintText: "Enter your email",
+                      hintText: "Enter your phone number",
                     ),
                   ),
                 ],

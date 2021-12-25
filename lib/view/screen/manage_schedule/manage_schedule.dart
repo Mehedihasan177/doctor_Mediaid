@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_create_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_slot_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_slot_delete_controller.dart';
@@ -71,44 +72,45 @@ class _ManageScheduleState extends State<ManageSchedule> {
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Manage Schedule", null),
         body: ListView(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 20),
-              child: Row(
-                children: [
-                  FlatButton(
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 30,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                    splashColor: Colors.transparent,
-                    onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
-                    },
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 60),
-                      child: Text(
-                        "Manage Schedule",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.black.withOpacity(0.5),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 20, bottom: 20),
+            //   child: Row(
+            //     children: [
+            //       FlatButton(
+            //         child: Icon(
+            //           Icons.arrow_back_ios,
+            //           size: 30,
+            //           color: Colors.black.withOpacity(0.5),
+            //         ),
+            //         splashColor: Colors.transparent,
+            //         onPressed: () {
+            //           Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+            //         },
+            //       ),
+            //       Expanded(
+            //         child: Padding(
+            //           padding: const EdgeInsets.only(right: 60),
+            //           child: Text(
+            //             "Manage Schedule",
+            //             textAlign: TextAlign.center,
+            //             style: TextStyle(
+            //               fontSize: 23,
+            //               color: Colors.black.withOpacity(0.5),
+            //               fontWeight: FontWeight.bold,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10, top: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

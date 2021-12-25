@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/controller/others/viewUserHealthHistory.dart';
 import 'package:care_plus_doctor/data/health_history/health_history_data.dart';
@@ -38,41 +39,42 @@ class _HealthRecordState extends State<HealthRecord> {
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Health Record", null),
         body: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 20),
-              child: Row(
-                children: [
-                  FlatButton(
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 25,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                    splashColor: Colors.transparent,
-                    onPressed: () {
-                      // Navigator.push(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(mobile: '', gender: '', name: '', email: '', status: '', address: '',
-                      //   image: '', height: '', district: '', medicare_no: '', weight: '', reschedule: '', appointment_for: '', rescheduleDate: '',)));
-                    },
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 60),
-                      child: Text(
-                        "Health Record",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.black.withOpacity(0.5),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 20, bottom: 20),
+            //   child: Row(
+            //     children: [
+            //       FlatButton(
+            //         child: Icon(
+            //           Icons.arrow_back_ios,
+            //           size: 25,
+            //           color: Colors.black.withOpacity(0.5),
+            //         ),
+            //         splashColor: Colors.transparent,
+            //         onPressed: () {
+            //           // Navigator.push(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(mobile: '', gender: '', name: '', email: '', status: '', address: '',
+            //           //   image: '', height: '', district: '', medicare_no: '', weight: '', reschedule: '', appointment_for: '', rescheduleDate: '',)));
+            //         },
+            //       ),
+            //       Expanded(
+            //         child: Padding(
+            //           padding: const EdgeInsets.only(right: 60),
+            //           child: Text(
+            //             "Health Record",
+            //             textAlign: TextAlign.center,
+            //             style: TextStyle(
+            //               fontSize: 23,
+            //               color: Colors.black.withOpacity(0.5),
+            //               fontWeight: FontWeight.bold,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
             Container(
               height: 750,

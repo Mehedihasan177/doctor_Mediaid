@@ -1,3 +1,4 @@
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
 import 'package:care_plus_doctor/model/pres_model/medicine_create.dart';
@@ -70,6 +71,7 @@ class _MedicinePageState extends State<MedicinePage> {
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Medicine", null),
         floatingActionButton: Container(
           height: 50,
           width: 50,
@@ -105,41 +107,41 @@ class _MedicinePageState extends State<MedicinePage> {
         ),
         body: ListView(
           children: [
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 20, bottom: 20),
+            //   child: Row(
+            //     children: [
+            //       FlatButton(
+            //         child: Icon(
+            //           Icons.arrow_back_ios,
+            //           size: 25,
+            //           color: Colors.black.withOpacity(0.5),
+            //         ),
+            //         splashColor: Colors.transparent,
+            //         onPressed: () {
+            //           Navigator.push(context,
+            //               MaterialPageRoute(builder: (context) => ProblemPage()));
+            //         },
+            //       ),
+            //       Expanded(
+            //         child: Padding(
+            //           padding: const EdgeInsets.only(right: 60),
+            //           child: Text(
+            //             "Medicine",
+            //             textAlign: TextAlign.center,
+            //             style: TextStyle(
+            //               fontSize: 23,
+            //               color: Colors.black.withOpacity(0.5),
+            //               fontWeight: FontWeight.bold,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 20),
-              child: Row(
-                children: [
-                  FlatButton(
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 25,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                    splashColor: Colors.transparent,
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ProblemPage()));
-                    },
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 60),
-                      child: Text(
-                        "Medicine",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.black.withOpacity(0.5),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10, top: 20),
               child: Text(
                 "Medicine",
                 style: TextStyle(fontSize: 17),
@@ -269,6 +271,8 @@ class _MedicinePageState extends State<MedicinePage> {
             Container(
               height: 420,
               child: ListView.builder(
+                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+
                   padding: const EdgeInsets.all(8),
                   itemCount: medicine.length,
                   itemBuilder: (BuildContext context, int index) {

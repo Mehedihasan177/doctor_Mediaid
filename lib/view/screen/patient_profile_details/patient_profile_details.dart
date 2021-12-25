@@ -1,4 +1,5 @@
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/data/patient_profile_details_data/patient_profile_details_data.dart';
 import 'package:care_plus_doctor/model/ui_model/patient_profile_details_model/patient_profile_details_model.dart';
@@ -35,24 +36,15 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Patient Profile", null),
         body: ListView(
-          physics: NeverScrollableScrollPhysics(), // <-- this will disable scroll
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          // <-- this will disable scroll
           //shrinkWrap: true,
           children: [
-            SizedBox(
-              height: 40,
-            ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: Text("Patient Profile",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.black.withOpacity(0.5)
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20,),
+           SizedBox(
+             height: 5,
+           ),
             Card(
               child: Row(
                 children: [

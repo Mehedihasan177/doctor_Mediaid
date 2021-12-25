@@ -169,7 +169,7 @@ class _SingInPageState extends State<SingInPage> {
                     //EasyLoading.show(status: 'loading...');
                     if (value.statusCode == 200) {
                       //EasyLoading.dismiss();
-                      return  Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+                      return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
                     } else {
 
                       SnackbarDialogueHelper().showSnackbarDialog(context, "Please check mobile or password", Colors.red);

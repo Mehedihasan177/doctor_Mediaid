@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_notification_controller.dart';
 import 'package:care_plus_doctor/data/notification_data/notification_data.dart';
 import 'package:care_plus_doctor/model/ui_model/notification_model/notification_model.dart';
@@ -57,42 +58,46 @@ class _NotificationPageState extends State<NotificationPage> {
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Notification", null),
         body: ListView(
           children: [
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 20),
+            //   child: Center(
+            //     child: Text(
+            //       "Notification",
+            //       style: TextStyle(
+            //         fontSize: 20,
+            //         fontWeight: FontWeight.bold,
+            //         color: Colors.black.withOpacity(0.5),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+
             Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Center(
-                child: Text(
-                  "Notification",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black.withOpacity(0.5),
-                  ),
-                ),
-              ),
-            ),
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Container(
+                      //padding: EdgeInsets.only(left: 20),
 
-            Row(
-              children: [
-                Flexible(
-                  child: Container(
-                    //padding: EdgeInsets.only(left: 20),
-
-                    alignment: Alignment.centerLeft,
-                    height: 780,
-                    child: ListView.builder(
-                        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                      //controller: PageController(viewportFraction: 0.3),
-                        scrollDirection: Axis.vertical,
-                        itemCount: notification.length,
-                        itemBuilder: (context,index) {
-                          return NotificationWidget(notification[index]);
-                        }
+                      alignment: Alignment.centerLeft,
+                      height: 780,
+                      child: ListView.builder(
+                          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                        //controller: PageController(viewportFraction: 0.3),
+                          scrollDirection: Axis.vertical,
+                          itemCount: notification.length,
+                          itemBuilder: (context,index) {
+                            return NotificationWidget(notification[index]);
+                          }
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

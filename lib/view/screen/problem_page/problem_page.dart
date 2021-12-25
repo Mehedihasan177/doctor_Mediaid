@@ -1,3 +1,4 @@
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
 import 'package:care_plus_doctor/model/ui_model/patient_profile_details_model/patient_profile_details_model.dart';
@@ -39,6 +40,7 @@ class _ProblemPageState extends State<ProblemPage> {
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("problem", null),
         floatingActionButton: Container(
           height: 50,
           width: 50,
@@ -83,44 +85,44 @@ class _ProblemPageState extends State<ProblemPage> {
         body: ListView(
           children: [
 
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 20, bottom: 20),
+            //   child: Row(
+            //     children: [
+            //       FlatButton(
+            //         child: Icon(
+            //           Icons.arrow_back_ios,
+            //           size: 25,
+            //           color: Colors.black.withOpacity(0.5),
+            //         ),
+            //         splashColor: Colors.transparent,
+            //         onPressed: () {
+            //           Navigator.pop(context);
+            //           // Navigator.push(
+            //           //     context,
+            //           //     MaterialPageRoute(
+            //           //         builder: (context) => BottomNevigation()));
+            //         },
+            //       ),
+            //       Expanded(
+            //         child: Padding(
+            //           padding: const EdgeInsets.only(right: 60),
+            //           child: Text(
+            //             "Problem",
+            //             textAlign: TextAlign.center,
+            //             style: TextStyle(
+            //               fontSize: 23,
+            //               color: Colors.black.withOpacity(0.5),
+            //               fontWeight: FontWeight.bold,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 20),
-              child: Row(
-                children: [
-                  FlatButton(
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 25,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                    splashColor: Colors.transparent,
-                    onPressed: () {
-                      Navigator.pop(context);
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => BottomNevigation()));
-                    },
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 60),
-                      child: Text(
-                        "Problem",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.black.withOpacity(0.5),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10, top: 20),
               child: Text(
                 "Problem",
                 style: TextStyle(fontSize: 17),
@@ -165,6 +167,7 @@ class _ProblemPageState extends State<ProblemPage> {
             Container(
               height: 660,
               child: ListView.builder(
+                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                   padding: const EdgeInsets.all(8),
                   itemCount: problem.length,
                   itemBuilder: (BuildContext context, int index) {

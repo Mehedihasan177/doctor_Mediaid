@@ -1,3 +1,4 @@
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/data/appointment_list_navbar/appointment_list_navbar_data.dart';
 import 'package:care_plus_doctor/model/ui_model/appointment_list_navBar/appointment_list_navBar.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
@@ -22,57 +23,30 @@ class _AppointmentListTodayState extends State<AppointmentListToday> {
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Today's Appointments", null),
         body: ListView(
           children: [
+
+
             Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                children: [
-                  FlatButton(
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 30,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                    splashColor: Colors.transparent,
-                    onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
-                    },
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 60),
-                      child: Text(
-                        "Today's Appointments",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.black.withOpacity(0.5),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              padding: const EdgeInsets.only(top: 10),
+              child: Container(
+                height: 760,
+                // color: Colors.red,
+                child: ListView.builder(
+                    physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                    scrollDirection: Axis.vertical,
+                    itemCount: appointmentlist.length,
+                    itemBuilder: (context, index) {
+                      return Appointment_List(
+                          appointmentlist[index].image,
+                          appointmentlist[index].name,
+                          appointmentlist[index].reason,
+                          appointmentlist[index].date,
+                          appointmentlist[index].time,
+                          context);
+                    }),
               ),
-            ),
-
-            Container(
-              height: 760,
-              // color: Colors.red,
-              child: ListView.builder(
-
-                  scrollDirection: Axis.vertical,
-                  itemCount: appointmentlist.length,
-                  itemBuilder: (context, index) {
-                    return Appointment_List(
-                        appointmentlist[index].image,
-                        appointmentlist[index].name,
-                        appointmentlist[index].reason,
-                        appointmentlist[index].date,
-                        appointmentlist[index].time,
-                        context);
-                  }),
             ),
           ],
         ),

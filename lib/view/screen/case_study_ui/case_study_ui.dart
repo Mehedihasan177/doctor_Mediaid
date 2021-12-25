@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_history_controller.dart';
 import 'package:care_plus_doctor/data/case_study_data/case_study_data.dart';
 import 'package:care_plus_doctor/model/ui_model/case_study_model/case_study_model.dart';
@@ -31,16 +32,17 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Health History", null),
         body: ListView(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 20),
               child: Center(
                 child: Container(
                   margin: EdgeInsets.only(left: 10,right: 10),
@@ -79,7 +81,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                "List of Completed Appointments",
+                "List of Health History",
                 style:
                 TextStyle(fontSize: 17, color: Colors.black.withOpacity(0.5)),
               ),
@@ -102,6 +104,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
               child: Container(
                 height: 900,
                 child: ListView.builder(
+                    physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: case_study.length,

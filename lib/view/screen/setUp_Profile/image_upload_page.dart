@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_signIn_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/user_edit_img_ctrl.dart';
 import 'package:care_plus_doctor/helper/alertDialogue.dart';
@@ -45,7 +46,7 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
         return true;
       },
       child: Scaffold(
-
+        appBar: myAppBar("Upload Image", null),
           body: imageUploadSection()
       ),
     );

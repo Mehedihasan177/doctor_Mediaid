@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/controller/doctor/doctorCashOutReq.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_wallet_controller.dart';
 import 'package:care_plus_doctor/data/transfer_money_bank_data/transfer_money_bank_data.dart';
@@ -74,41 +75,42 @@ class _TransferMoneyBankState extends State<TransferMoneyBank> {
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Transfer Money to Bank", null),
         body: ListView(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                children: [
-                  FlatButton(
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 30,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                    splashColor: Colors.transparent,
-                    onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => ProfilePage()));
-                    },
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 30),
-                      child: Text(
-                        "Transfer Money to Bank",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.black.withOpacity(0.5),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 20),
+            //   child: Row(
+            //     children: [
+            //       FlatButton(
+            //         child: Icon(
+            //           Icons.arrow_back_ios,
+            //           size: 30,
+            //           color: Colors.black.withOpacity(0.5),
+            //         ),
+            //         splashColor: Colors.transparent,
+            //         onPressed: () {
+            //           Navigator.push(context,MaterialPageRoute(builder: (context) => ProfilePage()));
+            //         },
+            //       ),
+            //       Expanded(
+            //         child: Padding(
+            //           padding: const EdgeInsets.only(right: 30),
+            //           child: Text(
+            //             "Transfer Money to Bank",
+            //             textAlign: TextAlign.center,
+            //             style: TextStyle(
+            //               fontSize: 23,
+            //               color: Colors.black.withOpacity(0.5),
+            //               fontWeight: FontWeight.bold,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
       Column(
         children: [

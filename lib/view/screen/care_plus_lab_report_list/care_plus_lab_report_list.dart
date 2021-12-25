@@ -1,5 +1,6 @@
 
 
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/data/care_plus_lab_report_list_data/care_plus_lab_report_list_data.dart';
 import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
@@ -48,6 +49,7 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Lab Test Details", null),
         floatingActionButton: Container(
           height: 50,
           width: 50,
@@ -85,43 +87,43 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
 
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 20, bottom: 20),
+            //   child: Row(
+            //     children: [
+            //       FlatButton(
+            //         child: Icon(
+            //           Icons.arrow_back_ios,
+            //           size: 25,
+            //           color: Colors.black.withOpacity(0.5),
+            //         ),
+            //         splashColor: Colors.transparent,
+            //         onPressed: () {
+            //           // Navigator.push(
+            //           //     context,
+            //           //     MaterialPageRoute(
+            //           //         builder: (context) => BottomNevigation()));
+            //         },
+            //       ),
+            //       Expanded(
+            //         child: Padding(
+            //           padding: const EdgeInsets.only(right: 60),
+            //           child: Text(
+            //             "Lab Test Details",
+            //             textAlign: TextAlign.center,
+            //             style: TextStyle(
+            //               fontSize: 23,
+            //               color: Colors.black.withOpacity(0.5),
+            //               fontWeight: FontWeight.bold,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 20),
-              child: Row(
-                children: [
-                  FlatButton(
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 25,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                    splashColor: Colors.transparent,
-                    onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => BottomNevigation()));
-                    },
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 60),
-                      child: Text(
-                        "Lab Test Details",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.black.withOpacity(0.5),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

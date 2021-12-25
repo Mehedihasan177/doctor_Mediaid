@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_cencel_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_done_controller.dart';
@@ -96,88 +97,76 @@ class _AppointmentListState extends State<AppointmentList> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        //Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Appointments", [IconButton(
+          icon: Icon(
+            Icons.notifications_on_outlined,
+          ),
+          //iconSize: 50,
+          color: Colors.white,
+          splashColor: Colors.purple,
+          onPressed: () {
+            Navigator.push(context,MaterialPageRoute(builder: (context) => NotificationPage()));
+          },
+        ),]),
         body: ListView(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                    padding: const EdgeInsets.only(right: 50, top: 20),
-                    child: Text(
-                      "Appointments",
-                      style:
-                      TextStyle(fontSize: 25, color: Colors.black.withOpacity(0.5)),
-                    ),
-                  ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     Padding(
+            //         padding: const EdgeInsets.only(right: 50, top: 20),
+            //         child: Text(
+            //           "Appointments",
+            //           style:
+            //           TextStyle(fontSize: 25, color: Colors.black.withOpacity(0.5)),
+            //         ),
+            //       ),
+            //
+            //     // Container(
+            //     //   height: 30,
+            //     //   width: 30,
+            //     //   child: IconButton(
+            //     //     icon: Icon(
+            //     //       Icons.watch_later_outlined,
+            //     //     ),
+            //     //     iconSize: 25,
+            //     //     color: Color(0xFF1CBFA8),
+            //     //     splashColor: Color(0xFF1CBFA8),
+            //     //     onPressed: () {
+            //     //       pickDate(context);
+            //     //     },
+            //     //   ),
+            //     // ),
+            //     // Padding(
+            //     //   padding: const EdgeInsets.only(right: 20, left: 10),
+            //     //   child: Container(
+            //     //
+            //     //     height: 30,
+            //     //     width: 30,
+            //     //     child: IconButton(
+            //     //       icon: Icon(
+            //     //         Icons.notifications_on_outlined,
+            //     //       ),
+            //     //       iconSize: 25,
+            //     //       color: Color(0xFF1CBFA8),
+            //     //       splashColor: Color(0xFF1CBFA8),
+            //     //       onPressed: () {
+            //     //         Navigator.push(context,MaterialPageRoute(builder: (context) => NotificationPage()));
+            //     //       },
+            //     //     ),
+            //     //   ),
+            //     // ),
+            //   ],
+            // ),
 
-                Container(
-                  height: 30,
-                  width: 30,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.watch_later_outlined,
-                    ),
-                    iconSize: 25,
-                    color: Color(0xFF1CBFA8),
-                    splashColor: Color(0xFF1CBFA8),
-                    onPressed: () {
-                      pickDate(context);
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 10),
-                  child: Container(
 
-                    height: 30,
-                    width: 30,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.notifications_on_outlined,
-                      ),
-                      iconSize: 25,
-                      color: Color(0xFF1CBFA8),
-                      splashColor: Color(0xFF1CBFA8),
-                      onPressed: () {
-                        Navigator.push(context,MaterialPageRoute(builder: (context) => NotificationPage()));
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
 
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      "Next",
-                      style:
-                          TextStyle(fontSize: 17, color: Colors.black.withOpacity(0.5)),
-                    ),
-
-                  FlatButton(
-                    minWidth: 10,
-                    onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => AppointmentListToday()));
-                    },
-                    child: Text(
-                      "See All",
-                        style:
-                        TextStyle(color: Colors.black.withOpacity(0.5))
-                    ),
-                  ),
-                ],
-              ),
-            ),
             Container(
               // height: 400,
               // color: Colors.red,

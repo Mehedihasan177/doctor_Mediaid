@@ -1,3 +1,4 @@
+import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/data/my_profile_data/my_profile_data.dart';
 import 'package:care_plus_doctor/data/profile_data/profile_data.dart';
 import 'package:care_plus_doctor/model/ui_model/my_profile_model/my_profile_model.dart';
@@ -31,22 +32,15 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Profile", null),
         body: ListView(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 20),
-              child: Center(
-                child: Text(
-                  "Profile",
-                  style: TextStyle(fontSize: 25),
-                ),
-              ),
-            ),
+
             Row(
               children: [
                 Flexible(
@@ -72,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 20,
             ),
             GridView.count(
-              physics: NeverScrollableScrollPhysics(),
+                physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                 childAspectRatio: (1 / .55),
                 shrinkWrap: true,
                 crossAxisCount: 2,
