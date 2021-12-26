@@ -198,7 +198,7 @@ class _NotificationPageState extends State<NotificationPage> {
               motion: const ScrollMotion(),
 
               // A pane can dismiss the Slidable.
-              dismissible: DismissiblePane(onDismissed: () {}),
+              // dismissible: DismissiblePane(onDismissed: () {}),
 
               // All actions are defined in the children parameter.
               children:  [
@@ -295,7 +295,7 @@ class _NotificationPageState extends State<NotificationPage> {
             motion: const ScrollMotion(),
             //key: ValueKey(1),
             // A pane can dismiss the Slidable.
-            dismissible: DismissiblePane(onDismissed: () {}),
+            // dismissible: DismissiblePane(onDismissed: () {}),
 
             // All actions are defined in the children parameter.
             children:  [

@@ -11,6 +11,7 @@ Widget Case_Study(CaseStudymodel case_study, BuildContext context) => Card(
         child: Container(
           height: 70,width: 70,
             child: Image.network(case_study.image,
+
               height: 70,
               width: 70,
             ),

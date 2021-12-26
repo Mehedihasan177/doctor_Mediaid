@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
-import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_history_controller.dart';
 import 'package:care_plus_doctor/data/case_study_data/case_study_data.dart';
 import 'package:care_plus_doctor/model/ui_model/case_study_model/case_study_model.dart';
@@ -32,17 +31,16 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
       },
       child: Scaffold(
-        appBar: myAppBar("Health History", null),
         body: ListView(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 30),
               child: Center(
                 child: Container(
                   margin: EdgeInsets.only(left: 10,right: 10),
@@ -61,7 +59,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(top: 14),
                       border: InputBorder.none,
-                      hintText: "Search your patient",
+                      hintText: "Search your patients",
                       hintStyle: TextStyle(
                           color: Colors.black.withOpacity(0.5), fontSize: 15),
                       prefixIcon: Icon(
@@ -81,7 +79,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                "List of Health History",
+                "List of Completed Appointments",
                 style:
                 TextStyle(fontSize: 17, color: Colors.black.withOpacity(0.5)),
               ),
@@ -89,8 +87,9 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
             SizedBox(height: 10,),
             // Container(
             //   height: 760,
+            //   color: Colors.red,
             //   child: ListView.builder(
-            //       physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            //       //physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             //       shrinkWrap: true,
             //       scrollDirection: Axis.vertical,
             //       itemCount: case_study.length,
@@ -99,6 +98,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
             //       }),
             //
             // ),
+
             Padding(
               padding: const EdgeInsets.only(left: 5),
               child: Container(
@@ -165,7 +165,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
           case_study.clear();
           for(var each in doctorAppointmentHistory){
             if((each.active.toString()!='0')&&(each.consult=='1'))
-            case_study.add(CaseStudymodel(id: each.user.id.toString(),date: DateFormat('dd MMM yyyy').format(each.date),time: DateFormat('hh:mm a').format(each.date),image: "$apiDomainRoot/images/${each.user.image}",name: each.user.name,lab_report_type: each.appointmentFor,));
+              case_study.add(CaseStudymodel(id: each.user.id.toString(),date: DateFormat('dd MMM yyyy').format(each.date),time: DateFormat('hh:mm a').format(each.date),image: "$apiDomainRoot/images/${each.user.image}",name: each.user.name,lab_report_type: each.appointmentFor,));
           }
 
         }

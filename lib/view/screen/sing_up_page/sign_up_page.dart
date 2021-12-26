@@ -220,12 +220,12 @@ class _SingUpPageState extends State<SingUpPage> {
                             child: CountryCodePicker(
                               onChanged: (code){
                                 setState(() {
-                                  countryCode = code.code!;
+                                  countryCode = code.dialCode!;
                                 });
                               },
                               showFlag: true,
                               // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                              initialSelection: 'IT',
+                              initialSelection: 'AU',
                               favorite: ['+880', 'BD'],
                               showCountryOnly: false,
                               // optional. Shows only country name and flag when popup is closed.
@@ -353,7 +353,7 @@ class _SingUpPageState extends State<SingUpPage> {
                     ),
                     onPressed: () async{
 
-                      EasyLoading.show(status: 'loading...');
+                      //EasyLoading.show(status: 'loading...');
                       DoctorRegReqModel myInfo = new DoctorRegReqModel(
                           name: _name.text,
                           //username: "",
@@ -377,7 +377,7 @@ class _SingUpPageState extends State<SingUpPage> {
 
                           //EasyLoading.showSuccess('logging in...');
                           DoctorSignInModel myInfo = new DoctorSignInModel(
-                              mobile: _phoneNumber.text, password: _password.text);
+                              mobile: countryCode + _phoneNumber.text, password: _password.text);
                           await DoctorSigninController.requestThenResponsePrint(myInfo)
                               .then((value) async {
                             print(value.statusCode);
@@ -394,7 +394,7 @@ class _SingUpPageState extends State<SingUpPage> {
                               DOCTOR_INITIAL = loginobject;
                               print(loginobject.token);
                               sharedPreferences.setString("token", loginobject.token);
-                              sharedPreferences.setString("mobile", _phoneNumber.text);
+                              sharedPreferences.setString("mobile", countryCode + _phoneNumber.text);
                               sharedPreferences.setString("password", _password.text);
                               SnackbarDialogueHelper().showSnackbarDialog(context, "Registration successful",Colors.green);
                               return Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile(

@@ -13,6 +13,7 @@ import 'package:care_plus_doctor/view/screen/forget_password/forget_password.dar
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/sing_up_page/sign_up_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _SingInPageState extends State<SingInPage> {
   // }
   // final fb = FirebaseDatabase.instance;
   // final name = "Name";
-
+  String countryCode = '+880';
   @override
   Widget build(BuildContext context) {
     // final ref = fb.reference();
@@ -57,44 +58,45 @@ class _SingInPageState extends State<SingInPage> {
               ),
             ),
           ),
-          
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.email,
-                      size: 18,
-                      color: Colors.black.withOpacity(0.6),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "Mobile Number",
-                      style: TextStyle(fontSize: 17),
-                    ),
-                  ],
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex:1,
+                child: CountryCodePicker(
+                  onChanged: (code){
+                    setState(() {
+                      countryCode = code.dialCode!;
+                    });
+                  },
+                  showFlag: true,
+                  // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                  initialSelection: 'AU',
+                  favorite: ['+880', 'BD'],
+                  showCountryOnly: false,
+                  // optional. Shows only country name and flag when popup is closed.
+                  showOnlyCountryWhenClosed: false,
                 ),
-                SizedBox(
-                  width: 20,
-                ),
-                TextField(
-                  controller: _textMobile,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(color: Colors.black),
-                  //scrollPadding: EdgeInsets.all(10),
-                  decoration: InputDecoration(
-                    //contentPadding: EdgeInsets.all(20),
-                    hintText: "Enter your mobile number",
+              ),
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 0),
+                  child: TextField(
+                    controller: _textMobile,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(color: Colors.black),
+                    //scrollPadding: EdgeInsets.all(10),
+                    decoration: InputDecoration(
+                      //contentPadding: EdgeInsets.all(20),
+                      hintText: "Enter your phone number",
+                    ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
 
           SizedBox(
@@ -157,13 +159,13 @@ class _SingInPageState extends State<SingInPage> {
                   // SharedPreferences sharedPreferences =
                   // await SharedPreferences.getInstance();
                   DoctorSignInModel myInfo = new DoctorSignInModel(
-                      mobile: _textMobile.text, password: _textPassword.text);
+                      mobile: countryCode + _textMobile.text , password: _textPassword.text);
                   //EasyLoading.show(status: 'loading...');
                   await DoctorSigninController.requestThenResponsePrint(myInfo)
                       .then((value) async {
                     print(value.statusCode);
                     print(value.body);
-                    PHONE_NUMBER = _textMobile.text;
+                    PHONE_NUMBER = countryCode + _textMobile.text;
                     PASSWORD = _textPassword.text;
 
                     //EasyLoading.show(status: 'loading...');
