@@ -211,9 +211,14 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
                                   sharedPreferences.setString("mobile", PHONE_NUMBER);
                                   sharedPreferences.setString("password", PASSWORD);
                                 });
-
-                                SnackbarDialogueHelper().showSnackbarDialog(context, "Image Uploaded successfully",Colors.green);
-                                return Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+                                if(widget.page == 2){
+                                  SnackbarDialogueHelper().showSnackbarDialog(context, "Image Uploaded successfully",Colors.green);
+                                  return Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+                                }else{
+                                  SnackbarDialogueHelper().showSnackbarDialog(context, "Image not Uploaded",Colors.red);
+                                  return Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                                      BottomNevigation()), (Route<dynamic> route) => false);
+                                }
                               } else {
                                 // return LoginController.requestThenResponsePrint(jsonData);
                                 Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()),);

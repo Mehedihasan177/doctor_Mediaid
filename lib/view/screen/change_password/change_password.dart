@@ -214,7 +214,7 @@ class _ChangePasswordState extends State<ChangePassword> {
 
                     if(_oldPassword.text!=PASSWORD){
                       SnackbarDialogueHelper().showSnackbarDialog(context, 'Old Password not matched',Colors.red);
-                    }else if(_newPassword.text.length<6){
+                    }else if(_newPassword.text.length<8){
                       SnackbarDialogueHelper().showSnackbarDialog(context, 'Password Should be 6 digit',Colors.red);
                     }else if(_newPassword.text != _confirmPassword.text){
                       SnackbarDialogueHelper().showSnackbarDialog(context, 'Please Confirm new Password',Colors.red);

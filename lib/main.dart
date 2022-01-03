@@ -2,10 +2,10 @@
 import 'package:care_plus_doctor/view/screen/splash_screen/splash_Screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 class MyApp extends StatefulWidget {
@@ -22,11 +22,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
          body: SplashScreen(),
-        // body: DropDown(),
-        //body: AddHospitalPage(),
-        //body: AddServicesPage(),
-        // body: TestingStar(),
+
       ),
+        builder: EasyLoading.init(),
     );
   }
 }

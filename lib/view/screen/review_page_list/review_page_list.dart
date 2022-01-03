@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/global_appbar.dart';
+import 'package:care_plus_doctor/constents/no_data_found.dart';
 import 'package:care_plus_doctor/controller/doctor/review_controller.dart';
 import 'package:care_plus_doctor/data/review_data/review_data.dart';
 import 'package:care_plus_doctor/data/review_data/review_patient_data.dart';
@@ -86,7 +87,12 @@ class _ReviewPageListState extends State<ReviewPageList> {
                     //padding: EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     // height: 600,
-                    child: ListView.builder(
+                    child: petientreviewlist.isEmpty ? Padding(
+                      padding: const EdgeInsets.only(top: 270),
+                      child: Center(
+                        child: NoDataFoundSize("images/review.png", "No Review Available"),
+                      ),
+                    ) :ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         //controller: PageController(viewportFraction: 0.3),

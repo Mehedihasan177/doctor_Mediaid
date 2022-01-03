@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/no_data_found.dart';
 import 'package:care_plus_doctor/controller/doctor/review_controller.dart';
 import 'package:care_plus_doctor/data/review_data/review_data.dart';
 import 'package:care_plus_doctor/data/review_data/review_patient_data.dart';
@@ -197,7 +198,19 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
                       //padding: EdgeInsets.only(left: 20),
                       alignment: Alignment.centerLeft,
                       // height: 600,
-                      child: ListView.builder(
+                      child: petientreviewlist.isEmpty ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset("images/review_image.png", height: 80,width: 80,),
+                            Text("No Review found", style: TextStyle(
+                              fontSize: 17,
+                              color: Color(0xFF1CBFA8)
+                            ),)
+                          ],
+                        )
+                      ) : ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         //controller: PageController(viewportFraction: 0.3),

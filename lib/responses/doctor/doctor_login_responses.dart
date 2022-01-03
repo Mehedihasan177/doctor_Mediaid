@@ -17,7 +17,7 @@ class DoctorLoginResponse {
   String message;
   Data data;
 
-  factory DoctorLoginResponse.fromJson(Map<String, dynamic> json) => DoctorLoginResponse(
+  factory DoctorLoginResponse.fromJson(Map<dynamic, dynamic> json) => DoctorLoginResponse(
     message: json["message"],
     data: Data.fromJson(json["data"]),
   );

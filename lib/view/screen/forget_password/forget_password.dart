@@ -12,6 +12,7 @@ import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/otp/otp_two.dart';
 import 'package:care_plus_doctor/view/screen/signInPage/sign_in_page.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPassword extends StatefulWidget {
@@ -24,6 +25,7 @@ class ForgetPassword extends StatefulWidget {
 class _ForgetPasswordState extends State<ForgetPassword> {
   TextEditingController _textMobile = TextEditingController();
   TextEditingController _textPassword = TextEditingController();
+  String countryCode = '+880';
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -38,6 +40,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         body: ListView(
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
 
             Center(
@@ -50,43 +53,44 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
             ),
 
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.mobile_screen_share_sharp,
-                        size: 18,
-                        color: Colors.black.withOpacity(0.6),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        "Phone Number",
-                        style: TextStyle(fontSize: 17),
-                      ),
-                    ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex:1,
+                  child: CountryCodePicker(
+                    onChanged: (code){
+                      setState(() {
+                        countryCode = code.dialCode!;
+                      });
+                    },
+                    showFlag: true,
+                    // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                    initialSelection: 'AU',
+                    favorite: ['+880', 'BD'],
+                    showCountryOnly: false,
+                    // optional. Shows only country name and flag when popup is closed.
+                    showOnlyCountryWhenClosed: false,
                   ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  TextField(
-                    controller: _textMobile,
-                    keyboardType: TextInputType.emailAddress,
-                    style: TextStyle(color: Colors.black),
-                    //scrollPadding: EdgeInsets.all(10),
-                    decoration: InputDecoration(
-                      //contentPadding: EdgeInsets.all(20),
-                      hintText: "Enter your phone number",
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: TextField(
+                      controller: _textMobile,
+                      keyboardType: TextInputType.number,
+                      style: TextStyle(color: Colors.black),
+                      //scrollPadding: EdgeInsets.all(10),
+                      decoration: InputDecoration(
+                        //contentPadding: EdgeInsets.all(20),
+                        hintText: "Enter your phone number",
+                      ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
 
 
@@ -101,26 +105,30 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                   onPressed: () {
-                    print("token of user\n");
-                    print("token at call mehedi hasan who are you: " + USERTOKEN);
-                    DoctorResetPasswordModel passChange = DoctorResetPasswordModel(mobile: _textMobile.text);
+                    if(_textMobile == null){
+                      SnackbarDialogueHelper().showSnackbarDialog(context, "please enter valid mobile number", Colors.red);
+                    }else {
+                      print("token of user\n");
+                      print("token at call mehedi hasan who are you: " + USERTOKEN);
+                      DoctorResetPasswordModel passChange = DoctorResetPasswordModel(mobile: countryCode + _textMobile.text);
 
-                    DoctorResetPasswordController.requestThenResponsePrint(passChange ).then((value) {
-                      print('dddddddd');
-                      print(value.statusCode);
-                      if (value.statusCode == 200) {
-                        print("successfully done");
-                        SnackbarDialogueHelper().showSnackbarDialog(context, value.body, Colors.green);
-                        return  Navigator.push(context,MaterialPageRoute(builder: (context) => SingInPage()),);
-                      }else{
-                        SnackbarDialogueHelper().showSnackbarDialog(context, "please enter valid mobile number", Colors.red);
+                      DoctorResetPasswordController.requestThenResponsePrint(passChange ).then((value) {
+                        print('dddddddd');
+                        print(value.statusCode);
+                        if (value.statusCode == 200) {
+                          print("successfully done");
+                          SnackbarDialogueHelper().showSnackbarDialog(context, value.body, Colors.green);
+                          return  Navigator.push(context,MaterialPageRoute(builder: (context) => SingInPage()),);
+                        }else{
+                          SnackbarDialogueHelper().showSnackbarDialog(context, "please enter valid mobile number", Colors.red);
 
-                        // BasicFunctions.showAlertDialogTOView(context,
-                        //     AppLocalizations.of(context).translate("passwordRecheckTitle"),
-                        //     AppLocalizations.of(context).translate("passwordRecheckMessage"));
-                        // BasicFunctions.showAlertDialogTOView(context, "Warning", "Please recheck your passwords to change");
-                      }
-                    });
+                          // BasicFunctions.showAlertDialogTOView(context,
+                          //     AppLocalizations.of(context).translate("passwordRecheckTitle"),
+                          //     AppLocalizations.of(context).translate("passwordRecheckMessage"));
+                          // BasicFunctions.showAlertDialogTOView(context, "Warning", "Please recheck your passwords to change");
+                        }
+                      });
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(350, 59),

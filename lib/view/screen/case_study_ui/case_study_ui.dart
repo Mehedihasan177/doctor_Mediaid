@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
+import 'package:care_plus_doctor/constents/global_appbar.dart';
+import 'package:care_plus_doctor/constents/no_data_found.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_history_controller.dart';
 import 'package:care_plus_doctor/data/case_study_data/case_study_data.dart';
 import 'package:care_plus_doctor/model/ui_model/case_study_model/case_study_model.dart';
@@ -35,6 +37,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
         return true;
       },
       child: Scaffold(
+        appBar: myAppBar("Completed Appointment", null),
         body: ListView(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
@@ -102,8 +105,11 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
             Padding(
               padding: const EdgeInsets.only(left: 5),
               child: Container(
-                height: 900,
-                child: ListView.builder(
+                height: 700,
+                //color: Colors.red,
+                child: case_study.isEmpty ? Center(
+                  child: NoDataFound("images/appointment_history.png", "No Appointment History"),
+                ):ListView.builder(
                     physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,

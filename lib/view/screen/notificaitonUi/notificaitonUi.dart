@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/global_appbar.dart';
+import 'package:care_plus_doctor/constents/no_data_found.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_cencel_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_notification_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_notification_delete_controller.dart';
@@ -28,25 +29,21 @@ class NotificationPage extends StatefulWidget {
 class _NotificationPageState extends State<NotificationPage> {
   List<Doctornotification> notification = [];
 
-
-
   _getNotification() async {
-
-
-    DoctorNotificationController.requestThenResponsePrint( USERTOKEN).then((value) {
+    DoctorNotificationController.requestThenResponsePrint(USERTOKEN)
+        .then((value) {
       setState(() {
         print(value.body);
         Map<String, dynamic> decoded = json.decode("${value.body}");
         Iterable listNotification = decoded['data'];
         print(decoded['data']);
-        notification =
-            listNotification.map((model) => Doctornotification.fromJson(model)).toList();
+        notification = listNotification
+            .map((model) => Doctornotification.fromJson(model))
+            .toList();
         print(notification);
-
       });
     });
   }
-
 
   @override
   void initState() {
@@ -58,7 +55,6 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-
       onWillPop: () async {
         // Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()));
         return true;
@@ -91,15 +87,20 @@ class _NotificationPageState extends State<NotificationPage> {
 
                       alignment: Alignment.centerLeft,
                       height: 780,
-                      child: ListView.builder(
-                          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                        //controller: PageController(viewportFraction: 0.3),
-                          scrollDirection: Axis.vertical,
-                          itemCount: notification.length,
-                          itemBuilder: (context,index) {
-                            return NotificationWidget(notification[index], index);
-                          }
-                      ),
+                      child: notification.isEmpty
+                          ? Center(
+                              child: NoDataFound("images/no_notification.png", "No Notification Found")
+                            )
+                          : ListView.builder(
+                              physics: BouncingScrollPhysics(
+                                  parent: AlwaysScrollableScrollPhysics()),
+                              //controller: PageController(viewportFraction: 0.3),
+                              scrollDirection: Axis.vertical,
+                              itemCount: notification.length,
+                              itemBuilder: (context, index) {
+                                return NotificationWidget(
+                                    notification[index], index);
+                              }),
                     ),
                   ),
                 ],
@@ -110,226 +111,226 @@ class _NotificationPageState extends State<NotificationPage> {
       ),
     );
   }
-  Widget NotificationWidget(Doctornotification notification, int index) => Padding(
-    padding: const EdgeInsets.only(left: 10, right: 10),
-    child: Column(
-      children: [
-        // Card(
-        //   child: Padding(
-        //     padding: const EdgeInsets.only(top: 15, bottom: 10, left: 10),
-        //     child: Row(
-        //       children: [
-        //         Expanded(
-        //           flex: 1,
-        //           child: Container(
-        //             height: 45,
-        //             width: 45,
-        //             decoration: BoxDecoration(
-        //               borderRadius: const BorderRadius.all(Radius.circular(10)),
-        //               color: Colors.blue.withOpacity(0.2),
-        //             ),
-        //             child: Icon(
-        //               Icons.notification_important_rounded,
-        //               color: Colors.blue.withOpacity(0.9),
-        //               size: 30,
-        //             ),
-        //           ),
-        //         ),
-        //         Expanded(
-        //           flex: 6,
-        //           child: Padding(
-        //             padding: const EdgeInsets.only(left: 15),
-        //             child: Column(
-        //               mainAxisAlignment: MainAxisAlignment.start,
-        //               crossAxisAlignment: CrossAxisAlignment.start,
-        //               children: [
-        //                 Container(
-        //                     alignment: Alignment.centerLeft,
-        //                     child: Text(
-        //                       notification.title,
-        //                       style: const TextStyle(
-        //                           fontSize: 15, fontWeight: FontWeight.bold),
-        //                     )),
-        //                 const SizedBox(
-        //                   height: 10,
-        //                 ),
-        //                 Container(
-        //                     alignment: Alignment.centerLeft,
-        //                     child: Text(
-        //                       notification.body,
-        //                       style: const TextStyle(
-        //                         fontSize: 9,
-        //                         //fontWeight: FontWeight.bold
-        //                       ),
-        //                     )),
-        //                 const SizedBox(
-        //                   height: 10,
-        //                 ),
-        //                 Row(
-        //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //                   crossAxisAlignment: CrossAxisAlignment.start,
-        //                   children: [
-        //                     Container(
-        //                         alignment: Alignment.bottomLeft,
-        //                         child: Text(DateFormat("dd-MMM-yyyy")
-        //                             .format(notification.createdAt))),
-        //                     const Text(" || "),
-        //                     Container(
-        //                         alignment: Alignment.bottomLeft,
-        //                         child: Text(DateFormat.jms().format(
-        //                             DateTime.parse(
-        //                                 notification.createdAt.toString())))),
-        //                   ],
-        //                 ),
-        //               ],
-        //             ),
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
 
+  Widget NotificationWidget(Doctornotification notification, int index) =>
+      Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: Column(
+          children: [
+            // Card(
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(top: 15, bottom: 10, left: 10),
+            //     child: Row(
+            //       children: [
+            //         Expanded(
+            //           flex: 1,
+            //           child: Container(
+            //             height: 45,
+            //             width: 45,
+            //             decoration: BoxDecoration(
+            //               borderRadius: const BorderRadius.all(Radius.circular(10)),
+            //               color: Colors.blue.withOpacity(0.2),
+            //             ),
+            //             child: Icon(
+            //               Icons.notification_important_rounded,
+            //               color: Colors.blue.withOpacity(0.9),
+            //               size: 30,
+            //             ),
+            //           ),
+            //         ),
+            //         Expanded(
+            //           flex: 6,
+            //           child: Padding(
+            //             padding: const EdgeInsets.only(left: 15),
+            //             child: Column(
+            //               mainAxisAlignment: MainAxisAlignment.start,
+            //               crossAxisAlignment: CrossAxisAlignment.start,
+            //               children: [
+            //                 Container(
+            //                     alignment: Alignment.centerLeft,
+            //                     child: Text(
+            //                       notification.title,
+            //                       style: const TextStyle(
+            //                           fontSize: 15, fontWeight: FontWeight.bold),
+            //                     )),
+            //                 const SizedBox(
+            //                   height: 10,
+            //                 ),
+            //                 Container(
+            //                     alignment: Alignment.centerLeft,
+            //                     child: Text(
+            //                       notification.body,
+            //                       style: const TextStyle(
+            //                         fontSize: 9,
+            //                         //fontWeight: FontWeight.bold
+            //                       ),
+            //                     )),
+            //                 const SizedBox(
+            //                   height: 10,
+            //                 ),
+            //                 Row(
+            //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                   children: [
+            //                     Container(
+            //                         alignment: Alignment.bottomLeft,
+            //                         child: Text(DateFormat("dd-MMM-yyyy")
+            //                             .format(notification.createdAt))),
+            //                     const Text(" || "),
+            //                     Container(
+            //                         alignment: Alignment.bottomLeft,
+            //                         child: Text(DateFormat.jms().format(
+            //                             DateTime.parse(
+            //                                 notification.createdAt.toString())))),
+            //                   ],
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
 
-        Slidable(
-          key: ValueKey(0),
-            startActionPane: ActionPane(
-              // A motion is a widget used to control how the pane animates.
-              motion: const ScrollMotion(),
+            Slidable(
+              key: ValueKey(0),
+              startActionPane: ActionPane(
+                // A motion is a widget used to control how the pane animates.
+                motion: const ScrollMotion(),
 
-              // A pane can dismiss the Slidable.
-              // dismissible: DismissiblePane(onDismissed: () {}),
+                // A pane can dismiss the Slidable.
+                // dismissible: DismissiblePane(onDismissed: () {}),
 
-              // All actions are defined in the children parameter.
-              children:  [
-                // A SlidableAction can have an icon and/or a label.
-                SlidableAction(
-                  onPressed: (v){
-                    cancelThisAppointment(context,notification.id.toString(),index);
-                  },
-                  backgroundColor: Color(0xFFFE4A49),
-                  foregroundColor: Colors.white,
-                  icon: Icons.delete,
-                  label: 'Delete',
-                ),
-
-              ],
-            ),
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 15, bottom: 10, left: 10),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        height: 45,
-                        width: 45,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          color: Colors.blue.withOpacity(0.2),
-                        ),
-                        child: Icon(
-                          Icons.notification_important_rounded,
-                          color: Colors.blue.withOpacity(0.9),
-                          size: 30,
+                // All actions are defined in the children parameter.
+                children: [
+                  // A SlidableAction can have an icon and/or a label.
+                  SlidableAction(
+                    onPressed: (v) {
+                      cancelThisAppointment(
+                          context, notification.id.toString(), index);
+                    },
+                    backgroundColor: Color(0xFFFE4A49),
+                    foregroundColor: Colors.white,
+                    icon: Icons.delete,
+                    label: 'Delete',
+                  ),
+                ],
+              ),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15, bottom: 10, left: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          height: 45,
+                          width: 45,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            color: Colors.blue.withOpacity(0.2),
+                          ),
+                          child: Icon(
+                            Icons.notification_important_rounded,
+                            color: Colors.blue.withOpacity(0.9),
+                            size: 30,
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 6,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  notification.title,
-                                  style: const TextStyle(
-                                      fontSize: 15, fontWeight: FontWeight.bold),
-                                )),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  notification.body,
-                                  style: const TextStyle(
-                                    fontSize: 9,
-                                    //fontWeight: FontWeight.bold
-                                  ),
-                                )),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Text(DateFormat("dd-MMM-yyyy")
-                                        .format(notification.createdAt))),
-                                const Text(" || "),
-                                Container(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Text(DateFormat.jms().format(
-                                        DateTime.parse(
-                                            notification.createdAt.toString())))),
-                              ],
-                            ),
-                          ],
+                      Expanded(
+                        flex: 6,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    notification.title,
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    notification.body,
+                                    style: const TextStyle(
+                                      fontSize: 9,
+                                      //fontWeight: FontWeight.bold
+                                    ),
+                                  )),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Text(DateFormat("dd-MMM-yyyy")
+                                          .format(notification.createdAt))),
+                                  const Text(" || "),
+                                  Container(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Text(DateFormat.jms().format(
+                                          DateTime.parse(notification.createdAt
+                                              .toString())))),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          endActionPane: ActionPane(
-            // A motion is a widget used to control how the pane animates.
-            motion: const ScrollMotion(),
-            //key: ValueKey(1),
-            // A pane can dismiss the Slidable.
-            // dismissible: DismissiblePane(onDismissed: () {}),
+              endActionPane: ActionPane(
+                // A motion is a widget used to control how the pane animates.
+                motion: const ScrollMotion(),
+                //key: ValueKey(1),
+                // A pane can dismiss the Slidable.
+                // dismissible: DismissiblePane(onDismissed: () {}),
 
-            // All actions are defined in the children parameter.
-            children:  [
-              // A SlidableAction can have an icon and/or a label.
-              SlidableAction(
-                onPressed: (v){
-                  cancelThisAppointment(context,notification.id.toString(),index);
-                },
-                backgroundColor: Color(0xFFFE4A49),
-                foregroundColor: Colors.white,
-                icon: Icons.delete,
-                label: 'Delete',
+                // All actions are defined in the children parameter.
+                children: [
+                  // A SlidableAction can have an icon and/or a label.
+                  SlidableAction(
+                    onPressed: (v) {
+                      cancelThisAppointment(
+                          context, notification.id.toString(), index);
+                    },
+                    backgroundColor: Color(0xFFFE4A49),
+                    foregroundColor: Colors.white,
+                    icon: Icons.delete,
+                    label: 'Delete',
+                  ),
+                ],
               ),
-
-            ],
-          ),
-
-        )
-
-
-
-
-
-      ],
-
-    ),
-  );
-   cancelThisAppointment(BuildContext context, String appointmentID, int index) {
-    DoctorNotificationDeleteController.requestThenResponsePrint(USERTOKEN, notification[index].id).then((value) {
+            )
+          ],
+        ),
+      );
+  cancelThisAppointment(BuildContext context, String appointmentID, int index) {
+    DoctorNotificationDeleteController.requestThenResponsePrint(
+            USERTOKEN, notification[index].id)
+        .then((value) {
       setState(() {
         print(value.statusCode);
         print(value.body);
-        if(value.statusCode==200){
-          SnackbarDialogueHelper().showSnackbarDialog(context, "Successfully delete", Colors.red);
+        if (value.statusCode == 200) {
+          SnackbarDialogueHelper()
+              .showSnackbarDialog(context, "Successfully delete", Colors.red);
           setState(() {
             notification.removeAt(index);
           });
@@ -341,7 +342,3 @@ class _NotificationPageState extends State<NotificationPage> {
   //
   // }
 }
-
-
-
-

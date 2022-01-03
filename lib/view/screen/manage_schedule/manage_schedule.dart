@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/global_appbar.dart';
+import 'package:care_plus_doctor/constents/no_data_found.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_create_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_slot_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_slot_delete_controller.dart';
@@ -216,10 +217,16 @@ class _ManageScheduleState extends State<ManageSchedule> {
             ),
 
             Container(
-              // height: 420,
-              child: ListView.builder(
+               height: 475,
+              //color: Colors.red,
+              child: manageSchedule.isEmpty ? Padding(
+                padding: const EdgeInsets.only(top: 0),
+                child: Center(
+                  child: NoDataFoundSmallSize("images/manage_schedule.png", "Manage your schedule"),
+                ),
+              ) :ListView.builder(
                   physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                shrinkWrap: true,
+                //shrinkWrap: true,
                   padding: const EdgeInsets.all(8),
                   itemCount: manageSchedule.length,
                   itemBuilder: (BuildContext context, int index) {

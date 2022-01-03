@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/global_appbar.dart';
+import 'package:care_plus_doctor/constents/no_data_found.dart';
 import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/controller/others/viewUserHealthHistory.dart';
 import 'package:care_plus_doctor/data/health_history/health_history_data.dart';
@@ -78,7 +79,9 @@ class _HealthRecordState extends State<HealthRecord> {
 
             Container(
               height: 750,
-              child: ListView.builder(
+              child: health_history.isEmpty ? Center(
+                child: NoDataFound("images/appointment_history.png", "No Health History"),
+              ) : ListView.builder(
                   physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,

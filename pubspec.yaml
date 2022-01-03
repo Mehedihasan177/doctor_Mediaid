@@ -57,6 +57,8 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   double_back_to_close_app: ^2.1.0
   flutter_slidable: ^1.1.0
+  flutter_inappwebview: ^5.3.2
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +102,14 @@ flutter:
     - images/test_report.png
     - images/gender.png
     - images/department1.png
+    - images/no_notification.png
+    - images/image.jpg
+    - images/doctor_not_find.png
+    - images/transaction_history.png
+    - images/appointment_history.png
+    - images/review_image.png
+    - images/review.png
+    - images/manage_schedule.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

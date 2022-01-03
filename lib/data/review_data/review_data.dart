@@ -6,6 +6,7 @@ final Reviewdata =[
     image: "images/boy_doctor.png",
     name: "Dr. \nJoseph \nWilliamson",
     rating: "4.5",
+    designation: "bones"
 
 
 ),

@@ -9,6 +9,7 @@ import 'package:care_plus_doctor/view/screen/lib/pages/call_page.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/problem_page/problem_page.dart';
 import 'package:care_plus_doctor/widget/patient_profile_widget/patient_profile_widget.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -27,6 +28,14 @@ class PatientProfileDetailsPage extends StatefulWidget {
 
 class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
   List<PatientProfileDetailsModel> patientProfileDetails = List.of(patient_profile_details_data);
+
+  @override
+  Future<void> initState() async {
+    // TODO: implement initState
+    super.initState();
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+  }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

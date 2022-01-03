@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/global_appbar.dart';
+import 'package:care_plus_doctor/constents/no_data_found.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_wallet_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_wallet_log_controller.dart';
 import 'package:care_plus_doctor/data/wallet_data/wallet_data.dart';
@@ -199,12 +200,14 @@ class _walletUiState extends State<walletUi> {
 
             Row(
               children: [
-                Flexible(
+                  Flexible(
                   child: Container(
                     //padding: EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     height: 700,
-                    child: ListView.builder(
+                    child: moneyWallet.isEmpty ? Center(
+                      child: NoDataFound("images/transaction_history.png", "No Transaction History"),
+                    ) : ListView.builder(
                         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                       //controller: PageController(viewportFraction: 0.3),
                         scrollDirection: Axis.vertical,

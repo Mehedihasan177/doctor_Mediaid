@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/global_appbar.dart';
+import 'package:care_plus_doctor/constents/no_data_found.dart';
 import 'package:care_plus_doctor/constents/prescription_constants.dart';
+import 'package:care_plus_doctor/constents/shimmer.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_cencel_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_done_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_history_controller.dart';
@@ -26,10 +28,15 @@ import 'package:care_plus_doctor/view/screen/patient_profile_details/patient_pro
 import 'package:care_plus_doctor/view/screen/problem_page/problem_page.dart';
 
 import 'package:care_plus_doctor/widget/appointment_list_navBar_widget/appintment_List_navbar_widget.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
+
+
 
 class AppointmentList extends StatefulWidget {
   const AppointmentList({Key? key}) : super(key: key);
@@ -42,7 +49,7 @@ class _AppointmentListState extends State<AppointmentList> {
   List<Appointment_list_navBar> appointmentlist = [];
   List<Appointment_History_navBar> appointmentHistoy =[];
 
-
+  int val = 0;
   late DateTime date;
   final initialDate = DateTime.now();
   Future pickDate(BuildContext context) async {
@@ -69,25 +76,49 @@ class _AppointmentListState extends State<AppointmentList> {
   _getAppointmentHistory() async {
     final SharedPreferences sharedPreferences = await SharedPreferences
         .getInstance();
-
-
+    //EasyLoading.show(status: 'loading...');
     DoctorAppointmentHistoryController.requestThenResponsePrint(USERTOKEN).then((value) {
       setState(() {
-        print(value.body);
-        Map<String, dynamic> decoded = json.decode("${value.body}");
-        Iterable AppointmentHistory = decoded['data'];
-        print(decoded['data']);
-        doctorAppointmentHistory =
-            AppointmentHistory.map((model) => DoctorAppointmentHistoryResponseElement.fromJson(model)).toList();
-        print(doctorAppointmentHistory);
+        if(value.statusCode == 200){
+          val = 1;
+          print(value.body);
+          Map<String, dynamic> decoded = json.decode("${value.body}");
+          Iterable AppointmentHistory = decoded['data'];
+          print(decoded['data']);
 
-      });
+
+          List<DoctorAppointmentHistoryResponseElement> doctorAppointmentHistoryI= [];
+
+          doctorAppointmentHistoryI =
+              AppointmentHistory.map((model) => DoctorAppointmentHistoryResponseElement.fromJson(model)).toList();
+
+          doctorAppointmentHistory.clear();
+          print('doctorAppointmentHistoryI');
+          print(doctorAppointmentHistoryI.length);
+          for(var each in doctorAppointmentHistoryI){
+            if(each.active.toString()!='0' && each.consult.toString()=='0'){
+              setState(() {
+                doctorAppointmentHistory.add(each);
+                print('inning');
+              });
+            }
+          }
+
+        }
+      }
+      );
     });
   }
-  @override
+
+@override
   void initState() {
-    _getAppointmentHistory();
+    // TODO: implement initState
     super.initState();
+
+    setState(() {
+      _getAppointmentHistory();
+
+    });
   }
 
 
@@ -106,82 +137,32 @@ class _AppointmentListState extends State<AppointmentList> {
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
 
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.end,
-            //   children: [
-            //     Padding(
-            //         padding: const EdgeInsets.only(right: 50, top: 20),
-            //         child: Text(
-            //           "Appointments",
-            //           style:
-            //           TextStyle(fontSize: 25, color: Colors.black.withOpacity(0.5)),
-            //         ),
-            //       ),
-            //
-            //     // Container(
-            //     //   height: 30,
-            //     //   width: 30,
-            //     //   child: IconButton(
-            //     //     icon: Icon(
-            //     //       Icons.watch_later_outlined,
-            //     //     ),
-            //     //     iconSize: 25,
-            //     //     color: Color(0xFF1CBFA8),
-            //     //     splashColor: Color(0xFF1CBFA8),
-            //     //     onPressed: () {
-            //     //       pickDate(context);
-            //     //     },
-            //     //   ),
-            //     // ),
-            //     // Padding(
-            //     //   padding: const EdgeInsets.only(right: 20, left: 10),
-            //     //   child: Container(
-            //     //
-            //     //     height: 30,
-            //     //     width: 30,
-            //     //     child: IconButton(
-            //     //       icon: Icon(
-            //     //         Icons.notifications_on_outlined,
-            //     //       ),
-            //     //       iconSize: 25,
-            //     //       color: Color(0xFF1CBFA8),
-            //     //       splashColor: Color(0xFF1CBFA8),
-            //     //       onPressed: () {
-            //     //         Navigator.push(context,MaterialPageRoute(builder: (context) => NotificationPage()));
-            //     //       },
-            //     //     ),
-            //     //   ),
-            //     // ),
-            //   ],
-            // ),
+             val == 0 ? shimmer(context): Container(
+               alignment: Alignment.topCenter,
+               height: 732,
+                // height: 400,
+                 //color: Colors.red,
+                child: doctorAppointmentHistory.isEmpty ? Center(
+                  child: NoDataFound("images/appointment_history.png", "No Appointment History"),
+                ):ListView.builder(
+                    physics: NeverScrollableScrollPhysics(), // <-- this will disable scroll
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: doctorAppointmentHistory.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      // return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
+                      EasyLoading.dismiss();
 
+                      if((doctorAppointmentHistory[index].active.toString()!='0')&&(doctorAppointmentHistory[index].consult=='0')){
+                        return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
+                      }else{
+                        return Container();
+                      }
 
-
-            Container(
-              // height: 400,
-              // color: Colors.red,
-              child: ListView.builder(
-                  physics:
-                      NeverScrollableScrollPhysics(), // <-- this will disable scroll
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: doctorAppointmentHistory.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    // return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
-
-                    if((doctorAppointmentHistory[index].active.toString()!='0')&&(doctorAppointmentHistory[index].consult=='0')){
-                      return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
-                    }else{
-                      return Container();
                     }
+                    ),
+              ),
 
-
-
-                    // return index<3 ? buildDoctorAppointmentHistoryTile(
-                    //     doctorAppointmentHistory[index]):Container();
-                  }
-                  ),
-            ),
             SizedBox(
               height: 10,
             ),
@@ -361,8 +342,8 @@ class _AppointmentListState extends State<AppointmentList> {
                               splashColor: Color(0xFF1CBFA8),
                               onPressed: () async {
 
-                                setCallData(doctorAppointmentHistory);
-
+                                //setCallData(doctorAppointmentHistory);
+                                callNow(doctorAppointmentHistory.id);
 
                               },
                             ),
@@ -519,4 +500,6 @@ class _AppointmentListState extends State<AppointmentList> {
       }
     });
   }
+
+
 }

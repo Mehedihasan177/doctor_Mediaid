@@ -44,6 +44,8 @@ class _SingUpPageState extends State<SingUpPage> {
       },
       child: Scaffold(
         body: ListView(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -238,7 +240,7 @@ class _SingUpPageState extends State<SingUpPage> {
                               padding: const EdgeInsets.only(top: 0),
                               child: TextField(
                                 controller: _phoneNumber,
-                                keyboardType: TextInputType.text,
+                                keyboardType: TextInputType.number,
                                 style: TextStyle(color: Colors.black),
                                 //scrollPadding: EdgeInsets.all(10),
                                 decoration: InputDecoration(
@@ -358,62 +360,72 @@ class _SingUpPageState extends State<SingUpPage> {
                           name: _name.text,
                           //username: "",
                           email: _textEmail.text,
-                          bmdc_reg: _AHPRANo.text,
+                        bmdc_reg: _AHPRANo.text,
                           mobile: countryCode+_phoneNumber.text,
                           password: _password.text,
                           password_confirmation: _confirmPassword.text,
                           //image: "assets/download.jpg",
                           );
                      //EasyLoading.show(status: 'loading...');
-                      await DoctorRegistrationController.requestThenResponsePrint(myInfo).then((value) async {
-                        final Map parsed = json.decode(value.body);
-
-                        final regobject = Data.fromJson(parsed);
-                        REGISTRATIONRESPONSE = regobject;
-                        print(value.statusCode);
-                        print(value.body);
-                        EasyLoading.dismiss();
-                        if(value.statusCode==200){
-
-                          //EasyLoading.showSuccess('logging in...');
-                          DoctorSignInModel myInfo = new DoctorSignInModel(
-                              mobile: countryCode + _phoneNumber.text, password: _password.text);
-                          await DoctorSigninController.requestThenResponsePrint(myInfo)
-                              .then((value) async {
-                            print(value.statusCode);
-                            print(value.body);
-
-
-                            //EasyLoading.dismiss();
-                            if (value.statusCode == 200) {
+                      if(_textEmail == null){
+                        SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter email id", Colors.red);
+                      }else if(_name == null){
+                        SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter name", Colors.red);
+                      }else if(_AHPRANo == null){
+                        SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter AHPRA No.", Colors.red);
+                      }else if(_phoneNumber == null){
+                        SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter phone number", Colors.red);
+                      }else if(_password.text.length < 8){
+                        SnackbarDialogueHelper().showSnackbarDialog(context, "password is less than 6 digit or enter password", Colors.red);
+                      }else if(_confirmPassword.text.length != _password.text.length){
+                        SnackbarDialogueHelper().showSnackbarDialog(context, "Given password is not matched", Colors.red);
+                      } else {
+                        await DoctorRegistrationController.requestThenResponsePrint(myInfo).then((value) async {
+                          print(value.statusCode);
+                          print(value.body);
+                          //EasyLoading.dismiss();
+                          if(value.statusCode==200){
+                            print("successfull");
+                            //EasyLoading.showSuccess('logging in...');
+                            DoctorSignInModel myInfo = new DoctorSignInModel(
+                                mobile: countryCode+_phoneNumber.text, password: _password.text);
+                            await DoctorSigninController.requestThenResponsePrint(myInfo)
+                                .then((value) async {
+                              print(value.statusCode);
+                              print(value.body);
                               final Map parsed = json.decode(value.body);
+                              PHONE_NUMBER = countryCode + _phoneNumber.text;
+                              PASSWORD = _password.text;
+                              var jsonData = null;
                               SharedPreferences sharedPreferences =
                               await SharedPreferences.getInstance();
-                              var reobj = login.DoctorLoginResponse.fromJson(json.decode(value.body));
-                              var loginobject = reobj.data.user;
-                              DOCTOR_INITIAL = loginobject;
-                              print(loginobject.token);
-                              sharedPreferences.setString("token", loginobject.token);
-                              sharedPreferences.setString("mobile", countryCode + _phoneNumber.text);
-                              sharedPreferences.setString("password", _password.text);
-                              SnackbarDialogueHelper().showSnackbarDialog(context, "Registration successful",Colors.green);
-                              return Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile(
-                              )),);
-                            } else {
-                              // return LoginController.requestThenResponsePrint(jsonData);
-                              SnackbarDialogueHelper().showSnackbarDialog(context,  value.body,Colors.red);
-                            }
+                              final loginobject = login.DoctorLoginResponse.fromJson(parsed);
+                              DOCTOR_INITIAL = loginobject.data.user;
+                              print(loginobject.data.token);
+                              sharedPreferences.setString("token", loginobject.data.token);
+                              //EasyLoading.dismiss();
+                              if (value.statusCode == 200) {
+                                sharedPreferences.setString("mobile", countryCode+_phoneNumber.text);
+                                sharedPreferences.setString("password", _password.text);
+                                return Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+                              } else {
+                                // return LoginController.requestThenResponsePrint(jsonData);
+                                SnackbarDialogueHelper().showSnackbarDialog(context, 'Warning', 'Please recheck email and password');
+                              }
 
-                          });
+                            });
 
-                        }else{
-                          SnackbarDialogueHelper().showSnackbarDialog(context, value.body.replaceAll('"', ' ')
-                              .replaceAll('{', ' ')
-                              .replaceAll('}', ' ')
-                              .replaceAll('[', ' ')
-                              .replaceAll(']', ' '), Colors.red);
-                        }
-                      });
+                          }else{
+                            // SnackbarDialogueHelper().showSnackbarDialog(context, '', value.body.replaceAll("{", "").replaceAll("}", "")
+                            //     .replaceAll("[", "").replaceAll("]", "")
+
+                            //);
+                            print(value.body);
+                          }
+
+                        });
+                      }
+
 
                     },
                     style: ElevatedButton.styleFrom(

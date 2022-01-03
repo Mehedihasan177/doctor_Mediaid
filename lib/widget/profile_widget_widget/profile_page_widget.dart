@@ -34,7 +34,7 @@ Widget Profile_Page(MyProfileModel myProfile, BuildContext context) => Card(
                           Container(
                             padding: EdgeInsets.only(right: 49),
                               alignment: Alignment.centerLeft,
-                              child: Text(myProfile.name)),
+                              child: Text(DOCTOR_INITIAL.name)),
                           SizedBox(
                             height: 5,
                           ),
@@ -42,7 +42,7 @@ Widget Profile_Page(MyProfileModel myProfile, BuildContext context) => Card(
                             children: [
                               Text("AHPRA_ID: "),
                               SizedBox(width: 5),
-                              Text(myProfile.bmdcReg.toString()),
+                              Text(DOCTOR_INITIAL.bmdcReg.toString()),
                             ],
                           ),
                         ],
@@ -68,69 +68,3 @@ Widget Profile_Page(MyProfileModel myProfile, BuildContext context) => Card(
         ),
       ),
     );
-
-//     Card(
-//       child: Row(
-//   children: [
-//       Padding(
-//         padding: const EdgeInsets.only(left: 30),
-//         child: Expanded(
-//           child: CircleAvatar(
-//             radius: 40.0,
-//             foregroundImage: AssetImage(profile_model.image,
-//             ),
-//           )
-//         ),
-//       ),
-//       Expanded(
-//         child: Column(
-//           children: [
-//
-//             Padding(
-//               padding: const EdgeInsets.only(left: 30),
-//               child: Container(
-//                 alignment: Alignment.centerLeft,
-//                 child: Text(profile_model.name),
-//               ),
-//             ),
-//             SizedBox(
-//               height: 20,
-//             ),
-//             Row(
-//               children: [
-//                 Padding(
-//                   padding: const EdgeInsets.only(left: 30),
-//                   child: Image.asset("images/emergency_number.png"),
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(left: 10),
-//                   child: Container(
-//                     alignment: Alignment.topLeft,
-//                     child: Text("6959 14235 9"),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//       // FlatButton(
-//       //     onPressed: (){},
-//       //   Image(
-//       //   AssetImage("images/emergency_number.png"),
-//       //   // color: Color(0xFF3A5A98),
-//       // ),
-//       // )
-//       Container(
-//         alignment: Alignment.topRight,
-//         child: IconButton(
-//           icon: Image.asset('images/edit_icon.png'),
-//           iconSize: 30,
-//           onPressed: () {
-//             Navigator.push(context,MaterialPageRoute(builder: (context) => UpdateProfile()));
-//           },
-//         ),
-//       )
-//   ],
-// ),
-//     );

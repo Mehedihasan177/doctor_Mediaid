@@ -28,8 +28,8 @@ class MyProfile extends StatefulWidget {
 
 class _MyProfileState extends State<MyProfile> {
 
-  TextEditingController _experience = TextEditingController(text: DOCTOR_INITIAL.experience);
-  TextEditingController _fee = TextEditingController(text: DOCTOR_INITIAL.fee);
+  TextEditingController _experience = TextEditingController(text: DOCTOR_INITIAL.experience.replaceAll("null", "0"));
+  TextEditingController _fee = TextEditingController(text: DOCTOR_INITIAL.fee.replaceAll("null", "0"));
   TextEditingController _serviceAt = TextEditingController(text: DOCTOR_INITIAL.hospitalName);
   TextEditingController _gender = TextEditingController();
   TextEditingController _chember = TextEditingController(text: DOCTOR_INITIAL.chambers);
@@ -586,7 +586,7 @@ class _MyProfileState extends State<MyProfile> {
                       errorBorder: InputBorder.none,
                       disabledBorder: InputBorder.none,
 //contentPadding: EdgeInsets.all(20),
-                      hintText: "18 years",
+                      hintText: "Enter year of experience",
                     ),
                   ),
                 ),
@@ -619,7 +619,7 @@ class _MyProfileState extends State<MyProfile> {
                       errorBorder: InputBorder.none,
                       disabledBorder: InputBorder.none,
 //contentPadding: EdgeInsets.all(20),
-                      hintText: "\$28",
+                      hintText: "Enter your fee",
                     ),
                   ),
                 ),
@@ -775,6 +775,19 @@ class _MyProfileState extends State<MyProfile> {
                        'chambers': "${_chember.text}",
                       'gender': "${gender}",
                     };
+                    // if(_experience == null){
+                    //   SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter experience", Colors.red);
+                    // }else if(_fee == null){
+                    //   SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter fee", Colors.red);
+                    // }else if(_address == null){
+                    //   SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter address", Colors.red);
+                    // }else if(_serviceAt == null){
+                    //   SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter service place", Colors.red);
+                    // }else if(_fee == null){
+                    //   SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter fee", Colors.red);
+                    // }else if(_fee == null){
+                    //   SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter fee", Colors.red);
+                    // }
                     //EasyLoading.show(status: 'loading...');
                     await DoctorSetupProfileController.requestThenResponsePrint(
                         USERTOKEN, data1)
@@ -793,11 +806,8 @@ class _MyProfileState extends State<MyProfile> {
                         signInAgain(context);
                         SnackbarDialogueHelper().showSnackbarDialog(
                             context, 'successfully Added', Colors.green);
-                        return Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BottomNevigation()),
-                        );
+                        return Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                            BottomNevigation()), (Route<dynamic> route) => false);
                       } else {
                         SnackbarDialogueHelper().showSnackbarDialog(
                             context,

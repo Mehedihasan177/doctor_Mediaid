@@ -28,8 +28,8 @@ class SingInPage extends StatefulWidget {
 }
 
 class _SingInPageState extends State<SingInPage> {
-  TextEditingController _textMobile = TextEditingController(text: '01575397823');
-  TextEditingController _textPassword = TextEditingController(text: '12345678');
+  TextEditingController _textMobile = TextEditingController();
+  TextEditingController _textPassword = TextEditingController();
 
 
   // final databaseRef = FirebaseDatabase.instance.reference();
@@ -46,7 +46,8 @@ class _SingInPageState extends State<SingInPage> {
     // final ref = fb.reference();
     return Scaffold(
       body: ListView(
-
+        shrinkWrap: true,
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         children: [
           Center(
             child: Container(
@@ -81,9 +82,9 @@ class _SingInPageState extends State<SingInPage> {
                 ),
               ),
               Expanded(
-                flex: 3,
+                flex: 2,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 0),
+                  padding: const EdgeInsets.only(right: 20),
                   child: TextField(
                     controller: _textMobile,
                     keyboardType: TextInputType.text,
@@ -158,26 +159,34 @@ class _SingInPageState extends State<SingInPage> {
                   //EasyLoading.show(status: 'loading...');
                   // SharedPreferences sharedPreferences =
                   // await SharedPreferences.getInstance();
-                  DoctorSignInModel myInfo = new DoctorSignInModel(
-                      mobile: countryCode + _textMobile.text , password: _textPassword.text);
-                  //EasyLoading.show(status: 'loading...');
-                  await DoctorSigninController.requestThenResponsePrint(myInfo)
-                      .then((value) async {
-                    print(value.statusCode);
-                    print(value.body);
-                    PHONE_NUMBER = countryCode + _textMobile.text;
-                    PASSWORD = _textPassword.text;
-
+                  if(_textMobile == null){
+                    SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter mobile number", Colors.red);
+                  }
+                  else if(_textPassword.text.length < 8){
+                    SnackbarDialogueHelper().showSnackbarDialog(context, "Password is less than 6", Colors.red);
+                  }
+                  else {
+                    DoctorSignInModel myInfo = new DoctorSignInModel(
+                        mobile: countryCode + _textMobile.text , password: _textPassword.text);
                     //EasyLoading.show(status: 'loading...');
-                    if (value.statusCode == 200) {
-                      //EasyLoading.dismiss();
-                      return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
-                    } else {
+                    await DoctorSigninController.requestThenResponsePrint(myInfo)
+                        .then((value) async {
+                      print(value.statusCode);
+                      print(value.body);
+                      PHONE_NUMBER = countryCode + _textMobile.text;
+                      PASSWORD = _textPassword.text;
 
-                      SnackbarDialogueHelper().showSnackbarDialog(context, "Please check mobile or password", Colors.red);
-                    }
+                      //EasyLoading.show(status: 'loading...');
+                      if (value.statusCode == 200) {
+                        //EasyLoading.dismiss();
+                        return  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
+                      } else {
 
-                  });
+                        SnackbarDialogueHelper().showSnackbarDialog(context, "Please check mobile or password", Colors.red);
+                      }
+
+                    });
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(350, 59),

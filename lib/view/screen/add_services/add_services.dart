@@ -8,6 +8,7 @@ import 'package:care_plus_doctor/controller/doctor/setup_profile_controller.dart
 import 'package:care_plus_doctor/helper/alertDialogue.dart';
 import 'package:care_plus_doctor/helper/snackbarDialouge.dart';
 import 'package:care_plus_doctor/model/doctor/doctor_sinIn_model.dart';
+import 'package:care_plus_doctor/model/setup_profile_model.dart';
 import 'package:care_plus_doctor/model/ui_model/my_profile_model/checkboxany.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_specialization_responses.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
@@ -77,9 +78,11 @@ class _AddServicesPageState extends State<AddServicesPage> {
           backgroundColor: Color(0xFF1CBFA8),
         ),
           body: SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
+              physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: EdgeInsets.only(left: 20,right: 20),
@@ -157,11 +160,24 @@ class _AddServicesPageState extends State<AddServicesPage> {
                           }
 
                           if(specialityToUpdateList.length !=0){
-
                             Map dataMap = {
                               'specializations': specialityToUpdateList,
                             };
-                            print(dataMap);
+                            // SetUpProfile setup = new SetUpProfile(
+                            //     gender: "",
+                            //     chambers: "",
+                            //     specialization: "",
+                            //     introduction: "",
+                            //     designation: "",
+                            //     hospitalName: "",
+                            //     fee: '',
+                            //     address: '',
+                            //     department: '',
+                            //     degree: '',
+                            //     experience: ''
+                            //
+                            // );
+
 
                             print('sessssss');
 
