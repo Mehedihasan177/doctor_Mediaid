@@ -17,6 +17,7 @@ import 'package:care_plus_doctor/responses/doctor/doctor_update_profile_response
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/otp/otp.dart';
 import 'package:care_plus_doctor/view/screen/setUp_Profile/image_upload_page.dart';
+import 'package:care_plus_doctor/view/screen/sing_up_page/sign_up_page.dart';
 import 'package:care_plus_doctor/widget/doctor_about_and_appointment_widget/doctor_about_and_appointment_widget.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -54,7 +55,7 @@ class _SetupProfileState extends State<SetupProfile> {
     return WillPopScope(
 
       onWillPop: () async {
-        //Navigator.push(context,MaterialPageRoute(builder: (context) => OTPpage()));
+        // Navigator.push(context,MaterialPageRoute(builder: (context) => SingUpPage()));
         return true;
       },
       child: Scaffold(
@@ -76,7 +77,7 @@ class _SetupProfileState extends State<SetupProfile> {
                             fit: FlexFit.loose,
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>

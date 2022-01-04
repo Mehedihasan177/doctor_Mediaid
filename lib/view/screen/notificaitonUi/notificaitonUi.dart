@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/constents/no_data_found.dart';
+import 'package:care_plus_doctor/constents/shimmer.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_cencel_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_notification_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_notification_delete_controller.dart';
@@ -28,11 +29,12 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   List<Doctornotification> notification = [];
-
+  int val = 0;
   _getNotification() async {
     DoctorNotificationController.requestThenResponsePrint(USERTOKEN)
         .then((value) {
       setState(() {
+        val = 1;
         print(value.body);
         Map<String, dynamic> decoded = json.decode("${value.body}");
         Iterable listNotification = decoded['data'];
@@ -77,7 +79,7 @@ class _NotificationPageState extends State<NotificationPage> {
             //   ),
             // ),
 
-            Padding(
+            val == 0 ? shimmer(context) : Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Row(
                 children: [
@@ -86,12 +88,13 @@ class _NotificationPageState extends State<NotificationPage> {
                       //padding: EdgeInsets.only(left: 20),
 
                       alignment: Alignment.centerLeft,
-                      height: 780,
+                      //height: 780,
                       child: notification.isEmpty
                           ? Center(
                               child: NoDataFound("images/no_notification.png", "No Notification Found")
                             )
                           : ListView.builder(
+                        shrinkWrap: true,
                               physics: BouncingScrollPhysics(
                                   parent: AlwaysScrollableScrollPhysics()),
                               //controller: PageController(viewportFraction: 0.3),
@@ -330,7 +333,7 @@ class _NotificationPageState extends State<NotificationPage> {
         print(value.body);
         if (value.statusCode == 200) {
           SnackbarDialogueHelper()
-              .showSnackbarDialog(context, "Successfully delete", Colors.red);
+              .showSnackbarDialog(context, "Successfully delete", Colors.green);
           setState(() {
             notification.removeAt(index);
           });

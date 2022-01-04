@@ -189,8 +189,9 @@ class _CarePlusLabReportListState extends State<CarePlusLabReportList> {
              ),
 
             Container(
-              height: 660,
+              //height: 660,
               child: ListView.builder(
+                shrinkWrap: true,
                   physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                   padding: const EdgeInsets.all(8),
                   itemCount: lab_report.length,

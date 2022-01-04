@@ -110,14 +110,13 @@ class _AppointmentListState extends State<AppointmentList> {
     });
   }
 
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
     setState(() {
       _getAppointmentHistory();
-
     });
   }
 
@@ -137,31 +136,31 @@ class _AppointmentListState extends State<AppointmentList> {
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
 
-             val == 0 ? shimmer(context): Container(
-               alignment: Alignment.topCenter,
-               height: 732,
-                // height: 400,
-                 //color: Colors.red,
-                child: doctorAppointmentHistory.isEmpty ? Center(
-                  child: NoDataFound("images/appointment_history.png", "No Appointment History"),
-                ):ListView.builder(
-                    physics: NeverScrollableScrollPhysics(), // <-- this will disable scroll
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: doctorAppointmentHistory.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      // return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
-                      EasyLoading.dismiss();
+            val == 0 ? shimmer(context): Container(
+              alignment: Alignment.topCenter,
+              //height: 732,
+              // height: 400,
+              //color: Colors.red,
+              child: doctorAppointmentHistory.isEmpty ? Center(
+                child: NoDataFound("images/appointment_history.png", "No Appointment History"),
+              ):ListView.builder(
+                  physics: NeverScrollableScrollPhysics(), // <-- this will disable scroll
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: doctorAppointmentHistory.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    // return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
 
-                      if((doctorAppointmentHistory[index].active.toString()!='0')&&(doctorAppointmentHistory[index].consult=='0')){
-                        return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
-                      }else{
-                        return Container();
-                      }
 
+                    if((doctorAppointmentHistory[index].active.toString()!='0')&&(doctorAppointmentHistory[index].consult=='0')){
+                      return buildDoctorAppointmentHistoryTile(doctorAppointmentHistory[index],index);
+                    }else{
+                      return Container();
                     }
-                    ),
+
+                  }
               ),
+            ),
 
             SizedBox(
               height: 10,
@@ -197,10 +196,10 @@ class _AppointmentListState extends State<AppointmentList> {
                     Row(
                       children: [
                         Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(doctorAppointmentHistory.user.name),
-                            ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(doctorAppointmentHistory.user.name),
+                          ),
                         ),
                         Row(
                           children: [
@@ -292,9 +291,9 @@ class _AppointmentListState extends State<AppointmentList> {
                         Expanded(
                           flex: 1,
                           child: Container(
-                              alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.only(left: 10, bottom: 20),
-                              child: Text('male'),
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.only(left: 10, bottom: 20),
+                            child: Text('male'),
                           ),
                         ),
 
@@ -342,8 +341,8 @@ class _AppointmentListState extends State<AppointmentList> {
                               splashColor: Color(0xFF1CBFA8),
                               onPressed: () async {
 
-                                //setCallData(doctorAppointmentHistory);
-                                callNow(doctorAppointmentHistory.id);
+                                setCallData(doctorAppointmentHistory);
+                                //callNow(doctorAppointmentHistory.id);
 
                               },
                             ),
@@ -405,7 +404,7 @@ class _AppointmentListState extends State<AppointmentList> {
 
           Navigator.push(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(
             image: doctorAppointmentHistory.user.image,
-              name: doctorAppointmentHistory.user.name,
+            name: doctorAppointmentHistory.user.name,
             gender: doctorAppointmentHistory.user.gender,
             email: doctorAppointmentHistory.user.email,
             height: doctorAppointmentHistory.user.height,

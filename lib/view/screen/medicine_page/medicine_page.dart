@@ -269,10 +269,10 @@ class _MedicinePageState extends State<MedicinePage> {
               ),
             ),
             Container(
-              height: 420,
+             // height: 420,
               child: ListView.builder(
                   physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-
+                  shrinkWrap: true,
                   padding: const EdgeInsets.all(8),
                   itemCount: medicine.length,
                   itemBuilder: (BuildContext context, int index) {

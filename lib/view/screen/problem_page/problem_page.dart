@@ -165,8 +165,9 @@ class _ProblemPageState extends State<ProblemPage> {
               ),
             ),
             Container(
-              height: 660,
+              //height: 660,
               child: ListView.builder(
+                shrinkWrap: true,
                   physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                   padding: const EdgeInsets.all(8),
                   itemCount: problem.length,

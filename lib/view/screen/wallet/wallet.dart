@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/constents/no_data_found.dart';
+import 'package:care_plus_doctor/constents/shimmer.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_wallet_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_wallet_log_controller.dart';
 import 'package:care_plus_doctor/data/wallet_data/wallet_data.dart';
@@ -27,7 +28,7 @@ class walletUi extends StatefulWidget {
 class _walletUiState extends State<walletUi> {
   List<DoctorWalletLog> moneyWallet = [];
   String userbalance = '0';
-
+  int val = 0;
 
 
   void getWalletBal() {
@@ -53,6 +54,7 @@ class _walletUiState extends State<walletUi> {
 
     DoctorWalletLogController.requestThenResponsePrint( USERTOKEN).then((value) {
       setState(() {
+        val = 1;
         print(value.body);
         Map<String, dynamic> decoded = json.decode("${value.body}");
         Iterable listWallet = decoded['data'];
@@ -198,7 +200,7 @@ class _walletUiState extends State<walletUi> {
             ),
 
 
-            Row(
+            val == 0 ? shimmer(context) : Row(
               children: [
                   Flexible(
                   child: Container(

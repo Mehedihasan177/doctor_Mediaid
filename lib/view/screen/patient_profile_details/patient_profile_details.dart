@@ -29,13 +29,13 @@ class PatientProfileDetailsPage extends StatefulWidget {
 class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
   List<PatientProfileDetailsModel> patientProfileDetails = List.of(patient_profile_details_data);
 
-  @override
-  Future<void> initState() async {
-    // TODO: implement initState
-    super.initState();
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-  }
+  // @override
+  // Future<void> initState() async {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   WidgetsFlutterBinding.ensureInitialized();
+  //   await Firebase.initializeApp();
+  // }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

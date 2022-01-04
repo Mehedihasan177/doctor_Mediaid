@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/constents/no_data_found.dart';
+import 'package:care_plus_doctor/constents/shimmer.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_create_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_slot_controller.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_slot_delete_controller.dart';
@@ -36,7 +37,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
   String myCurrentPos = 'Sunday';
   // To show Selected Item in Text.
   String holder = '' ;
-
+  int val = 0;
   DayModel position = dayModel.first;
 
   TimeOfDay startTime = TimeOfDay.now();
@@ -216,17 +217,17 @@ class _ManageScheduleState extends State<ManageSchedule> {
               child: Text('List of Visiting Times',style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
             ),
 
-            Container(
-               height: 475,
+            val == 0 ? shimmer(context):Container(
+               //height: 475,
               //color: Colors.red,
               child: manageSchedule.isEmpty ? Padding(
-                padding: const EdgeInsets.only(top: 0),
+                padding: const EdgeInsets.only(top: 100),
                 child: Center(
-                  child: NoDataFoundSmallSize("images/manage_schedule.png", "Manage your schedule"),
+                  child: NoDataFoundSmallSize("images/calender.png", "Manage your schedule"),
                 ),
               ) :ListView.builder(
                   physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                //shrinkWrap: true,
+                shrinkWrap: true,
                   padding: const EdgeInsets.all(8),
                   itemCount: manageSchedule.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -328,6 +329,7 @@ class _ManageScheduleState extends State<ManageSchedule> {
   void fetchAllmySlots() {
     DoctorAppointmentSlotController.requestThenResponsePrint(USERTOKEN).then((value){
       setState(() {
+        val = 1;
         print(value.statusCode);
         if(value.statusCode==200){
           DoctorAppointmentSlotResponse doctorAppointmentSlotResponse = DoctorAppointmentSlotResponse.fromJson(json.decode(value.body));

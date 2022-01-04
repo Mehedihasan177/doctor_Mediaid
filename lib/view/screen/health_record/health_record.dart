@@ -4,6 +4,7 @@ import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/constents/no_data_found.dart';
 import 'package:care_plus_doctor/constents/prescription_constants.dart';
+import 'package:care_plus_doctor/constents/shimmer.dart';
 import 'package:care_plus_doctor/controller/others/viewUserHealthHistory.dart';
 import 'package:care_plus_doctor/data/health_history/health_history_data.dart';
 import 'package:care_plus_doctor/model/health_histoy/health_history_model.dart';
@@ -22,7 +23,7 @@ class HealthRecord extends StatefulWidget {
 
 class _HealthRecordState extends State<HealthRecord> {
   List<Health_History> health_history = [];
-
+  int val = 0;
   @override
   void initState() {
     // TODO: implement initState
@@ -77,7 +78,7 @@ class _HealthRecordState extends State<HealthRecord> {
             //   ),
             // ),
 
-            Container(
+            val == 0 ? shimmer(context) : Container(
               height: 750,
               child: health_history.isEmpty ? Center(
                 child: NoDataFound("images/appointment_history.png", "No Health History"),
@@ -101,36 +102,39 @@ class _HealthRecordState extends State<HealthRecord> {
   }
 
   void getPatientHealthHistory() {
-    health_history.clear();
+    //health_history.clear();
     DocViewUserHistory.requestThenResponsePrint(currentPatientID).then((value){
-      print(value.statusCode);
-      print(value.body);
+setState(() {
+  val = 1;
+  print(value.statusCode);
+  print(value.body);
 
-      var myvar = UserHealthHistory.fromJson(jsonDecode(value.body));
-      print(myvar);
+  var myvar = UserHealthHistory.fromJson(jsonDecode(value.body));
+  print(myvar);
 
-      myvar.epres.forEach((element) {
-        setState(() {
-          print(element.doctor.name);
-          health_history.add(Health_History(
-              name: element.doctor.name,lab_report_type: 'Care+ Prescription',time: DateFormat('hh:mm a').format(element.createdAt),date: DateFormat('dd MMM yyyy').format(element.createdAt), image: '$apiDomainRoot/images/${element.doctor.image.toString()}',id: element.id.toString()
-          ));
-
-
-        });
-      });
-
-      myvar.report.forEach((element) {
-        setState(() {
-          print(element.name);
-          health_history.add(Health_History(
-            name: element.name,lab_report_type: element.type,time: DateFormat('hh:mm a').format(element.createdAt),date: DateFormat('dd MMM yyyy').format(element.createdAt), image: '$apiDomainRoot/files/${element.file.toString()}', id: element.id.toString()
-          ));
+  myvar.epres.forEach((element) {
+    setState(() {
+      print(element.doctor.name);
+      health_history.add(Health_History(
+          name: element.doctor.name,lab_report_type: 'Care+ Prescription',time: DateFormat('hh:mm a').format(element.createdAt),date: DateFormat('dd MMM yyyy').format(element.createdAt), image: '$apiDomainRoot/images/${element.doctor.image.toString()}',id: element.id.toString()
+      ));
 
 
-        });
-      });
+    });
+  });
 
+  myvar.report.forEach((element) {
+    setState(() {
+      print(element.name);
+      health_history.add(Health_History(
+          name: element.name,lab_report_type: element.type,time: DateFormat('hh:mm a').format(element.createdAt),date: DateFormat('dd MMM yyyy').format(element.createdAt), image: '$apiDomainRoot/files/${element.file.toString()}', id: element.id.toString()
+      ));
+
+
+    });
+  });
+
+});
 
     });
 

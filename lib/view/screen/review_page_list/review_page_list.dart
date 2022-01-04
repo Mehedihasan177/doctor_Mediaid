@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/constents/no_data_found.dart';
+import 'package:care_plus_doctor/constents/shimmer.dart';
 import 'package:care_plus_doctor/controller/doctor/review_controller.dart';
 import 'package:care_plus_doctor/data/review_data/review_data.dart';
 import 'package:care_plus_doctor/data/review_data/review_patient_data.dart';
@@ -24,12 +25,13 @@ class ReviewPageList extends StatefulWidget {
 class _ReviewPageListState extends State<ReviewPageList> {
 
   List<ReviewPatientModel> petientreviewlist = [];
-
+  int val = 0;
   _getReview() async {
 
 
     DoctorReviewController.requestThenResponsePrint( USERTOKEN).then((value) {
       setState(() {
+        val = 1;
         print(value.body);
         // Map<String, dynamic> decoded = json.decode("${value.body}");
         // Iterable listReview = decoded['data'];
@@ -80,7 +82,7 @@ class _ReviewPageListState extends State<ReviewPageList> {
 
 
 
-            Row(
+            val == 0 ? shimmer(context):Row(
               children: [
                 Flexible(
                   child: Container(

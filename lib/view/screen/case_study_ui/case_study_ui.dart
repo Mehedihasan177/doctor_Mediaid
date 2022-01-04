@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/global_appbar.dart';
 import 'package:care_plus_doctor/constents/no_data_found.dart';
+import 'package:care_plus_doctor/constents/shimmer.dart';
 import 'package:care_plus_doctor/controller/doctor/doctor_appointment_history_controller.dart';
 import 'package:care_plus_doctor/data/case_study_data/case_study_data.dart';
 import 'package:care_plus_doctor/model/ui_model/case_study_model/case_study_model.dart';
@@ -22,6 +23,7 @@ class CaseStudyNavBar extends StatefulWidget {
 class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
   List<CaseStudymodel> case_study = [];
   TextEditingController searchC = TextEditingController();
+  int val = 0;
   @override
   void initState() {
     // TODO: implement initState
@@ -102,10 +104,10 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
             //
             // ),
 
-            Padding(
+            val == 0 ? shimmer(context): Padding(
               padding: const EdgeInsets.only(left: 5),
               child: Container(
-                height: 700,
+                //height: 700,
                 //color: Colors.red,
                 child: case_study.isEmpty ? Center(
                   child: NoDataFound("images/appointment_history.png", "No Appointment History"),
@@ -157,6 +159,7 @@ class _CaseStudyNavBarState extends State<CaseStudyNavBar> {
   void getCompletedAppointments() {
     DoctorAppointmentHistoryController.requestThenResponsePrint(USERTOKEN).then((value) {
       setState(() {
+        val = 1;
         print(value.statusCode);
         print(value.body);
         if(value.statusCode==200){

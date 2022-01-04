@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/no_data_found.dart';
+import 'package:care_plus_doctor/constents/shimmer.dart';
 import 'package:care_plus_doctor/controller/doctor/review_controller.dart';
 import 'package:care_plus_doctor/data/review_data/review_data.dart';
 import 'package:care_plus_doctor/data/review_data/review_patient_data.dart';
@@ -31,7 +32,7 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
 
   List<ReviewModel> rivewlist = List.of(Reviewdata);
   List<ReviewPatientModel> petientreviewlist = [];
-
+  int val = 0;
   int fiveC = 0;
   int fourC = 0;
   int threeC = 0;
@@ -47,6 +48,7 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
 
     DoctorReviewController.requestThenResponsePrint( USERTOKEN).then((value) {
       setState(() {
+        val = 1;
         print(value.body);
         // Map<String, dynamic> decoded = json.decode("${value.body}");
         // Iterable listReview = decoded['data'];
@@ -191,7 +193,7 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
                 ],
               ),
 
-              Row(
+              val == 0 ? shimmer(context): Row(
                 children: [
                   Flexible(
                     child: Container(

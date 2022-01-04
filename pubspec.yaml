@@ -110,6 +110,7 @@ flutter:
     - images/review_image.png
     - images/review.png
     - images/manage_schedule.png
+    - images/calender.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

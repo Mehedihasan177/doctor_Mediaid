@@ -416,10 +416,10 @@ class _SingUpPageState extends State<SingUpPage> {
                             });
 
                           }else{
-                            // SnackbarDialogueHelper().showSnackbarDialog(context, '', value.body.replaceAll("{", "").replaceAll("}", "")
-                            //     .replaceAll("[", "").replaceAll("]", "")
+                            SnackbarDialogueHelper().showSnackbarDialog(context, value.body.replaceAll("{", "").replaceAll("}", "")
+                                .replaceAll("[", "").replaceAll("]", ""), Colors.red
 
-                            //);
+                            );
                             print(value.body);
                           }
 
