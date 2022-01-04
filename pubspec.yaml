@@ -59,6 +59,7 @@ dependencies:
   flutter_slidable: ^1.1.0
   flutter_inappwebview: ^5.3.2
   shimmer: ^2.0.0
+  introduction_screen: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -86,6 +87,9 @@ flutter:
   assets:
     - images/
     - images/care_plus_doctor_logo.png
+    - images/Appointment.jpg
+    - images/schedule.webp
+    - images/video_call.png
     - images/girl_doctor.jpg
     - images/boy_doctor.png
     - images/edit_icon.png
