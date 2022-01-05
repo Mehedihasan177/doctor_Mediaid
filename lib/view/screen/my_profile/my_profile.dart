@@ -18,6 +18,7 @@ import 'package:care_plus_doctor/view/screen/profile/profile.dart';
 import 'package:care_plus_doctor/view/screen/setUp_Profile/image_upload_page.dart';
 import 'package:care_plus_doctor/widget/my_profile_widget/my_profile_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key}) : super(key: key);
@@ -789,25 +790,48 @@ class _MyProfileState extends State<MyProfile> {
                     //   SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter fee", Colors.red);
                     // }
                     //EasyLoading.show(status: 'loading...');
-                    await DoctorSetupProfileController.requestThenResponsePrint(
-                        USERTOKEN, data1)
-                        .then((value) async {
+                    await DoctorSetupProfileController.requestThenResponsePrint(USERTOKEN, data1).then((value) async {
                       print(value.statusCode);
                       print(value.body);
-                      final Map parsed = json.decode(value.body);
 
-                      final doctorProfile = DoctorUpdateProfile.fromJson(parsed);
-                      DOCTORUPDATEPROFILERESPONSES = doctorProfile;
-
-                      print(value.statusCode);
-                      print(value.body);
-                      //EasyLoading.dismiss();
+                      print('setup');
                       if (value.statusCode == 200) {
-                        signInAgain(context);
                         SnackbarDialogueHelper().showSnackbarDialog(
-                            context, 'successfully Added', Colors.green);
-                        return Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                            BottomNevigation()), (Route<dynamic> route) => false);
+                            context, 'profile successfully updated', Colors.green);
+
+
+
+                        DoctorSignInModel myInfo = new DoctorSignInModel(
+                            mobile: PHONE_NUMBER, password: PASSWORD);
+                        await DoctorSigninController.requestThenResponsePrint(myInfo)
+                            .then((value) async {
+
+                          print('signingg');
+                          print(value.statusCode);
+                          print(value.body);
+
+                          //EasyLoading.dismiss();
+                          if (value.statusCode == 200) {
+                            final Map parsed = json.decode(value.body);
+                            var jsonData = null;
+                            SharedPreferences sharedPreferences =
+                            await SharedPreferences.getInstance();
+                            final loginobject = DoctorLoginResponse.fromJson(parsed);
+                            DOCTOR_INITIAL = loginobject.data.user;
+                            USERTOKEN = loginobject.data.token;
+                            print(loginobject.data.token);
+                            sharedPreferences.setString("token", loginobject.data.token);
+                            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                                BottomNevigation()), (Route<dynamic> route) => false);
+
+                          } else {
+                            // return LoginController.requestThenResponsePrint(jsonData);
+                          }
+
+                        });
+
+
+
                       } else {
                         SnackbarDialogueHelper().showSnackbarDialog(
                             context,

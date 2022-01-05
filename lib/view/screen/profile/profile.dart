@@ -206,7 +206,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             MaterialPageRoute(
                                 builder: (context) => AddServicesPage()));
                       },
-                      child: new Card(
+                      child: Card(
                         color: Colors.white,
                         child: Column(
                           children: [
@@ -220,8 +220,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   child: Container(
                                     // padding: EdgeInsets.only(left: 20, ),
                                     alignment: Alignment.topLeft,
-                                    child: Text(
-                                      'Add Specializations ',
+                                    child: const Text(
+                                      'Specializations',
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
@@ -269,7 +269,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
 
                   GridTile(
-                    child: new Card(
+                    child: Card(
                       color: Colors.white,
                       child: Column(
                         children: [
@@ -281,7 +281,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Container(
                               // padding: EdgeInsets.only(left: 20, ),
                               alignment: Alignment.topLeft,
-                              child: Text(
+                              child: const Text(
                                 'Invite',
                                 style: TextStyle(
                                   fontSize: 18,

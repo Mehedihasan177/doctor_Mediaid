@@ -12,6 +12,7 @@ import 'package:care_plus_doctor/model/setup_profile_model.dart';
 import 'package:care_plus_doctor/model/ui_model/my_profile_model/checkboxany.dart';
 import 'package:care_plus_doctor/responses/doctor/doctor_specialization_responses.dart';
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
+import 'package:care_plus_doctor/view/screen/setUp_Profile/setup_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -113,7 +114,7 @@ class _AddServicesPageState extends State<AddServicesPage> {
 
                   print('sessssss');
 
-                  DoctorSetupProfileController.requestThenResponsePrint(
+                  SetupSpecializationController.requestThenResponsePrint(
                     USERTOKEN,
                     dataMap,
                   ).then((value) async {

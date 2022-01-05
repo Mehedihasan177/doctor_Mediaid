@@ -13,9 +13,8 @@ double LAT = 0.0, LNG = 0.0;
 int USERID = 0;
 String PHONE_NUMBER= '';
 String PASSWORD= '';
-late registration.Data REGISTRATIONRESPONSE;
-late DoctorUpdateProfile DOCTORUPDATEPROFILERESPONSES;
 late SignInResponse DOCTOR_INITIAL;
+String bmdc = 'AHPRA';
 
 
 

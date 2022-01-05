@@ -217,11 +217,12 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
                                   return Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                                       SetupProfile()), (Route<dynamic> route) => false);
                                 }else{
-                                  SnackbarDialogueHelper().showSnackbarDialog(context, "Image not Uploaded",Colors.red);
+                                  SnackbarDialogueHelper().showSnackbarDialog(context, "Image Uploaded successfully",Colors.green);
                                   return Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                                       BottomNevigation()), (Route<dynamic> route) => false);
                                 }
                               } else {
+                                SnackbarDialogueHelper().showSnackbarDialog(context, "Image not Uploaded",Colors.red);
                                 // return LoginController.requestThenResponsePrint(jsonData);
                                 Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
                               }

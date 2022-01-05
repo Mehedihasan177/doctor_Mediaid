@@ -3,6 +3,8 @@ class ReviewModel{
   late String name;
   late String rating;
   late String designation;
+  late String specialization;
+  late String chambers;
   // late String rating_person_name;
   // late String rating_other_person;
   // late String reason;
@@ -14,6 +16,8 @@ class ReviewModel{
     required this.name,
     required this.rating,
     required this.designation,
+    required this.specialization,
+    required this.chambers,
 
     // required this.rating_person_name,
     // required this.rating_other_person,

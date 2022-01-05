@@ -32,7 +32,8 @@ class _SingUpPageState extends State<SingUpPage> {
   TextEditingController _password = TextEditingController();
   TextEditingController _confirmPassword = TextEditingController();
   TextEditingController _phoneNumber = TextEditingController();
-
+  bool _passwordVisible = false;
+  bool _passwordVisible1 = false;
   String countryCode = '+880';
   @override
   Widget build(BuildContext context) {
@@ -287,11 +288,26 @@ class _SingUpPageState extends State<SingUpPage> {
                       TextField(
                         controller: _password,
                         keyboardType: TextInputType.text,
+                        obscureText: !_passwordVisible,
                         style: TextStyle(color: Colors.black),
                         //scrollPadding: EdgeInsets.all(10),
                         decoration: InputDecoration(
                           //contentPadding: EdgeInsets.all(20),
                           hintText: "Enter your password",
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              // Based on passwordVisible state choose the icon
+                              _passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Color(0xFF1CBFA8),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _passwordVisible = !_passwordVisible;
+                              });
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -327,12 +343,27 @@ class _SingUpPageState extends State<SingUpPage> {
                       ),
                       TextField(
                         controller: _confirmPassword,
+                        obscureText: !_passwordVisible1,
                         keyboardType: TextInputType.text,
                         style: TextStyle(color: Colors.black),
                         //scrollPadding: EdgeInsets.all(10),
                         decoration: InputDecoration(
                           //contentPadding: EdgeInsets.all(20),
                           hintText: "Confirm your password",
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              // Based on passwordVisible state choose the icon
+                              _passwordVisible1
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Color(0xFF1CBFA8),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _passwordVisible1 = !_passwordVisible1;
+                              });
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -385,6 +416,9 @@ class _SingUpPageState extends State<SingUpPage> {
                           print(value.body);
                           //EasyLoading.dismiss();
                           if(value.statusCode==200){
+
+                            bmdc = _AHPRANo.text;
+
                             print("successfull");
                             //EasyLoading.showSuccess('logging in...');
                             DoctorSignInModel myInfo = new DoctorSignInModel(
@@ -393,18 +427,20 @@ class _SingUpPageState extends State<SingUpPage> {
                                 .then((value) async {
                               print(value.statusCode);
                               print(value.body);
-                              final Map parsed = json.decode(value.body);
-                              PHONE_NUMBER = countryCode + _phoneNumber.text;
-                              PASSWORD = _password.text;
-                              var jsonData = null;
-                              SharedPreferences sharedPreferences =
-                              await SharedPreferences.getInstance();
-                              final loginobject = login.DoctorLoginResponse.fromJson(parsed);
-                              DOCTOR_INITIAL = loginobject.data.user;
-                              print(loginobject.data.token);
-                              sharedPreferences.setString("token", loginobject.data.token);
+
                               //EasyLoading.dismiss();
                               if (value.statusCode == 200) {
+                                final Map parsed = json.decode(value.body);
+                                PHONE_NUMBER = countryCode + _phoneNumber.text;
+                                PASSWORD = _password.text;
+                                var jsonData = null;
+                                SharedPreferences sharedPreferences =
+                                await SharedPreferences.getInstance();
+                                final loginobject = login.DoctorLoginResponse.fromJson(parsed);
+                                DOCTOR_INITIAL = loginobject.data.user;
+                                USERTOKEN = loginobject.data.token;
+                                print(loginobject.data.token);
+                                sharedPreferences.setString("token", loginobject.data.token);
                                 sharedPreferences.setString("mobile", countryCode+_phoneNumber.text);
                                 sharedPreferences.setString("password", _password.text);
                                 return Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()),);

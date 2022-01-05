@@ -28,11 +28,11 @@ class SingInPage extends StatefulWidget {
 }
 
 class _SingInPageState extends State<SingInPage> {
-  TextEditingController _textMobile = TextEditingController(text: "");
-  TextEditingController _textPassword = TextEditingController(text: "");
-  // TextEditingController _textMobile = TextEditingController(text: "1877286284");
-  // TextEditingController _textPassword = TextEditingController(text: "Qq@12345678");
-
+  // TextEditingController _textMobile = TextEditingController(text: "");
+  // TextEditingController _textPassword = TextEditingController(text: "");
+  TextEditingController _textMobile = TextEditingController(text: "1877286284");
+  TextEditingController _textPassword = TextEditingController(text: "Qq@12345678");
+  bool _passwordVisible = false;
 
   // final databaseRef = FirebaseDatabase.instance.reference();
   // final Future<FirebaseApp> _future = Firebase.initializeApp();
@@ -132,12 +132,27 @@ class _SingInPageState extends State<SingInPage> {
                 ),
                 TextField(
                   controller: _textPassword,
+                  obscureText: !_passwordVisible,
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(color: Colors.black),
                   //scrollPadding: EdgeInsets.all(10),
                   decoration: InputDecoration(
                     //contentPadding: EdgeInsets.all(20),
                     hintText: "Enter your password",
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        // Based on passwordVisible state choose the icon
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Color(0xFF1CBFA8),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
+                    ),
                   ),
                 ),
               ],

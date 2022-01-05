@@ -27,6 +27,12 @@ class _ChangePasswordState extends State<ChangePassword> {
   TextEditingController _oldPassword = TextEditingController();
   TextEditingController _newPassword = TextEditingController();
   TextEditingController _confirmPassword = TextEditingController();
+
+  bool _passwordVisible = false;
+  bool _passwordVisible1 = false;
+  bool _passwordVisible2 = false;
+
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -96,12 +102,27 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                   TextField(
                     controller: _oldPassword,
+                    obscureText: !_passwordVisible,
                     keyboardType: TextInputType.emailAddress,
                     style: TextStyle(color: Colors.black),
                     //scrollPadding: EdgeInsets.all(10),
                     decoration: InputDecoration(
                       //contentPadding: EdgeInsets.all(20),
                       hintText: "Enter your old password",
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          // Based on passwordVisible state choose the icon
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Color(0xFF1CBFA8),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -141,12 +162,27 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                   TextField(
                     controller: _newPassword,
+                    obscureText: !_passwordVisible1,
                     keyboardType: TextInputType.emailAddress,
                     style: TextStyle(color: Colors.black),
                     //scrollPadding: EdgeInsets.all(10),
                     decoration: InputDecoration(
                       //contentPadding: EdgeInsets.all(20),
                       hintText: "Enter new password",
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          // Based on passwordVisible state choose the icon
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Color(0xFF1CBFA8),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -187,12 +223,27 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                   TextField(
                     controller: _confirmPassword,
+                    obscureText: !_passwordVisible2,
                     keyboardType: TextInputType.emailAddress,
                     style: TextStyle(color: Colors.black),
                     //scrollPadding: EdgeInsets.all(10),
                     decoration: InputDecoration(
                       //contentPadding: EdgeInsets.all(20),
                       hintText: "Confirm new password",
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          // Based on passwordVisible state choose the icon
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Color(0xFF1CBFA8),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ],
