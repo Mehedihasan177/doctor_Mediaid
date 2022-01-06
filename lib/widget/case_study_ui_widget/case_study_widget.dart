@@ -6,17 +6,24 @@ import 'package:flutter/material.dart';
 Widget Case_Study(CaseStudymodel case_study, BuildContext context) => Card(
   child: Row(
     children: [
+      ///circle image
       Padding(
-        padding: const EdgeInsets.only(top: 10, bottom: 5),
+        padding: const EdgeInsets.only(left: 10, bottom: 5, top: 5),
         child: Container(
-          height: 70,width: 70,
-            child: Image.network(case_study.image,
-
-              height: 70,
-              width: 70,
+          height: 70.0,
+          width: 70.0,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                case_study.image,
+              ),
+              fit: BoxFit.fill,
             ),
+            shape: BoxShape.circle,
+          ),
         ),
       ),
+
       Expanded(
         child: Padding(
           padding: const EdgeInsets.only(left: 10),

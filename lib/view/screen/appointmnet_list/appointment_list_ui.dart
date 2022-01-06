@@ -177,18 +177,24 @@ class _AppointmentListState extends State<AppointmentList> {
         child: Card(
           child: Row(
             children: [
-              Expanded(
-                flex: 2,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5.0),
-                  child: Container(
-                    width: 90.0,
-                    height: 90.0,
-                    child: Image.network(
-                      "$apiDomainRoot/images/${doctorAppointmentHistory.user.image}",
+              ///circle image
+               Expanded(
+                 flex: 2,
+                 child: Container(
+                    height: 80.0,
+                    width: 80.0,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          "$apiDomainRoot/images/${doctorAppointmentHistory.user.image}",                     ),
+                        fit: BoxFit.fill,
+                      ),
+                      shape: BoxShape.circle,
                     ),
                   ),
-                ),),
+               ),
+
+
               Expanded(
                 flex: 6,
                 child: Column(

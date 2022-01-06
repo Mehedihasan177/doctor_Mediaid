@@ -15,21 +15,39 @@ Widget Profile_Page(MyProfileModel myProfile, BuildContext context) => Card(
               padding: const EdgeInsets.only(left: 10),
               child: Row(
                 children: [
-                  Container(
-                    height: 80,
-                    width: 80,
-                    child: ClipRRect(
-                      child: Image.network(
-                        '$apiDomainRoot/images/${DOCTOR_INITIAL.image}',
-                        height: 70,
-                        width: 70,
+                  ///circle image
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Container(
+                      height: 80.0,
+                      width: 80.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            '$apiDomainRoot/images/${DOCTOR_INITIAL.image}',                     ),
+                          fit: BoxFit.fill,
+                        ),
+                        shape: BoxShape.circle,
                       ),
-                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
+                  // Container(
+                  //   height: 80,
+                  //   width: 80,
+                  //   child: ClipRRect(
+                  //     child: Image.network(
+                  //       '$apiDomainRoot/images/${DOCTOR_INITIAL.image}',
+                  //       height: 70,
+                  //       width: 70,
+                  //     ),
+                  //     borderRadius: BorderRadius.circular(10),
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                             padding: EdgeInsets.only(right: 49),
@@ -38,13 +56,19 @@ Widget Profile_Page(MyProfileModel myProfile, BuildContext context) => Card(
                           SizedBox(
                             height: 5,
                           ),
-                          Row(
-                            children: [
-                              Text("AHPRA_ID: "),
-                              SizedBox(width: 5),
-                              Text(DOCTOR_INITIAL.bmdcReg.toString()),
-                            ],
-                          ),
+
+                            Row(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text("AHPRA_ID: ")),
+                                //SizedBox(width: 5),
+                                Text(DOCTOR_INITIAL.bmdcReg.toString()),
+                              ],
+                            ),
+
                         ],
                       ),
                   ),

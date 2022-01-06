@@ -24,7 +24,7 @@ class DoctorSetupProfileController{
     // Here we are getting the response
     var response = await http.post(Uri.parse(url), body: dataMap,
         headers: {
-          "Content-Type": "application/json",
+          //"Content-Type": "application/json",
           "Accept": "application/json",
           'Authorization': 'Bearer $token',
         }

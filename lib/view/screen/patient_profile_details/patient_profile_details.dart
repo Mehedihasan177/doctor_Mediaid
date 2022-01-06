@@ -52,26 +52,31 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
           //shrinkWrap: true,
           children: [
            SizedBox(
-             height: 5,
+             height: 10,
            ),
             Card(
               child: Row(
                 children: [
-                  Expanded(
-                    flex: 2,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(5.0),
+                  ///circle image
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Expanded(
+                      flex: 2,
                       child: Container(
-                        width: 130.0,
-                        height: 130.0,
-                        child: Image.network(
-                          "$apiDomainRoot/images/${widget.image}",
-                          fit: BoxFit.fill,
-
-
+                        height: 80.0,
+                        width: 80.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              "$apiDomainRoot/images/${widget.image}",                     ),
+                            fit: BoxFit.fill,
+                          ),
+                          shape: BoxShape.circle,
                         ),
                       ),
-                    ),),
+                    ),
+                  ),
+
                   Expanded(
                     flex: 4,
                     child: Padding(
@@ -113,6 +118,9 @@ class _PatientProfileDetailsPageState extends State<PatientProfileDetailsPage> {
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 10,
             ),
                   Stack(
                     children: [
