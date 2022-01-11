@@ -62,7 +62,6 @@ class UserRegisterControllerExtraImg{
       print(response.statusMessage);
       // print("token: "+decoded['data']['token']);
 
-      SharedPref sharedPref = new SharedPref();
       //BasicFunctions.showAlertDialogTOView(context, "Success", "Image uploaded successfully");
       // currentState.push( MaterialPageRoute(builder: (context) =>PatientPrescriptionUploadPage(toShow:true)));
     }else{

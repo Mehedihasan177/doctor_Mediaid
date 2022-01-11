@@ -21,7 +21,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SingInPage extends StatefulWidget {
-  const SingInPage({Key? key}) : super(key: key);
+  const SingInPage({Key? key,}) : super(key: key);
 
   @override
   _SingInPageState createState() => _SingInPageState();
@@ -30,19 +30,40 @@ class SingInPage extends StatefulWidget {
 class _SingInPageState extends State<SingInPage> {
   // TextEditingController _textMobile = TextEditingController(text: "");
   // TextEditingController _textPassword = TextEditingController(text: "");
-  TextEditingController _textMobile = TextEditingController(text: "1877286284");
-  TextEditingController _textPassword = TextEditingController(text: "Qq@12345678");
+ late String mobile_number = '';
+  TextEditingController _textMobile = TextEditingController();
+  TextEditingController _textPassword = TextEditingController();
   bool _passwordVisible = false;
+ String countryCode = '+880';
+ late String finalMobile = '';
+ late String finalCountry = '+880';
 
-  // final databaseRef = FirebaseDatabase.instance.reference();
-  // final Future<FirebaseApp> _future = Firebase.initializeApp();
-  //
-  // void addData(String data) {
-  //   databaseRef.push().set({'name': data, 'comment': 'A good season'});
-  // }
-  // final fb = FirebaseDatabase.instance;
-  // final name = "Name";
-  String countryCode = '+880';
+ Future getValidationData() async {
+   final SharedPreferences sharedPreferences =
+   await SharedPreferences.getInstance();
+   String? obtainedMobile = sharedPreferences.getString("mobile");
+   String? obtainedCountry = sharedPreferences.getString("country");
+
+   setState(() {
+     finalMobile = obtainedMobile!;
+     _textMobile = TextEditingController(text: finalMobile);
+     finalCountry = obtainedCountry!;
+
+   });
+   print(finalMobile);
+   print(finalCountry);
+ }
+
+  @override
+  void initState() {
+
+    getValidationData();
+
+    // TODO: implement initState
+    super.initState();
+  }
+
+  //String countryCode = '+880';
   @override
   Widget build(BuildContext context) {
     // final ref = fb.reference();
@@ -69,6 +90,7 @@ class _SingInPageState extends State<SingInPage> {
               Expanded(
                 flex:1,
                 child: CountryCodePicker(
+
                   onChanged: (code){
                     setState(() {
                       countryCode = code.dialCode!;
@@ -76,7 +98,7 @@ class _SingInPageState extends State<SingInPage> {
                   },
                   showFlag: true,
                   // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                  initialSelection: 'AU',
+                  initialSelection: finalCountry,
                   favorite: ['+880', 'BD'],
                   showCountryOnly: false,
                   // optional. Shows only country name and flag when popup is closed.
@@ -172,6 +194,9 @@ class _SingInPageState extends State<SingInPage> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () async {
+
+
+
                   // addData(_textMobile.text);
                   //EasyLoading.show(status: 'loading...');
                   // SharedPreferences sharedPreferences =
@@ -183,6 +208,10 @@ class _SingInPageState extends State<SingInPage> {
                     SnackbarDialogueHelper().showSnackbarDialog(context, "Password is less than 6", Colors.red);
                   }
                   else {
+
+                    PHONEONLY = _textMobile.text;
+                    COUNTRYCODE = countryCode;
+
                     DoctorSignInModel myInfo = new DoctorSignInModel(
                         mobile: countryCode + _textMobile.text , password: _textPassword.text);
                     //EasyLoading.show(status: 'loading...');

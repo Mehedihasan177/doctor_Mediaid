@@ -118,7 +118,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         if (value.statusCode == 200) {
                           print("successfully done");
                           SnackbarDialogueHelper().showSnackbarDialog(context, value.body, Colors.green);
-                          return  Navigator.push(context,MaterialPageRoute(builder: (context) => SingInPage()),);
+                          Navigator.push(context,MaterialPageRoute(builder: (context) => SingInPage()),);
                         }else{
                           SnackbarDialogueHelper().showSnackbarDialog(context, "please enter valid mobile number", Colors.red);
 

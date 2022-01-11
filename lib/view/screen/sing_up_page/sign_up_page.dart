@@ -399,7 +399,9 @@ class _SingUpPageState extends State<SingUpPage> {
                           );
                      //EasyLoading.show(status: 'loading...');
                       if(_textEmail == null){
-                        SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter email id", Colors.red);
+                        SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter email", Colors.red);
+                      }else if(!(RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(_textEmail.text))){
+                        SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter a valid email", Colors.red);
                       }else if(_name == null){
                         SnackbarDialogueHelper().showSnackbarDialog(context, "Please enter name", Colors.red);
                       }else if(_AHPRANo == null){
@@ -416,6 +418,9 @@ class _SingUpPageState extends State<SingUpPage> {
                           print(value.body);
                           //EasyLoading.dismiss();
                           if(value.statusCode==200){
+
+                            PHONEONLY = _phoneNumber.text;
+                            COUNTRYCODE = countryCode;
 
                             bmdc = _AHPRANo.text;
 
@@ -441,8 +446,7 @@ class _SingUpPageState extends State<SingUpPage> {
                                 USERTOKEN = loginobject.data.token;
                                 print(loginobject.data.token);
                                 sharedPreferences.setString("token", loginobject.data.token);
-                                sharedPreferences.setString("mobile", countryCode+_phoneNumber.text);
-                                sharedPreferences.setString("password", _password.text);
+
                                 return Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
                               } else {
                                 // return LoginController.requestThenResponsePrint(jsonData);

@@ -12,7 +12,7 @@
     <uses-permission android:name="android.Manifest.permission.BLUETOOTH" />
     <uses-permission android:name="android.Manifest.permission.INTERNET" />
    <application
-        android:label="Care+ Doctor"
+        android:label="Doctor Mediaid"
         android:icon="@mipmap/ic_launcher">
 
        <activity

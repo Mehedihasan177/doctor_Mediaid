@@ -7,6 +7,8 @@ import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+//late SignInResponse DOCTOR_INITIAL;
+
 class DoctorSigninController{
 
   static Future<http.Response> requestThenResponsePrint(DoctorSignInModel doctorSignInModel) async {
@@ -36,6 +38,12 @@ class DoctorSigninController{
       SharedPreferences sharedPreferences =
       await SharedPreferences.getInstance();
       sharedPreferences.setString("token", loginobject.data.token);
+
+
+      sharedPreferences.setString("mobile", PHONEONLY);
+      sharedPreferences.setString("country", COUNTRYCODE);
+
+
       print(sharedPreferences.getString("token"));
       DOCTOR_INITIAL = loginobject.data.user;
 

@@ -1,6 +1,10 @@
 
+import 'dart:async';
+
+import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/signInPage/sign_in_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../intro_screens.dart';
 // import 'package:havartye/screen/home_page.dart';
@@ -13,17 +17,38 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+   late String finalMobile = '';
+  late String finalPassword = '';
+var obtainedMobile;
+   var obtainedPassword;
   @override
   void initState() {
     // TODO: implement initState
-    getValidationData();
+    getValidationData().whenComplete(() async {
+      Timer(
+          Duration(seconds: 3),
+              () =>Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => finalMobile == null && finalPassword == null
+                  ? OnBoardingPage()
+                  : SingInPage())));
+
+
+    });
     super.initState();
   }
 
   Future getValidationData() async {
-    await Future.delayed(Duration(milliseconds: 3000), () {});
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => OnBoardingPage()));
+    final SharedPreferences sharedPreferences =
+    await SharedPreferences.getInstance();
+    obtainedMobile = sharedPreferences.getString("mobile");
+    obtainedPassword = sharedPreferences.getString("password");
+
+    setState(() {
+      finalMobile = obtainedMobile;
+      finalPassword = obtainedPassword;
+    });
+    print(finalMobile);
+    print(finalPassword);
   }
 
   @override

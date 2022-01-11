@@ -1,4 +1,5 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
 import 'package:care_plus_doctor/view/screen/appointmnet_list/appointment_list_ui.dart';
 import 'package:care_plus_doctor/view/screen/case_study_ui/case_study_ui.dart';
 import 'package:care_plus_doctor/view/screen/profile/profile.dart';
@@ -13,7 +14,6 @@ class BottomNevigation extends StatefulWidget {
 
 class _BottomNevigationState extends State<BottomNevigation> {
   int cindex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,6 +95,12 @@ class _BottomNevigationState extends State<BottomNevigation> {
         return ProfilePage();
     }
   }
+  // final pageOption = [
+  //   ReviewUiPage(),
+  //   ReviewUiPage(),
+  //   CaseStudyNavBar(),
+  //   ProfilePage(),
+  // ];
 
   // bottomNavigationBar() {
   //

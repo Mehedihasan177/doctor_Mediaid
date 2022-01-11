@@ -17,4 +17,8 @@ late SignInResponse DOCTOR_INITIAL;
 String bmdc = 'AHPRA';
 
 
+String PHONEONLY = '';
+String COUNTRYCODE = '';
+
+
 

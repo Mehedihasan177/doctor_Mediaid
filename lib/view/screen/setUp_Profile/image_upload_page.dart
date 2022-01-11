@@ -209,8 +209,7 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
                                   print(loginobject.token);
                                   sharedPreferences.setString("token", loginobject.token);
 
-                                  sharedPreferences.setString("mobile", PHONE_NUMBER);
-                                  sharedPreferences.setString("password", PASSWORD);
+
                                 });
                                 if(widget.page == 2){
                                   SnackbarDialogueHelper().showSnackbarDialog(context, "Image Uploaded successfully",Colors.green);
@@ -236,9 +235,11 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
                       });
                     } else {
                       // BasicFunctions.showAlertDialogTOView(context, 'Warning', 'Select an image to upload');
-                      BasicFunctions.showAlertDialogTOView(context,
-                          "Warning",
-                          "Please Select an Image to Upload");
+
+
+                      SnackbarDialogueHelper().showSnackbarDialog(context, "Please Select an Image to Upload", Colors.red);
+
+
                     }
                   },
                 ),
