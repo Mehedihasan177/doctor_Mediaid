@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../basic_functions.dart';
+
 import 'package:care_plus_doctor/responses/doctor/doctor_login_responses.dart';
 
 class NewImageUploadPage extends StatefulWidget {
@@ -209,7 +209,8 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
                                   print(loginobject.token);
                                   sharedPreferences.setString("token", loginobject.token);
 
-
+                                  sharedPreferences.setString("mobile", PHONE_NUMBER);
+                                  sharedPreferences.setString("password", PASSWORD);
                                 });
                                 if(widget.page == 2){
                                   SnackbarDialogueHelper().showSnackbarDialog(context, "Image Uploaded successfully",Colors.green);
@@ -235,11 +236,7 @@ class _NewImageUploadPageState extends State<NewImageUploadPage> {
                       });
                     } else {
                       // BasicFunctions.showAlertDialogTOView(context, 'Warning', 'Select an image to upload');
-
-
                       SnackbarDialogueHelper().showSnackbarDialog(context, "Please Select an Image to Upload", Colors.red);
-
-
                     }
                   },
                 ),

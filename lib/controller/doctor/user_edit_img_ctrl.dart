@@ -9,9 +9,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../../basic_functions.dart';
-import '../../shared_pref.dart';
-
 
 class UserRegisterControllerExtraImg{
   //this class is for make understand how it works actually

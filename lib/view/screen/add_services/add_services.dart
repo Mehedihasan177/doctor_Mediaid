@@ -14,10 +14,9 @@ import 'package:care_plus_doctor/responses/doctor/doctor_specialization_response
 import 'package:care_plus_doctor/view/screen/navbar_pages/bottomnevigation.dart';
 import 'package:care_plus_doctor/view/screen/setUp_Profile/setup_profile_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../basic_functions.dart';
+
+
 
 class AddServicesPage extends StatefulWidget {
   const AddServicesPage({Key? key}) : super(key: key);
