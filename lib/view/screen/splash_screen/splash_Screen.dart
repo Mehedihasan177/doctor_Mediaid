@@ -30,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: new Stack(
         children: <Widget>[
           // new Center(
@@ -37,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
           // ),
           Center(
             child: Container(
-              child: Image(image: AssetImage("images/care_plus_doctor_logo.png"),
+              child: Image(image: AssetImage("images/doctor_gif.gif"),
                 fit: BoxFit.cover,
               ),
             ),
