@@ -1,3 +1,4 @@
+import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/constents/prescription_constants.dart';
 import 'package:care_plus_doctor/model/ui_model/case_study_model/case_study_model.dart';
 import 'package:care_plus_doctor/view/screen/health_record/health_record.dart';
@@ -15,7 +16,9 @@ Widget Case_Study(CaseStudymodel case_study, BuildContext context) => Card(
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
-                case_study.image,
+                case_study.image.toString()=='null'?
+                avatarLink : case_study.image,
+
               ),
               fit: BoxFit.fill,
             ),

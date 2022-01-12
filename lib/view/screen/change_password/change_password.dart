@@ -103,7 +103,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   TextField(
                     controller: _oldPassword,
                     obscureText: !_passwordVisible,
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
                     style: TextStyle(color: Colors.black),
                     //scrollPadding: EdgeInsets.all(10),
                     decoration: InputDecoration(
@@ -163,7 +163,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   TextField(
                     controller: _newPassword,
                     obscureText: !_passwordVisible1,
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
                     style: TextStyle(color: Colors.black),
                     //scrollPadding: EdgeInsets.all(10),
                     decoration: InputDecoration(
@@ -172,14 +172,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                       suffixIcon: IconButton(
                         icon: Icon(
                           // Based on passwordVisible state choose the icon
-                          _passwordVisible
+                          _passwordVisible1
                               ? Icons.visibility
                               : Icons.visibility_off,
                           color: Color(0xFF1CBFA8),
                         ),
                         onPressed: () {
                           setState(() {
-                            _passwordVisible = !_passwordVisible;
+                            _passwordVisible1 = !_passwordVisible1;
                           });
                         },
                       ),
@@ -224,7 +224,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   TextField(
                     controller: _confirmPassword,
                     obscureText: !_passwordVisible2,
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
                     style: TextStyle(color: Colors.black),
                     //scrollPadding: EdgeInsets.all(10),
                     decoration: InputDecoration(
@@ -233,14 +233,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                       suffixIcon: IconButton(
                         icon: Icon(
                           // Based on passwordVisible state choose the icon
-                          _passwordVisible
+                          _passwordVisible2
                               ? Icons.visibility
                               : Icons.visibility_off,
                           color: Color(0xFF1CBFA8),
                         ),
                         onPressed: () {
                           setState(() {
-                            _passwordVisible = !_passwordVisible;
+                            _passwordVisible2 = !_passwordVisible2;
                           });
                         },
                       ),
@@ -266,7 +266,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     if(_oldPassword.text!=PASSWORD){
                       SnackbarDialogueHelper().showSnackbarDialog(context, 'Old Password not matched',Colors.red);
                     }else if(_newPassword.text.length<8){
-                      SnackbarDialogueHelper().showSnackbarDialog(context, 'Password Should be 6 digit',Colors.red);
+                      SnackbarDialogueHelper().showSnackbarDialog(context, 'Password Should be 8 digit',Colors.red);
                     }else if(_newPassword.text != _confirmPassword.text){
                       SnackbarDialogueHelper().showSnackbarDialog(context, 'Please Confirm new Password',Colors.red);
                     }else{
@@ -276,13 +276,56 @@ class _ChangePasswordState extends State<ChangePassword> {
                       DoctorChangePasswordController.requestThenResponsePrint(context, USERTOKEN, passChange).then((value) async {
                         print('dddddddd');
                         print(value.statusCode);
-                        if (value.statusCode == 200) {
-                          PASSWORD = _confirmPassword.text;
-                          signInAgain(context);
-                          SnackbarDialogueHelper().showSnackbarDialog(context, 'Password changed successfully', Colors.green);
-                          //SnackbarDialogueHelper().showSnackbarDialog(context, "New Passowrd",value.body);
-                          return Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNevigation()),);
-                        }
+
+                          if (value.statusCode == 200) {
+                            PASSWORD = _confirmPassword.text;
+
+                            print("successfully done");
+                            print(value.body);
+                            DoctorSignInModel myInfo = new DoctorSignInModel(
+                              mobile: PHONE_NUMBER, password: PASSWORD,);
+                            await DoctorSigninController.requestThenResponsePrint(myInfo)
+                                .then((value) async {
+                              print(value.statusCode);
+                              print(value.body);
+
+                              if (value.statusCode == 200) {
+                                SharedPreferences sharedPreferences =
+                                await SharedPreferences.getInstance();
+                                setState(() {
+                                  var reobj = SignInResponse.fromJson(json.decode(value.body));
+                                  var loginobject = reobj;
+                                  var loginobject1 = reobj;
+
+
+                                  print('loginobject.image');
+                                  print(loginobject.image);
+
+                                  print(loginobject1.token);
+                                  sharedPreferences.setString("token", loginobject1.token);
+
+
+
+                                  sharedPreferences.setString("mobile", PHONE_NUMBER);
+                                  sharedPreferences.setString("password", PASSWORD);
+
+
+                                  SnackbarDialogueHelper().showSnackbarDialog(context, 'Password changed successfully', Colors.green);
+                                  //SnackbarDialogueHelper().showSnackbarDialog(context, "New Passowrd",value.body);
+                                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                                      BottomNevigation()), (Route<dynamic> route) => false);
+
+
+
+                                });
+
+
+
+
+                              }
+                            });
+
+                          }
                         else{
                           // SnackbarDialogueHelper().showSnackbarDialog(context, 'Password not matched $passChange', Colors.red);
                           SnackbarDialogueHelper().showSnackbarDialog(context, value.body,Colors.red);

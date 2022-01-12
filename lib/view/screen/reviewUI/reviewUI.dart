@@ -130,7 +130,8 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
                       backgroundColor: Colors.white,
                       child: ClipOval(
                           child: Image.network(
-                            '$apiDomainRoot/images/${DOCTOR_INITIAL.image}',
+                            DOCTOR_INITIAL.image.toString()=='null'?
+                            avatarLink:'$apiDomainRoot/images/${DOCTOR_INITIAL.image}',
                             fit: BoxFit.fill,
                             width: 140,
                             height: 150,
@@ -224,7 +225,7 @@ class _ReviewUiPageState extends State<ReviewUiPage> {
                               padding: const EdgeInsets.only(top: 0),
                               child: Container(
                                 alignment: Alignment.centerLeft,
-                                child: Text(DOCTOR_INITIAL.specialization,
+                                child: Text(DOCTOR_INITIAL.specialization.replaceAll("null", "Set specializations"),
                                   style: TextStyle(
                                     fontSize: 17,
                                     // fontWeight: FontWeight.bold

@@ -38,9 +38,11 @@ class _SetupProfileState extends State<SetupProfile> {
   TextEditingController _designation = TextEditingController();
   TextEditingController _chember = TextEditingController();
   TextEditingController _introduction = TextEditingController();
+  TextEditingController _department = TextEditingController();
+  TextEditingController _degree = TextEditingController();
+  TextEditingController _address = TextEditingController();
   bool checkbox = true;
   String gender = 'Male';
-
   final maxLines = 15;
   // List<DoctorAppointmentModel> doctorAppointment = List.of(doctor_appointment_data);
 
@@ -95,7 +97,9 @@ class _SetupProfileState extends State<SetupProfile> {
                                   backgroundColor: Colors.white,
                                   child: ClipOval(
                                       child: Image.network(
-                                        '$apiDomainRoot/images/${DOCTOR_INITIAL.image}',
+                                        DOCTOR_INITIAL.image.toString()=='null'?
+                                        avatarLink:'$apiDomainRoot/images/${DOCTOR_INITIAL.image}',
+
                                         fit: BoxFit.fill,
                                         width: 170,
                                         height: 190,
@@ -288,6 +292,79 @@ class _SetupProfileState extends State<SetupProfile> {
                   height: 40,
                 ),
 
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.only(left: 20),
+                              alignment: Alignment.centerLeft,
+                              child: Text("Department",
+                                style: TextStyle(
+                                    fontSize: 15
+                                ),
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 10, top: 8),
+                            child: Center(
+                              child: Container(
+                                child: TextField(
+                                  controller: _department,
+                                  keyboardType: TextInputType.text,
+                                  style: TextStyle(color: Colors.black),
+//scrollPadding: EdgeInsets.all(10),
+                                  decoration: InputDecoration(
+//contentPadding: EdgeInsets.all(20),
+                                      hintText: "Enter your deparment",
+                                      hintStyle: TextStyle(
+                                          fontSize: 10
+                                      )
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.only(left: 20),
+                              alignment: Alignment.centerLeft,
+                              child: Text("Degree")),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 8),
+                            child: Center(
+                              child: Container(
+                                child: TextField(
+                                  controller: _degree,
+                                  keyboardType: TextInputType.text,
+                                  style: TextStyle(color: Colors.black),
+//scrollPadding: EdgeInsets.all(10),
+                                  decoration: InputDecoration(
+//contentPadding: EdgeInsets.all(20),
+                                      hintText: "Enter hospital degree",
+                                      hintStyle: TextStyle(
+                                          fontSize: 10
+                                      )
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                SizedBox(
+                  height: 40,
+                ),
 
 
                 Container(
@@ -327,6 +404,79 @@ class _SetupProfileState extends State<SetupProfile> {
                       ),
                     ],
                   ),
+                ),
+
+
+
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.only(left: 20),
+                              alignment: Alignment.centerLeft,
+                              child: Text("Chamber",
+                                style: TextStyle(
+                                    fontSize: 15
+                                ),
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 10, top: 8),
+                            child: Center(
+                              child: Container(
+                                child: TextField(
+                                  controller: _chember,
+                                  keyboardType: TextInputType.text,
+                                  style: TextStyle(color: Colors.black),
+//scrollPadding: EdgeInsets.all(10),
+                                  decoration: InputDecoration(
+//contentPadding: EdgeInsets.all(20),
+                                      hintText: "Enter chamber",
+                                      hintStyle: TextStyle(
+                                          fontSize: 10
+                                      )
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.only(left: 20),
+                              alignment: Alignment.centerLeft,
+                              child: Text("Address")),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 8),
+                            child: Center(
+                              child: Container(
+                                child: TextField(
+                                  controller: _address,
+                                  keyboardType: TextInputType.text,
+                                  style: TextStyle(color: Colors.black),
+//scrollPadding: EdgeInsets.all(10),
+                                  decoration: InputDecoration(
+//contentPadding: EdgeInsets.all(20),
+                                      hintText: "Enter your address",
+                                      hintStyle: TextStyle(
+                                          fontSize: 10
+                                      )
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
 
                 SizedBox(height: 20),
@@ -427,10 +577,13 @@ class _SetupProfileState extends State<SetupProfile> {
                         Map data1 = {
                           "hospital_name": _hospital.text,
                           "designation": _designation.text,
+                          'department': "${_department.text}",
+                          'degree': "${_degree.text}",
                           "introduction": _introduction.text,
                           "chambers": _chember.text,
                           "gender": gender,
                           "bmdc_reg": bmdc,
+                          'address': "${_address.text}",
                         };
                         print(data1);
                         await DoctorSetupProfileController.requestThenResponsePrint(USERTOKEN, data1).then((value) async {

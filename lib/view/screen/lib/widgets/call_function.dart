@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 
+import 'package:care_plus_doctor/constents/constant.dart';
 import 'package:care_plus_doctor/view/screen/lib/utils/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:agora_rtc_engine/rtc_engine.dart';
@@ -299,7 +300,7 @@ class _VideoCallState extends State<VideoCall> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Care+ Calling'),backgroundColor: Color(0xFF1CBFA8),),
+      appBar: AppBar(title: Text('$APPNAME Calling'),backgroundColor: Color(0xFF1CBFA8),),
       body: Container(
         child: Center(
           child: Stack(

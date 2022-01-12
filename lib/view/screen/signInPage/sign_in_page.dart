@@ -69,7 +69,7 @@ class _SingInPageState extends State<SingInPage> {
     // final ref = fb.reference();
     return Scaffold(
       body: ListView(
-        shrinkWrap: true,
+
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         children: [
           Center(

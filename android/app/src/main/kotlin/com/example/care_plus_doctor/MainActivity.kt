@@ -1,4 +1,4 @@
-package com.example.care_plus_doctor
+package doctormediaid.skoder.co
 
 import io.flutter.embedding.android.FlutterActivity
 

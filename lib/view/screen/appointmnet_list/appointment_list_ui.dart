@@ -31,6 +31,7 @@ import 'package:care_plus_doctor/widget/appointment_list_navBar_widget/appintmen
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -143,7 +144,7 @@ class _AppointmentListState extends State<AppointmentList> {
               //color: Colors.red,
               child: doctorAppointmentHistory.isEmpty ? Center(
                 child: NoDataFound("images/appointment_history.png", "No Appointment History"),
-              ):ListView.builder(
+              ): ListView.builder(
                   physics: NeverScrollableScrollPhysics(), // <-- this will disable scroll
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
@@ -174,225 +175,262 @@ class _AppointmentListState extends State<AppointmentList> {
   // $apiDomainRoot/images/${doctorAppointmentHistory.user.image}
   Widget buildDoctorAppointmentHistoryTile(DoctorAppointmentHistoryResponseElement doctorAppointmentHistory,int index) =>
       GestureDetector(
-        child: Card(
-          child: Row(
+        child: Slidable(
+          key: ValueKey(0),
+          startActionPane: ActionPane(
+
+            motion: const ScrollMotion(),
+
+
             children: [
-              ///circle image
-               Expanded(
-                 flex: 2,
-                 child: Container(
-                    height: 80.0,
-                    width: 80.0,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          "$apiDomainRoot/images/${doctorAppointmentHistory.user.image}",                     ),
-                        fit: BoxFit.fill,
-                      ),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-               ),
 
-
-              Expanded(
-                flex: 6,
-                child: Column(
+              SlidableAction(
+                onPressed: (v) {
+                  print(doctorAppointmentHistory.id.toString());
+                  print(doctorAppointmentHistory.user.id.toString());
+                  print(doctorAppointmentHistory.doctorId.toString());
+                  print(doctorAppointmentHistory.appointmentSlotId.toString());
+                  cancelThisAppointment(doctorAppointmentHistory.id.toString(),index);
+                },
+                backgroundColor: Color(0xFFFE4A49),
+                foregroundColor: Colors.white,
+                icon: Icons.cancel,
+                label: 'Cancel',
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                child: Row(
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(doctorAppointmentHistory.user.name),
+                    ///circle image
+                     Expanded(
+                       flex: 2,
+                       child: Container(
+                          height: 80.0,
+                          width: 80.0,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                doctorAppointmentHistory.user.image.toString()=='null'?
+                                avatarLink:'$apiDomainRoot/images/${doctorAppointmentHistory.user.image}',                     ),
+                              fit: BoxFit.fill,
+                            ),
+                            shape: BoxShape.circle,
                           ),
                         ),
-                        Row(
-                          children: [
+                     ),
 
-                            PopupMenuButton(
-                              offset: Offset(-2.5, 0),
-                              onSelected: (result) {
-                                if (result == 0) {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(builder: (context) => CarePlusPrescriptionsList()),
-                                  // );
-                                }
-                                else if(result == 1) {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(builder: (context) => CarePlusLabReportList()),
-                                  // );
-                                }
-                                else{
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(builder: (context) => UploadedReports()),
-                                  // );
-                                }
-                              },
-                              itemBuilder: (_) => <PopupMenuEntry>[
-                                PopupMenuItem(
-                                  child: ListTile(
-                                    leading: Icon(Icons.cancel),
-                                    title:  const Align(
-                                      child: Text("Cancel"),
-                                      alignment: Alignment(-1.4, 0),
+
+                    Expanded(
+                      flex: 6,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(doctorAppointmentHistory.user.name),
+                                ),
+                              ),
+                              // Row(
+                              //   children: [
+                              //
+                              //     PopupMenuButton(
+                              //       offset: Offset(-2.5, 0),
+                              //       itemBuilder: (_) => <PopupMenuEntry>[
+                              //         PopupMenuItem(
+                              //           child: ListTile(
+                              //             leading: Icon(Icons.cancel),
+                              //             title:  const Align(
+                              //               child: Text("Cancel"),
+                              //               alignment: Alignment(-1.4, 0),
+                              //             ),
+                              //             onTap: (){
+                              //               print(doctorAppointmentHistory.id.toString());
+                              //               print(doctorAppointmentHistory.user.id.toString());
+                              //               print(doctorAppointmentHistory.doctorId.toString());
+                              //               print(doctorAppointmentHistory.appointmentSlotId.toString());
+                              //               cancelThisAppointment(doctorAppointmentHistory.id.toString(),index);
+                              //             },
+                              //           ),
+                              //           value: 0,
+                              //         ),
+                              //         // const PopupMenuItem(
+                              //         //   child: ListTile(
+                              //         //     leading: Icon(Icons.note_add_outlined),
+                              //         //     title:  Align(
+                              //         //       child: Text("Lab Suggestions"),
+                              //         //       alignment: Alignment(-2.5, 0),
+                              //         //     ),
+                              //         //   ),
+                              //         //   value: 1,
+                              //         // ),
+                              //         PopupMenuItem(
+                              //           child: ListTile(
+                              //             leading: Icon(Icons.done),
+                              //             title:  Align(
+                              //               child: Text("Complete"),
+                              //               alignment: Alignment(-1.5, 0),
+                              //             ),
+                              //             onTap: (){
+                              //               print(doctorAppointmentHistory.id.toString());
+                              //               print(doctorAppointmentHistory.user.id.toString());
+                              //               print(doctorAppointmentHistory.doctorId.toString());
+                              //               print(doctorAppointmentHistory.appointmentSlotId.toString());
+                              //               completeThisAppointment(doctorAppointmentHistory.id.toString(),index);
+                              //             },
+                              //           ),
+                              //           value: 2,
+                              //         ),
+                              //       ],
+                              //
+                              //     )
+                              //   ],
+                              // ),
+                            ],
+                          ),
+
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(left: 10, bottom: 10),
+                              child: Text(DateFormat('dd MMM yyyy || hh:mm a').format(doctorAppointmentHistory.date))
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding: EdgeInsets.only(left: 10, bottom: 20),
+                                  child: Text('male'),
+                                ),
+                              ),
+
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10, right: 6),
+                                child: Container(
+                                  height: 35,
+                                  width: 35,
+                                  child: IconButton(
+                                    icon: ImageIcon(
+                                      AssetImage("images/prescription.png"),
                                     ),
-                                    onTap: (){
-                                      print(doctorAppointmentHistory.id.toString());
-                                      print(doctorAppointmentHistory.user.id.toString());
-                                      print(doctorAppointmentHistory.doctorId.toString());
-                                      print(doctorAppointmentHistory.appointmentSlotId.toString());
-                                      cancelThisAppointment(doctorAppointmentHistory.id.toString(),index);
+                                    iconSize: 30,
+                                    color: Color(0xFF1CBFA8),
+                                    splashColor: Color(0xFF1CBFA8),
+                                    onPressed: () {
+
+                                      appointmentSheduleId = '';
+                                      currentPatientID = '';
+                                      appointmentFor = '';
+                                      advicef = '';
+                                      cc = '';
+                                      oe = '';
+                                      rx = '';
+                                      appointmentSheduleId = doctorAppointmentHistory.id.toString();
+                                      currentPatientID = doctorAppointmentHistory.user.id.toString();
+                                      appointmentFor = doctorAppointmentHistory.appointmentFor.toString();
+
+                                      Navigator.push(context,MaterialPageRoute(builder: (context) => ProblemPage()));
                                     },
                                   ),
-                                  value: 0,
                                 ),
-                                // const PopupMenuItem(
-                                //   child: ListTile(
-                                //     leading: Icon(Icons.note_add_outlined),
-                                //     title:  Align(
-                                //       child: Text("Lab Suggestions"),
-                                //       alignment: Alignment(-2.5, 0),
-                                //     ),
-                                //   ),
-                                //   value: 1,
-                                // ),
-                                PopupMenuItem(
-                                  child: ListTile(
-                                    leading: Icon(Icons.done),
-                                    title:  Align(
-                                      child: Text("Complete"),
-                                      alignment: Alignment(-1.5, 0),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 6),
+                                child: Container(
+                                  height: 30,
+                                  width: 30,
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.call,
                                     ),
-                                    onTap: (){
-                                      print(doctorAppointmentHistory.id.toString());
-                                      print(doctorAppointmentHistory.user.id.toString());
-                                      print(doctorAppointmentHistory.doctorId.toString());
-                                      print(doctorAppointmentHistory.appointmentSlotId.toString());
-                                      completeThisAppointment(doctorAppointmentHistory.id.toString(),index);
+                                    iconSize: 20,
+                                    color: Color(0xFF1CBFA8),
+                                    splashColor: Color(0xFF1CBFA8),
+                                    onPressed: () async {
+
+                                      setCallData(doctorAppointmentHistory);
+                                      //callNow(doctorAppointmentHistory.id);
+
                                     },
                                   ),
-                                  value: 2,
                                 ),
-                              ],
-
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-
-                    Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(left: 10, bottom: 10),
-                        child: Text(DateFormat('dd MMM yyyy || hh:mm a').format(doctorAppointmentHistory.date))
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.only(left: 10, bottom: 20),
-                            child: Text('male'),
-                          ),
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 6),
-                          child: Container(
-                            height: 35,
-                            width: 35,
-                            child: IconButton(
-                              icon: ImageIcon(
-                                AssetImage("images/prescription.png"),
                               ),
-                              iconSize: 30,
-                              color: Color(0xFF1CBFA8),
-                              splashColor: Color(0xFF1CBFA8),
-                              onPressed: () {
+                              Padding(
+                                padding: const EdgeInsets.only(right: 6),
+                                child: Container(
+                                  height: 35,
+                                  width: 35,
+                                  child: IconButton(
+                                    icon: ImageIcon(
+                                      AssetImage("images/test_results.png"),
+                                    ),
+                                    iconSize: 18,
+                                    color: Color(0xFF1CBFA8),
+                                    splashColor: Color(0xFF1CBFA8),
+                                    onPressed: () {
 
-                                appointmentSheduleId = '';
-                                currentPatientID = '';
-                                appointmentFor = '';
-                                advicef = '';
-                                cc = '';
-                                oe = '';
-                                rx = '';
-                                appointmentSheduleId = doctorAppointmentHistory.id.toString();
-                                currentPatientID = doctorAppointmentHistory.user.id.toString();
-                                appointmentFor = doctorAppointmentHistory.appointmentFor.toString();
-
-                                Navigator.push(context,MaterialPageRoute(builder: (context) => ProblemPage()));
-                              },
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 6),
-                          child: Container(
-                            height: 30,
-                            width: 30,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.call,
+                                      appointmentSheduleId = '';
+                                      currentPatientID = '';
+                                      appointmentFor = '';
+                                      advicef = '';
+                                      cc = '';
+                                      oe = '';
+                                      rx = '';
+                                      appointmentSheduleId = doctorAppointmentHistory.id.toString();
+                                      currentPatientID = doctorAppointmentHistory.user.id.toString();
+                                      appointmentFor = doctorAppointmentHistory.appointmentFor.toString();
+                                      Navigator.push(context,MaterialPageRoute(builder: (context) => HealthRecord()));
+                                    },
+                                  ),
+                                ),
                               ),
-                              iconSize: 20,
-                              color: Color(0xFF1CBFA8),
-                              splashColor: Color(0xFF1CBFA8),
-                              onPressed: () async {
 
-                                setCallData(doctorAppointmentHistory);
-                                //callNow(doctorAppointmentHistory.id);
 
-                              },
-                            ),
+                            ],
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 6),
-                          child: Container(
-                            height: 35,
-                            width: 35,
-                            child: IconButton(
-                              icon: ImageIcon(
-                                AssetImage("images/test_results.png"),
-                              ),
-                              iconSize: 18,
-                              color: Color(0xFF1CBFA8),
-                              splashColor: Color(0xFF1CBFA8),
-                              onPressed: () {
-
-                                appointmentSheduleId = '';
-                                currentPatientID = '';
-                                appointmentFor = '';
-                                advicef = '';
-                                cc = '';
-                                oe = '';
-                                rx = '';
-                                appointmentSheduleId = doctorAppointmentHistory.id.toString();
-                                currentPatientID = doctorAppointmentHistory.user.id.toString();
-                                appointmentFor = doctorAppointmentHistory.appointmentFor.toString();
-                                Navigator.push(context,MaterialPageRoute(builder: (context) => HealthRecord()));
-                              },
-                            ),
-                          ),
-                        ),
-
-
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
+
+            ),
+          ),
+          endActionPane: ActionPane(
+            // A motion is a widget used to control how the pane animates.
+            motion: const ScrollMotion(),
+            //key: ValueKey(1),
+            // A pane can dismiss the Slidable.
+            // dismissible: DismissiblePane(onDismissed: () {}),
+
+            // All actions are defined in the children parameter.
+            children: [
+              // A SlidableAction can have an icon and/or a label.
+              SlidableAction(
+                onPressed: (v) {
+                  print(doctorAppointmentHistory.id.toString());
+                  print(doctorAppointmentHistory.user.id.toString());
+                  print(doctorAppointmentHistory.doctorId.toString());
+                  print(doctorAppointmentHistory.appointmentSlotId.toString());
+                  completeThisAppointment(doctorAppointmentHistory.id.toString(),index);
+                },
+                backgroundColor: Colors.green,
+                foregroundColor: Colors.white,
+                icon: Icons.done,
+                label: 'Complete',
+              ),
             ],
           ),
-
         ),
         onTap: () {
 
@@ -439,8 +477,13 @@ class _AppointmentListState extends State<AppointmentList> {
         if(value.statusCode==200){
 
           setState(() {
-            Navigator.pop(context);
-            doctorAppointmentHistory.removeAt(index);
+            SnackbarDialogueHelper()
+                .showSnackbarDialog(context, "Successfully completed", Colors.green);
+            setState(() {
+              doctorAppointmentHistory.removeAt(index);
+            });
+            // Navigator.pop(context);
+            // doctorAppointmentHistory.removeAt(index);
           });
           // SnackbarDialogueHelper.showSnackbarDialog(context,'Appointment Completed Successful', Colors.green);
         }
@@ -462,8 +505,13 @@ class _AppointmentListState extends State<AppointmentList> {
         print(value.body);
         if(value.statusCode==200){
           setState(() {
-            Navigator.pop(context);
-            doctorAppointmentHistory.removeAt(index);
+            SnackbarDialogueHelper()
+                .showSnackbarDialog(context, "Successfully delete", Colors.green);
+            setState(() {
+              doctorAppointmentHistory.removeAt(index);
+            });
+            //Navigator.pop(context);
+            //doctorAppointmentHistory.removeAt(index);
           });
         }
       });

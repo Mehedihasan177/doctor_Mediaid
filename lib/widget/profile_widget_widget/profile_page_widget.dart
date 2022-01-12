@@ -24,7 +24,8 @@ Widget Profile_Page(MyProfileModel myProfile, BuildContext context) => Card(
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(
-                            '$apiDomainRoot/images/${DOCTOR_INITIAL.image}',                     ),
+                            DOCTOR_INITIAL.image.toString()=='null'?
+                            avatarLink:'$apiDomainRoot/images/${DOCTOR_INITIAL.image}',                     ),
                           fit: BoxFit.fill,
                         ),
                         shape: BoxShape.circle,

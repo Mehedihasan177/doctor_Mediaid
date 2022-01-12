@@ -118,7 +118,8 @@ class _MyProfileState extends State<MyProfile> {
                         width: 130.0,
                         height: 130.0,
                         child: Image.network(
-                          "$apiDomainRoot/images/${DOCTOR_INITIAL.image}",
+                          DOCTOR_INITIAL.image.toString()=='null'?
+                          avatarLink:'$apiDomainRoot/images/${DOCTOR_INITIAL.image}',
                           fit: BoxFit.fill,
                         ),
                       ),

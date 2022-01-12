@@ -5,8 +5,8 @@ import 'package:care_plus_doctor/responses/doctor/doctor_update_profile_response
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-String apiDomainRoot = "http://careplus.skoder.co";
-
+String apiDomainRoot = "http://mediaidpro.skoder.co";
+String avatarLink = '$apiDomainRoot/asset_p/img/logo.jpeg';
 
 String USERTOKEN = '';
 double LAT = 0.0, LNG = 0.0;
@@ -19,6 +19,6 @@ String bmdc = 'AHPRA';
 
 String PHONEONLY = '';
 String COUNTRYCODE = '';
-
+String APPNAME = 'Doctor Mediaid';
 
 
