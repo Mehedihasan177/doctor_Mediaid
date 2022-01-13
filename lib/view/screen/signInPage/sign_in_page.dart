@@ -48,6 +48,7 @@ class _SingInPageState extends State<SingInPage> {
      finalMobile = obtainedMobile!;
      _textMobile = TextEditingController(text: finalMobile);
      finalCountry = obtainedCountry!;
+     countryCode = finalCountry;
 
    });
    print(finalMobile);
