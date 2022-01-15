@@ -6,7 +6,7 @@ final caseStudyData =[
   CaseStudymodel(
     image: "images/boy_doctor.png",
     name: "Dr. Devid howk",
-    lab_report_type: "Care+ Prescription",
+    lab_report_type: "Mediaid Prescription",
     date: "12 June",
     time: "12:00 PM", id: '',
   ),
@@ -27,7 +27,7 @@ final caseStudyData =[
   CaseStudymodel(
     image: "images/girl_doctor.jpg",
     name: "Dr. Devid howk",
-    lab_report_type: "Care+ Prescription",
+    lab_report_type: "Mediaid Prescription",
     date: "12 June",
     time: "12:00 PM", id: '',
   ),
@@ -48,7 +48,7 @@ final caseStudyData =[
   CaseStudymodel(
     image: "images/boy_doctor.png",
     name: "Dr. Devid howk",
-    lab_report_type: "Care+ Prescription",
+    lab_report_type: "Mediaid Prescription",
     date: "12 June",
     time: "12:00 PM", id: '',
   ),

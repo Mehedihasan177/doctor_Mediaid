@@ -367,44 +367,44 @@ class _SetupProfileState extends State<SetupProfile> {
                 ),
 
 
-                Container(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: Row(
-                          children: [
-                            Icon(Icons.location_on, color: Colors.black.withOpacity(0.5),),
-                            Container(
-                                padding: EdgeInsets.only(left: 5),
-                                alignment: Alignment.centerLeft,
-                                child: Text("Chamber")),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: Center(
-                          child: Container(
-                            child: TextField(
-                              controller: _chember,
-                              keyboardType: TextInputType.text,
-                              style: TextStyle(color: Colors.black),
-//scrollPadding: EdgeInsets.all(10),
-                              decoration: InputDecoration(
-//contentPadding: EdgeInsets.all(20),
-                                  hintText: "Enter chamber location",
-                                  hintStyle: TextStyle(
-                                      fontSize: 10
-                                  )
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+//                 Container(
+//                   child: Column(
+//                     children: [
+//                       Padding(
+//                         padding: const EdgeInsets.only(left: 16),
+//                         child: Row(
+//                           children: [
+//                             Icon(Icons.location_on, color: Colors.black.withOpacity(0.5),),
+//                             Container(
+//                                 padding: EdgeInsets.only(left: 5),
+//                                 alignment: Alignment.centerLeft,
+//                                 child: Text("Chamber")),
+//                           ],
+//                         ),
+//                       ),
+//                       Padding(
+//                         padding: const EdgeInsets.only(left: 20, right: 20),
+//                         child: Center(
+//                           child: Container(
+//                             child: TextField(
+//                               controller: _chember,
+//                               keyboardType: TextInputType.text,
+//                               style: TextStyle(color: Colors.black),
+// //scrollPadding: EdgeInsets.all(10),
+//                               decoration: InputDecoration(
+// //contentPadding: EdgeInsets.all(20),
+//                                   hintText: "Enter chamber location",
+//                                   hintStyle: TextStyle(
+//                                       fontSize: 10
+//                                   )
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
 
 
 

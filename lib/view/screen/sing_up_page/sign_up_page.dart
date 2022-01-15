@@ -447,7 +447,8 @@ class _SingUpPageState extends State<SingUpPage> {
                                 print(loginobject.data.token);
                                 sharedPreferences.setString("token", loginobject.data.token);
 
-                                return Navigator.push(context,MaterialPageRoute(builder: (context) => SetupProfile()),);
+                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                                    SetupProfile()), (Route<dynamic> route) => false);
                               } else {
                                 // return LoginController.requestThenResponsePrint(jsonData);
                                 SnackbarDialogueHelper().showSnackbarDialog(context, 'Warning', 'Please recheck email and password');

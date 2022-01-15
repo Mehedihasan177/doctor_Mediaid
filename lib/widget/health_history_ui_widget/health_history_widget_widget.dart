@@ -99,7 +99,7 @@ Widget Health_History_List(Health_History health_history,BuildContext context) =
                   onPressed: () async {
 
                     String url = health_history.image;
-                    if(health_history.lab_report_type.toString().toLowerCase()=='care+ prescription'){
+                    if(health_history.lab_report_type.toString().toLowerCase()=='Mediaid prescription'){
                       url =  "$apiDomainRoot/api/e-prescription/" + health_history.id.toString();
                     }
                     _launchURL(context,url);

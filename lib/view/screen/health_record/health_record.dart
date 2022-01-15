@@ -44,39 +44,6 @@ class _HealthRecordState extends State<HealthRecord> {
         appBar: myAppBar("Health Record", null),
         body: ListView(
           children: [
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 20, bottom: 20),
-            //   child: Row(
-            //     children: [
-            //       FlatButton(
-            //         child: Icon(
-            //           Icons.arrow_back_ios,
-            //           size: 25,
-            //           color: Colors.black.withOpacity(0.5),
-            //         ),
-            //         splashColor: Colors.transparent,
-            //         onPressed: () {
-            //           // Navigator.push(context,MaterialPageRoute(builder: (context) => PatientProfileDetailsPage(mobile: '', gender: '', name: '', email: '', status: '', address: '',
-            //           //   image: '', height: '', district: '', medicare_no: '', weight: '', reschedule: '', appointment_for: '', rescheduleDate: '',)));
-            //         },
-            //       ),
-            //       Expanded(
-            //         child: Padding(
-            //           padding: const EdgeInsets.only(right: 60),
-            //           child: Text(
-            //             "Health Record",
-            //             textAlign: TextAlign.center,
-            //             style: TextStyle(
-            //               fontSize: 23,
-            //               color: Colors.black.withOpacity(0.5),
-            //               fontWeight: FontWeight.bold,
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
 
             val == 0 ? shimmer(context) : Container(
               height: 750,
@@ -116,7 +83,7 @@ setState(() {
     setState(() {
       print(element.doctor.name);
       health_history.add(Health_History(
-          name: element.doctor.name,lab_report_type: 'Care+ Prescription',time: DateFormat('hh:mm a').format(element.createdAt),date: DateFormat('dd MMM yyyy').format(element.createdAt), image: '$apiDomainRoot/images/${element.doctor.image.toString()}',id: element.id.toString()
+          name: element.doctor.name,lab_report_type: 'Mediaid Prescription',time: DateFormat('hh:mm a').format(element.createdAt),date: DateFormat('dd MMM yyyy').format(element.createdAt), image: '$apiDomainRoot/images/${element.doctor.image.toString()}',id: element.id.toString()
       ));
 
 
